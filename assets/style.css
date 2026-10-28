@@ -47,7 +47,21 @@ footer{padding:40px 0 60px;color:#6e6e73;font-size:13px;border-top:1px solid #1f
 .hint{color:#6e6e73;font-size:13px;text-align:center;margin-top:18px}
 @media (max-width:700px){.pbtn{width:64px}.pp{width:54px;height:54px}}
 
-header nav a{padding:4px 0} @media (max-width:700px){header .wrap{flex-wrap:wrap;height:auto;padding-top:10px;gap:0 12px}
- header nav{display:flex;order:3;flex-basis:100%;overflow-x:auto;gap:18px;padding:8px 0 10px} .brand{margin-right:auto}}
-html,button,a{touch-action:manipulation} .lamp.on.dim{opacity:.3} .pbtn.showbtn{width:auto} .showbtn .pl{white-space:nowrap} @media (max-width:700px){header .cta{display:none}}
-.cta.off{opacity:.9;cursor:default} a.cta:hover{opacity:.9} footer a:hover,nav a:hover{color:#fff}
+header .wrap{position:relative}
+header nav{position:absolute;left:50%;transform:translateX(-50%);display:flex;gap:10px}
+header nav a{padding:8px 16px;border-radius:20px;font-weight:600;transition:color .15s;background:#1c1c1e;box-shadow:0 0 0 1px rgba(255,255,255,.07) inset;color:#8e8e93}
+header nav a:hover{color:#fff} header nav a.on{color:#fff;background:radial-gradient(120% 140% at 30% 10%,rgba(10,132,255,.45),#1c1c1e 75%);box-shadow:0 0 0 1.5px rgba(10,132,255,.75) inset,0 6px 22px -4px rgba(10,132,255,.65)}
+.tabbar{display:none}
+@media (max-width:700px){
+ header nav,header .cta{display:none}
+ body{padding-bottom:104px}
+ .tabbar{display:flex;position:fixed;left:14px;right:14px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:9;border-radius:28px;
+  background:rgba(20,20,22,.72);backdrop-filter:blur(18px) saturate(1.8);-webkit-backdrop-filter:blur(18px) saturate(1.8);
+  box-shadow:inset 0 0 0 .6px rgba(255,255,255,.18),0 12px 30px rgba(0,0,0,.6);padding:8px 6px;justify-content:space-around}
+ .tabbar a{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:10.5px;font-weight:600;color:#8e8e93;width:72px}
+ .tabbar .pp{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#1c1c1e;box-shadow:0 0 0 1px rgba(255,255,255,.07) inset;color:#8e8e93}
+ .tabbar svg{width:22px;height:22px}
+ .tabbar a.on{color:#0a84ff} .tabbar a.on .pp{color:#0a84ff;background:radial-gradient(120% 140% at 30% 10%,rgba(10,132,255,.45),#1c1c1e 75%);box-shadow:0 0 0 1.5px rgba(10,132,255,.75) inset,0 6px 22px -4px rgba(10,132,255,.65)} .tabbar a.on svg{filter:drop-shadow(0 0 6px #0a84ff)}
+}
+html,button,a{touch-action:manipulation} .lamp.on.dim{opacity:.3} .pbtn.showbtn{width:auto} .showbtn .pl{white-space:nowrap}
+.cta.off{opacity:.9;cursor:default} a.cta:hover{opacity:.9} footer a:hover{color:#fff}

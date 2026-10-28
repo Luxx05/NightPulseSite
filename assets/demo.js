@@ -1,5 +1,5 @@
 // Démo de la page d'accueil : les pastilles allument les calques de lumière de la voiture.
-const MAP = {"drl": ["f:drl-screenLeft", "f:drl-screenRight"], "low": ["f:low-screenLeft", "f:low-screenRight"], "high": ["f:high-screenLeft", "f:high-screenRight"], "fog": ["f:fog-screenLeft", "f:fog-screenRight"], "indL": ["f:indicator-screenRight", "r:indicator-screenLeft"], "indR": ["f:indicator-screenLeft", "r:indicator-screenRight"], "tail": ["r:tail-screenLeft", "r:tail-screenRight"], "brake": ["r:brake"], "reverse": ["r:reverse-screenLeft", "r:reverse-screenRight"], "rfog": ["r:fog"]};
+const MAP = {"drl": ["f:drl-screenLeft", "f:drl-screenRight"], "low": ["f:low-screenLeft", "f:low-screenRight"], "high": ["f:high-screenLeft", "f:high-screenRight"], "fog": ["f:fog-screenLeft", "f:fog-screenRight"], "indL": ["f:indicator-screenRight", "r:indicator-screenLeft"], "indR": ["f:indicator-screenLeft", "r:indicator-screenRight"], "tail": ["r:tail-screenLeft", "r:tail-screenRight"], "brake": ["r:brake"], "reverse": ["r:reverse-screenLeft", "r:reverse-screenRight"], "rfog": ["r:fog"], "inside": ["f:interior", "r:interior"]};
 const DIM = { indL: ['f:drl-screenRight', 'r:tail-screenLeft'], indR: ['f:drl-screenLeft', 'r:tail-screenRight'] };
 const lamps = [...document.querySelectorAll('.lamp')];
 const buttons = [...document.querySelectorAll('.pbtn')];
@@ -26,8 +26,8 @@ function render() {
 }
 function stopShow() { clearInterval(showTimer); showTimer = null; state.clear(); render(); }
 function startShow() {
-  const steps = [['drl', 'tail'], ['drl', 'tail', 'low'], ['drl', 'tail', 'low', 'high', 'fog'], [],
-                 ['drl', 'high', 'brake'], [], ['drl', 'high', 'brake'], ['drl', 'tail']];
+  const steps = [['drl', 'tail', 'inside'], ['drl', 'tail', 'low', 'inside'], ['drl', 'tail', 'low', 'high', 'fog', 'inside'], [],
+                 ['drl', 'high', 'brake', 'inside'], [], ['drl', 'high', 'brake', 'inside'], ['drl', 'tail']];
   let i = 0;
   state.clear();
   showTimer = setInterval(() => { state.clear(); steps[i++ % steps.length].forEach(k => state.add(k)); render(); }, 420);

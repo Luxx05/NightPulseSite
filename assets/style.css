@@ -49,5 +49,5 @@ footer{padding:40px 0 60px;color:#6e6e73;font-size:13px;border-top:1px solid #1f
 
 header nav a{padding:4px 0} @media (max-width:700px){header .wrap{flex-wrap:wrap;height:auto;padding-top:10px;gap:0 12px}
  header nav{display:flex;order:3;flex-basis:100%;overflow-x:auto;gap:18px;padding:8px 0 10px} .brand{margin-right:auto}}
-.pbtn.showbtn{width:auto} .showbtn .pl{white-space:nowrap} @media (max-width:700px){header .cta{display:none}}
+.lamp.on.dim{opacity:.3} .pbtn.showbtn{width:auto} .showbtn .pl{white-space:nowrap} @media (max-width:700px){header .cta{display:none}}
 .cta.off{opacity:.9;cursor:default} a.cta:hover{opacity:.9} footer a:hover,nav a:hover{color:#fff}

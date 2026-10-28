@@ -1,18 +1,21 @@
 // Démo de la page d'accueil : les pastilles allument les calques de lumière de la voiture.
 const MAP = {"drl": ["f:drl-screenLeft", "f:drl-screenRight"], "low": ["f:low-screenLeft", "f:low-screenRight"], "high": ["f:high-screenLeft", "f:high-screenRight"], "fog": ["f:fog-screenLeft", "f:fog-screenRight"], "indL": ["f:indicator-screenRight", "r:indicator-screenLeft"], "indR": ["f:indicator-screenLeft", "r:indicator-screenRight"], "tail": ["r:tail-screenLeft", "r:tail-screenRight"], "brake": ["r:brake"], "reverse": ["r:reverse-screenLeft", "r:reverse-screenRight"], "rfog": ["r:fog"]};
+const DIM = { indL: ['f:drl-screenRight', 'r:tail-screenLeft'], indR: ['f:drl-screenLeft', 'r:tail-screenRight'] };
 const lamps = [...document.querySelectorAll('.lamp')];
 const buttons = [...document.querySelectorAll('.pbtn')];
 const state = new Set();
 let showTimer = null;
 function render() {
-  const lit = new Set(), blink = new Set();
+  const lit = new Set(), blink = new Set(), dim = new Set();
   for (const k of state) {
-    if (k === 'hazard') { MAP.indL.concat(MAP.indR).forEach(id => blink.add(id)); continue; }
-    if (k === 'indL' || k === 'indR') { MAP[k].forEach(id => blink.add(id)); continue; }
+    // Comme dans l'app : le feu de jour et le feu arrière s'atténuent du côté qui clignote.
+    if (k === 'hazard') { ['indL', 'indR'].forEach(s => { MAP[s].forEach(id => blink.add(id)); DIM[s].forEach(id => dim.add(id)); }); continue; }
+    if (k === 'indL' || k === 'indR') { MAP[k].forEach(id => blink.add(id)); DIM[k].forEach(id => dim.add(id)); continue; }
     (MAP[k] || []).forEach(id => lit.add(id));
   }
   for (const l of lamps) {
     l.classList.toggle('on', lit.has(l.dataset.id));
+    l.classList.toggle('dim', dim.has(l.dataset.id));
     l.classList.toggle('blink', blink.has(l.dataset.id) && !lit.has(l.dataset.id));
   }
   for (const b of buttons) {

@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://luxx05.github.io/NightPulseSite/sitemap.xml

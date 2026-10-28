@@ -59,5 +59,8 @@ header{transition:transform .25s ease}
  header nav a{padding:7px 11px;font-size:12.5px}
  header.hide{transform:translateY(-100%)}
 }
+body{font-family:Inter,-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+.shots img{height:auto}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation-duration:1.6s!important} header{transition:none}}
 html,button,a{touch-action:manipulation} .lamp.on.dim{opacity:.3} .pbtn.showbtn{width:auto} .showbtn .pl{white-space:nowrap}
 .cta.off{opacity:.9;cursor:default} a.cta:hover{opacity:.9} footer a:hover{color:#fff}

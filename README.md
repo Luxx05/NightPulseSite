@@ -1,3 +1,3 @@
-# NightPulse
+# BimmerPulse
 
-Site de présentation de l'app iOS NightPulse. Pages statiques publiées avec GitHub Pages.
+Site de présentation de l'app iOS BimmerPulse. Pages statiques publiées avec GitHub Pages.

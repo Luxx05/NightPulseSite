@@ -62,5 +62,12 @@ header{transition:transform .25s ease}
 body{font-family:Inter,-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
 .shots img{height:auto}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation-duration:1.6s!important} header{transition:none}}
-html,button,a{touch-action:manipulation} .lamp.on.dim{opacity:.3} .pbtn.showbtn{width:auto} .showbtn .pl{white-space:nowrap}
+html,button,a{touch-action:manipulation} .lamp.on.dim{opacity:.3} .showrow{flex-basis:100%;display:flex;flex-direction:column;align-items:center;margin-top:18px;padding-top:18px;border-top:1px solid #1f1f22}
+.showrow .sh{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#8e8e93;margin-bottom:12px}
+.shpads{display:flex;gap:22px;justify-content:center} .shpads .pbtn{width:84px} .shpads .pp{width:66px;height:66px}
+.showrow .showbtn{margin-top:16px;width:auto} .showbtn .pl{white-space:nowrap}
+.shmore{color:#6e6e73;font-size:13px;margin-top:12px;text-align:center}
+@media (max-width:700px){.stage{position:sticky;top:0;z-index:4;background:#000;margin-left:-24px;margin-right:-24px;padding:6px 24px 0;
+ box-shadow:0 14px 18px -8px #000}}   /* téléphone : la voiture reste visible pendant qu'on touche les pastilles */
+@media (max-width:700px){.shpads{gap:14px} .shpads .pbtn{width:76px} .shpads .pp{width:54px;height:54px}}
 .cta.off{opacity:.9;cursor:default} a.cta:hover{opacity:.9} footer a:hover{color:#fff}

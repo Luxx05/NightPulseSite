@@ -58,4 +58,4 @@ for (const b of buttons) b.addEventListener('click', () => {
   state.has(k) ? state.delete(k) : state.add(k);
   render();
 });
-state.add('drl'); state.add('tail'); render();
+state.add('drl'); state.add('tail'); state.add('inside'); render();   // à l'arrivée : feux de jour, feux arrière et intérieur

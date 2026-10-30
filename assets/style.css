@@ -72,6 +72,11 @@ html[data-theme=halloween] .hero{background:radial-gradient(circle 520px at 50% 
 html[data-theme=noel] .hero{background:radial-gradient(circle 520px at 50% 30%,rgba(255,200,90,.16),transparent 70%),radial-gradient(circle 600px at 50% 90%,rgba(200,30,50,.16),transparent 70%)}
 @media (prefers-reduced-motion:reduce){.twk{animation:none;opacity:.6}}
 html[data-theme=halloween]{--acc:255,122,0;--acc2:163,92,255} html[data-theme=noel]{--acc:255,69,58;--acc2:48,209,88}
+html[data-theme=octobre-rose]{--acc:255,55,150;--acc2:255,150,205} html[data-theme=paques]{--acc:255,150,190;--acc2:120,210,150}
+html[data-theme=nouvel-an]{--acc:255,196,60;--acc2:255,235,190}
+html[data-theme=octobre-rose] .pads>.pbtn,html[data-theme=paques] .pads>.pbtn:nth-child(odd),html[data-theme=nouvel-an] .pads>.pbtn:nth-child(odd){--c:rgb(var(--acc))!important}
+html[data-theme=paques] .pads>.pbtn:nth-child(even),html[data-theme=nouvel-an] .pads>.pbtn:nth-child(even){--c:rgb(var(--acc2))!important}
+html[data-theme=octobre-rose] .hero,html[data-theme=paques] .hero,html[data-theme=nouvel-an] .hero{background:radial-gradient(circle 520px at 50% 30%,rgba(var(--acc),.2),transparent 70%),radial-gradient(circle 600px at 50% 90%,rgba(var(--acc2),.14),transparent 70%)}
 html[data-theme] body{background:radial-gradient(900px 500px at 50% -120px,rgba(var(--acc),.13),transparent 70%),radial-gradient(900px 600px at 50% 110%,rgba(var(--acc2),.10),transparent 70%),#000;background-attachment:scroll}
 html[data-theme] header nav a.on{background:radial-gradient(120% 140% at 30% 10%,rgba(var(--acc),.45),#1c1c1e 75%);box-shadow:0 0 0 1.5px rgba(var(--acc),.75) inset,0 6px 22px -4px rgba(var(--acc),.65)}
 html[data-theme] .steps .n{color:rgb(var(--acc));box-shadow:0 0 0 1.5px rgba(var(--acc),.7) inset,0 6px 20px -6px rgba(var(--acc),.6)}

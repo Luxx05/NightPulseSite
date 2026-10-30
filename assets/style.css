@@ -60,7 +60,7 @@ header{transition:transform .25s ease}
  header.hide{transform:translateY(-100%)}
 }
 body{font-family:Inter,-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
-.shots img{height:auto}
+.shots img{height:auto;border-radius:13.6%/6.25%;outline:1px solid rgba(255,255,255,.12);outline-offset:-1px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation-duration:1.6s!important} header{transition:none}}
 html,button,a{touch-action:manipulation}
 .pbtn[hidden]{display:none!important} .shpads{flex-wrap:wrap;row-gap:14px} .stage{position:relative} .fx{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:2}

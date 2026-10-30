@@ -6,16 +6,9 @@ const THEMES = {
   halloween: { month: 10, from: 20, to: 31, drl: true, label: '🎃 Édition Halloween' },
   noel: { month: 12, from: 1, to: 31, drl: false, label: '🎄 Édition Noël' },
 };
-const THEME = (() => {
-  const asked = new URLSearchParams(location.search).get('theme');
-  if (asked === 'aucun') return null;
-  if (asked && Object.hasOwn(THEMES, asked)) return asked;
-  const d = new Date(), m = d.getMonth() + 1, day = d.getDate();
-  return Object.keys(THEMES).find(k => THEMES[k].month === m && day >= THEMES[k].from && day <= THEMES[k].to) || null;
-})();
+const THEME = Object.hasOwn(THEMES, document.documentElement.dataset.theme || '') ? document.documentElement.dataset.theme : null;   // choisi par theme.js
 if (THEME) {
   const dir = 'assets/theme/' + THEME + '/', v = '?v=6991f7f0';
-  document.documentElement.dataset.theme = THEME;
   document.querySelectorAll('.car').forEach((car, i) => {
     const side = i === 0 ? 'front' : 'rear', p = i === 0 ? 'f' : 'r';
     car.querySelector('.base').src = dir + side + '-off.jpg' + v;

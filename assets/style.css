@@ -70,7 +70,16 @@ html[data-theme=halloween] .pads>.pbtn:nth-child(odd){--c:#ff7a00!important} htm
 html[data-theme=noel] .pads>.pbtn:nth-child(odd){--c:#ff453a!important} html[data-theme=noel] .pads>.pbtn:nth-child(even){--c:#30d158!important}
 html[data-theme=halloween] .hero{background:radial-gradient(circle 520px at 50% 30%,rgba(255,110,0,.22),transparent 70%),radial-gradient(circle 600px at 50% 90%,rgba(120,40,200,.18),transparent 70%)}
 html[data-theme=noel] .hero{background:radial-gradient(circle 520px at 50% 30%,rgba(255,200,90,.16),transparent 70%),radial-gradient(circle 600px at 50% 90%,rgba(200,30,50,.16),transparent 70%)}
-@media (prefers-reduced-motion:reduce){.twk{animation:none;opacity:.6}} .lamp.on.dim{opacity:.3} .showrow{flex-basis:100%;display:flex;flex-direction:column;align-items:center;margin-top:18px;padding-top:18px;border-top:1px solid #1f1f22}
+@media (prefers-reduced-motion:reduce){.twk{animation:none;opacity:.6}}
+html[data-theme=halloween]{--acc:255,122,0;--acc2:163,92,255} html[data-theme=noel]{--acc:255,69,58;--acc2:48,209,88}
+html[data-theme] body{background:radial-gradient(900px 500px at 50% -120px,rgba(var(--acc),.13),transparent 70%),radial-gradient(900px 600px at 50% 110%,rgba(var(--acc2),.10),transparent 70%),#000;background-attachment:scroll}
+html[data-theme] header nav a.on{background:radial-gradient(120% 140% at 30% 10%,rgba(var(--acc),.45),#1c1c1e 75%);box-shadow:0 0 0 1.5px rgba(var(--acc),.75) inset,0 6px 22px -4px rgba(var(--acc),.65)}
+html[data-theme] .steps .n{color:rgb(var(--acc));box-shadow:0 0 0 1.5px rgba(var(--acc),.7) inset,0 6px 20px -6px rgba(var(--acc),.6)}
+html[data-theme] .fbrand img{box-shadow:0 0 0 1px rgba(var(--acc),.4),0 6px 22px -6px rgba(var(--acc),.6)}
+html[data-theme] .lg-hero,html[data-theme] .help{background:linear-gradient(160deg,rgba(var(--acc),.2),#0b0b0d 70%);border-color:rgba(var(--acc),.32)}
+html[data-theme] .lg-hero .k{color:rgb(var(--acc))} html[data-theme] .acc summary:after{color:rgb(var(--acc))}
+html[data-theme] .seg button.on{background:radial-gradient(120% 140% at 30% 10%,rgba(var(--acc),.45),#2c2c2e 75%);box-shadow:0 0 0 1.5px rgba(var(--acc),.75) inset,0 6px 18px -4px rgba(var(--acc),.6)}
+html[data-theme] .ghost{color:rgb(var(--acc))} html[data-theme] .feat{border-color:rgba(var(--acc),.18)} .lamp.on.dim{opacity:.3} .showrow{flex-basis:100%;display:flex;flex-direction:column;align-items:center;margin-top:18px;padding-top:18px;border-top:1px solid #1f1f22}
 .showrow .sh{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#8e8e93;margin-bottom:12px}
 .shpads{display:flex;gap:22px;justify-content:center} .shpads .pbtn{width:84px} .shpads .pp{width:66px;height:66px}
 .showrow .showbtn{margin-top:16px;width:auto} .showbtn .pl{white-space:nowrap}

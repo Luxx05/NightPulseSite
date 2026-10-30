@@ -11,8 +11,8 @@ const THEMES = {
 };
 const THEME = Object.hasOwn(THEMES, document.documentElement.dataset.theme || '') ? document.documentElement.dataset.theme : null;   // choisi par theme.js
 if (THEME) {
-  const dir = 'assets/theme/' + THEME + '/', v = '?v=f805e6d8';
-  document.querySelectorAll('.car').forEach((car, i) => {
+  const dir = 'assets/theme/' + THEME + '/', v = '?v=add2a521';
+  if (false) document.querySelectorAll('.car').forEach((car, i) => {   // décor de saison autour de la voiture
     const side = i === 0 ? 'front' : 'rear', p = i === 0 ? 'f' : 'r';
     car.querySelector('.base').src = dir + side + '-off.jpg' + v;
     const twk = new Image(); twk.className = 'twk'; twk.alt = ''; twk.src = dir + side + '-twinkle.jpg' + v; car.querySelector('.base').after(twk);
@@ -20,8 +20,8 @@ if (THEME) {
   });
   if (THEMES[THEME].interior) document.querySelectorAll('.lamp[data-id$=":interior"]').forEach(l => { l.src = dir + (l.dataset.id[0] === 'f' ? 'front' : 'rear') + '-interior.jpg' + v; });
   if (THEMES[THEME].drl) document.querySelectorAll('.lamp[data-id^="f:drl-"]').forEach(l => { l.src = dir + l.dataset.id.slice(2) + '.jpg' + v; });
-  MAP.drl.push('f:refl'); MAP.tail.push('r:refl');
-  MAP.gL = ['f:drl-screenRight', 'r:tail-screenLeft', 'f:refl']; MAP.gR = ['f:drl-screenLeft', 'r:tail-screenRight', 'r:refl'];
+  MAP.gL = ['f:drl-screenRight', 'r:tail-screenLeft']; MAP.gR = ['f:drl-screenLeft', 'r:tail-screenRight'];
+  if (false) { MAP.drl.push('f:refl'); MAP.tail.push('r:refl'); MAP.gL.push('f:refl'); MAP.gR.push('r:refl'); }
   document.querySelectorAll('[data-theme-only]').forEach(b => { b.hidden = b.dataset.themeOnly !== THEME; });
   const hint = document.querySelector('.hint');
   if (hint) hint.textContent = THEMES[THEME].label + " · touche une pastille : les feux s'allument comme dans l'app.";

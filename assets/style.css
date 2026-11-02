@@ -14,6 +14,7 @@ section{padding:90px 0} h2{font-size:42px;letter-spacing:-.8px;font-weight:800;t
 .features{display:grid;grid-template-columns:repeat(3,1fr);gap:18px} .feat{background:#111113;border:1px solid #1f1f22;border-radius:24px;padding:26px}
 .feat h3{font-size:19px;margin:18px 0 6px} .feat p{color:#a1a1a6;font-size:15px} .past{border-radius:50%;display:flex;align-items:center;justify-content:center;flex:none}
 .shots{display:flex;gap:22px;justify-content:center;overflow:hidden} .shots img{width:230px;filter:drop-shadow(0 30px 40px rgba(0,0,0,.6))}
+.shots.watch img{width:190px;border-radius:48px;box-shadow:0 0 0 10px #1c1c1e,0 0 0 11px #2c2c2e}
 .split{display:grid;grid-template-columns:1fr 1fr;gap:18px} .card{background:#111113;border:1px solid #1f1f22;border-radius:24px;padding:28px}
 .card h3{font-size:20px;margin-bottom:14px} .row{display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid #1f1f22;font-size:15px} .row:first-of-type{border-top:0}
 .row b{font-weight:600} .row span{color:#a1a1a6;margin-left:auto;font-size:14px;white-space:nowrap} .row span.ok{color:#30d158} .row span.ko{color:#ff453a} .row span.mid{color:#ff9f0a}
@@ -28,7 +29,8 @@ footer{padding:40px 0 60px;color:#6e6e73;font-size:13px;border-top:1px solid #1f
 .pills{display:flex;gap:8px;margin-bottom:10px} .pills a{background:#1c1c1e;border-radius:18px;padding:7px 14px;font-size:14px}
 @media (max-width:700px){nav{display:none} .hero{padding-top:50px} .hero h1{font-size:40px} .hero p.lead{font-size:17px} .cars img{width:50%}
  section{padding:60px 0} h2{font-size:30px} .features,.split,.steps{grid-template-columns:1fr} .shots img{width:150px} .shots img:nth-child(n+3){display:none}
- .page h1{font-size:34px} header .cta{padding:8px 12px;font-size:13px}}
+ .page h1{font-size:34px} header .cta{padding:8px 12px;font-size:13px}
+ .shots.watch{gap:10px} .shots.watch img{width:31%;border-radius:26px;box-shadow:0 0 0 5px #1c1c1e,0 0 0 6px #2c2c2e} .shots.watch img:nth-child(n+3){display:block}}
 
 .demo{padding:20px 0 10px} .stage{display:flex;justify-content:center;align-items:flex-end;gap:0;margin:10px auto 26px;max-width:1040px}
 .car{position:relative;width:50%;max-width:520px;aspect-ratio:887/760;-webkit-mask:radial-gradient(72% 72% at 50% 50%,#000 62%,transparent 100%);mask:radial-gradient(72% 72% at 50% 50%,#000 62%,transparent 100%)}

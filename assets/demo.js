@@ -2,26 +2,27 @@
 const MAP = {"drl": ["f:drl-screenLeft", "f:drl-screenRight"], "low": ["f:low-screenLeft", "f:low-screenRight"], "high": ["f:high-screenLeft", "f:high-screenRight"], "fog": ["f:fog-screenLeft", "f:fog-screenRight"], "indL": ["f:indicator-screenRight", "r:indicator-screenLeft"], "indR": ["f:indicator-screenLeft", "r:indicator-screenRight"], "tail": ["r:tail-screenLeft", "r:tail-screenRight"], "brake": ["r:brake"], "reverse": ["r:reverse-screenLeft", "r:reverse-screenRight"], "rfog": ["r:fog"], "inside": ["f:interior", "r:interior"]};
 const DIM = { indL: ['f:drl-screenRight', 'r:tail-screenLeft'], indR: ['f:drl-screenLeft', 'r:tail-screenRight'] };
 // Thèmes saisonniers, activés automatiquement selon la date (ou ?theme=halloween / noel / aucun pour essayer).
+// drl / tail : feux de jour / feux arrière à la couleur du thème ; interior : habitacle coloré.
 const THEMES = {
-  halloween: { drl: true, label: '🎃 Édition Halloween' },
-  noel: { label: '🎄 Édition Noël' },
-  'octobre-rose': { drl: true, interior: true, label: '🎗️ Édition Octobre rose' },
-  paques: { label: '🐣 Édition Pâques' },
-  'nouvel-an': { label: '🎆 Édition Nouvel An' },
+  halloween: { drl: true, tail: true, label: '🎃 Édition Halloween' },
+  noel: { drl: true, label: '🎄 Édition Noël' },
+  'octobre-rose': { drl: true, tail: true, interior: true, label: '🎗️ Édition Octobre rose' },
+  paques: { drl: true, tail: true, label: '🐣 Édition Pâques' },
+  'nouvel-an': { drl: true, tail: true, label: '🎆 Édition Nouvel An' },
+  'saint-valentin': { drl: true, label: '💘 Édition Saint-Valentin' },
 };
 const THEME = Object.hasOwn(THEMES, document.documentElement.dataset.theme || '') ? document.documentElement.dataset.theme : null;   // choisi par theme.js
 if (THEME) {
-  const dir = 'assets/theme/' + THEME + '/', v = '?v=2d380305';
-  if (false) document.querySelectorAll('.car').forEach((car, i) => {   // décor de saison autour de la voiture
+  const dir = 'assets/theme/' + THEME + '/', v = '?v=91378d54';
+  if (true) document.querySelectorAll('.car').forEach((car, i) => {   // décor de saison autour de la voiture
     const side = i === 0 ? 'front' : 'rear', p = i === 0 ? 'f' : 'r';
-    car.querySelector('.base').src = dir + side + '-off.jpg' + v;
+    car.querySelector('.base').src = dir + side + '-off.webp' + v;
     const twk = new Image(); twk.className = 'twk'; twk.alt = ''; twk.src = dir + side + '-twinkle.jpg' + v; car.querySelector('.base').after(twk);
-    const refl = new Image(); refl.className = 'lamp'; refl.alt = ''; refl.dataset.id = p + ':refl'; refl.src = dir + side + '-refl.jpg' + v; car.append(refl);
   });
+  if (THEMES[THEME].tail) document.querySelectorAll('.lamp[data-id^="r:tail-"]').forEach(l => { l.src = dir + l.dataset.id.slice(2) + '.jpg' + v; });
   if (THEMES[THEME].interior) document.querySelectorAll('.lamp[data-id$=":interior"]').forEach(l => { l.src = dir + (l.dataset.id[0] === 'f' ? 'front' : 'rear') + '-interior.jpg' + v; });
   if (THEMES[THEME].drl) document.querySelectorAll('.lamp[data-id^="f:drl-"]').forEach(l => { l.src = dir + l.dataset.id.slice(2) + '.jpg' + v; });
   MAP.gL = ['f:drl-screenRight', 'r:tail-screenLeft']; MAP.gR = ['f:drl-screenLeft', 'r:tail-screenRight'];
-  if (false) { MAP.drl.push('f:refl'); MAP.tail.push('r:refl'); MAP.gL.push('f:refl'); MAP.gR.push('r:refl'); }
   document.querySelectorAll('[data-theme-only]').forEach(b => { b.hidden = b.dataset.themeOnly !== THEME; });
   const hint = document.querySelector('.hint');
   if (hint) hint.textContent = THEMES[THEME].label + " · touche une pastille : les feux s'allument comme dans l'app.";
@@ -60,6 +61,7 @@ const SHOWS = {
   ruban: { bpm: 60, steps: [[1.5, ["drl", "inside"]], [0.5, ["inside"]], [1.5, ["drl", "inside"]], [0.5, ["drl"]], [1, ["drl", "inside", "tail"]], [1, ["inside"]]] },
   printemps: { bpm: 100, steps: [[1, ["drl"]], [1, ["drl", "low"]], [1, ["drl", "inside"]], [1, ["tail", "inside"]], [1, ["tail"]], [1, ["tail", "brake"]], [1, ["drl", "tail", "inside"]], [1, []]] },
   compte: { bpm: 120, steps: [[0.4, ["high", "inside"]], [0.6, []], [0.364, ["high", "inside"]], [0.546, []], [0.328, ["high", "inside"]], [0.492, []], [0.292, ["high", "inside"]], [0.438, []], [0.256, ["high", "inside"]], [0.384, []], [0.22, ["high", "inside"]], [0.33, []], [0.184, ["high", "inside"]], [0.276, []], [0.148, ["high", "inside"]], [0.222, []], [0.112, ["high", "inside"]], [0.168, []], [0.076, ["high", "inside"]], [0.114, []], [0.25, ["drl", "low", "high", "fog", "tail", "brake", "inside"]], [0.25, []], [0.25, ["drl", "low", "high", "fog", "tail", "brake", "inside"]], [0.25, []], [0.25, ["drl", "low", "high", "fog", "tail", "brake", "inside"]], [0.25, []], [0.25, ["drl", "low", "high", "fog", "tail", "brake", "inside"]], [0.25, []], [2, ["drl", "low", "fog", "tail", "inside"]], [1, []]] },
+  coeur: { bpm: 60, steps: [[0.2, ["drl", "tail", "brake"]], [0.15, ["drl"]], [0.25, ["drl", "tail", "brake", "inside"]], [1.4, ["drl"]]] },
   guirlande: { bpm: 120, steps: [[0.5, ["gL", "inside", "high"]], [0.5, ["gR", "inside"]], [0.5, ["gL", "inside"]], [0.5, ["gR", "inside"]], [0.5, ["gL", "inside", "high"]], [0.5, ["gR", "inside"]], [0.5, ["gL", "inside"]], [0.5, ["gR", "inside"]]] },
   pulsation: { bpm: 120, steps: [[0.25, ['high', 'low', 'inside']], [0.75, []]] },
   double: { bpm: 120, steps: [[0.25, ['high', 'inside']], [0.25, []], [0.25, ['high', 'inside']], [1.25, []]] },
@@ -136,6 +138,14 @@ if (THEME && fx && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
           }
         }
         for (let i = bursts.length - 1; i >= 0; i--) if (bursts[i].t > 1.6) bursts.splice(i, 1);
+      } else if (THEME === 'saint-valentin') {
+        for (const f of flakes) {                      // petits cœurs qui montent doucement
+          f.y -= f.v * dt * 0.5; if (f.y < -0.03) { f.y = 1.03; f.x = Math.random(); }
+          const x = (f.x + Math.sin(now / 1000 * 0.8 + f.p) * 0.02) * W, y = f.y * H, s = f.r * 1.6;
+          g.save(); g.translate(x, y); g.scale(s / 10, s / 10); g.beginPath();
+          g.moveTo(0, 3); g.bezierCurveTo(-10, -4, -5, -12, 0, -6); g.bezierCurveTo(5, -12, 10, -4, 0, 3);
+          g.fillStyle = f.p > 3.1 ? 'rgba(255,60,90,.8)' : 'rgba(255,150,180,.75)'; g.fill(); g.restore();
+        }
       } else if (THEME === 'noel') {
         g.fillStyle = 'rgba(255,255,255,.85)';
         for (const f of flakes) {

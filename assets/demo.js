@@ -31,6 +31,14 @@ const lamps = [...document.querySelectorAll('.lamp')];
 const buttons = [...document.querySelectorAll('.pbtn')];
 const state = new Set();
 let showTimer = null, playing = null;
+// Clignotants et warning : rythme d'un vrai clignotant (~1,5 Hz), piloté ici plutôt qu'en animation CSS (Safari sur
+// iPhone n'anime pas l'opacité de ces calques en mode « plus-lighter » : ils restaient allumés sans clignoter).
+let blinking = new Set(), blinkPhase = true;
+setInterval(() => {
+  if (!blinking.size) { blinkPhase = true; return; }
+  blinkPhase = !blinkPhase;
+  for (const l of lamps) if (blinking.has(l.dataset.id)) l.classList.toggle('on', blinkPhase);
+}, 340);
 function render() {
   const lit = new Set(), blink = new Set(), dim = new Set();
   for (const k of state) {
@@ -39,10 +47,10 @@ function render() {
     if (k === 'indL' || k === 'indR') { MAP[k].forEach(id => blink.add(id)); DIM[k].forEach(id => dim.add(id)); continue; }
     (MAP[k] || []).forEach(id => lit.add(id));
   }
+  blinking = blink;
   for (const l of lamps) {
-    l.classList.toggle('on', lit.has(l.dataset.id));
+    l.classList.toggle('on', lit.has(l.dataset.id) || (blink.has(l.dataset.id) && blinkPhase));
     l.classList.toggle('dim', dim.has(l.dataset.id));
-    l.classList.toggle('blink', blink.has(l.dataset.id) && !lit.has(l.dataset.id));
   }
   for (const b of buttons) {
     const on = b.dataset.show ? playing === b.dataset.show : state.has(b.dataset.l);

@@ -13,7 +13,7 @@ const THEMES = {
 };
 const THEME = Object.hasOwn(THEMES, document.documentElement.dataset.theme || '') ? document.documentElement.dataset.theme : null;   // choisi par theme.js
 if (THEME) {
-  const dir = 'assets/theme/' + THEME + '/', v = '?v=91378d54';
+  const dir = 'assets/theme/' + THEME + '/', v = '?v=7c25d9b1';
   if (true) document.querySelectorAll('.car').forEach((car, i) => {   // décor de saison autour de la voiture
     const side = i === 0 ? 'front' : 'rear', p = i === 0 ? 'f' : 'r';
     car.querySelector('.base').src = dir + side + '-off.webp' + v;

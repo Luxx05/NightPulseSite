@@ -92,13 +92,38 @@ function startShow(name) {
   };
   next();
 }
-for (const b of buttons) b.addEventListener('click', () => {
-  if (b.dataset.show) { playing === b.dataset.show ? stopShow() : startShow(b.dataset.show); return; }
-  const k = b.dataset.l;
-  if (showTimer) stopShow();
-  state.has(k) ? state.delete(k) : state.add(k);
-  render();
-});
+// Comme dans l'app : « Basculer » (un appui allume, un autre éteint) ou « Maintenir » (allumé tant qu'on appuie).
+// Retour immédiat dès qu'on pose le doigt (classe press) ; en Basculer, le feu change au relâchement, comme un vrai bouton.
+let hold = false;
+const modes = [...document.querySelectorAll('.modeseg button')];
+modes.forEach(m => m.addEventListener('click', () => {
+  hold = m.dataset.m === 'hold';
+  modes.forEach(x => x.classList.toggle('on', x === m));
+  stopShow();
+}));
+for (const b of buttons) {
+  b.addEventListener('pointerdown', e => {
+    if (e.button) return;
+    b.classList.add('press');
+    if (!hold || b.dataset.show) return;
+    // Le doigt doit rester un instant : en faisant défiler la page, il ne fait que passer sur les pastilles.
+    b._t = setTimeout(() => { if (showTimer) stopShow(); state.add(b.dataset.l); render(); b._on = true; }, 90);
+  });
+  const up = () => {
+    b.classList.remove('press');
+    clearTimeout(b._t);
+    if (b._on) { b._on = false; state.delete(b.dataset.l); render(); }
+  };
+  ['pointerup', 'pointercancel', 'pointerleave'].forEach(t => b.addEventListener(t, up));
+  b.addEventListener('click', () => {
+    if (b.dataset.show) { playing === b.dataset.show ? stopShow() : startShow(b.dataset.show); return; }
+    if (hold) return;
+    const k = b.dataset.l;
+    if (showTimer) stopShow();
+    state.has(k) ? state.delete(k) : state.add(k);
+    render();
+  });
+}
 state.add('drl'); state.add('tail'); state.add('inside'); render();   // à l'arrivée : feux de jour, feux arrière et intérieur
 
 // Animations du thème (neige / chauves-souris et brume), dessinées par-dessus la voiture.

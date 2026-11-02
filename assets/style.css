@@ -34,13 +34,13 @@ footer{padding:40px 0 60px;color:#6e6e73;font-size:13px;border-top:1px solid var
  .shots.watch{gap:10px} .shots.watch img{width:31%;border-radius:26px;box-shadow:0 0 0 5px var(--pb),0 0 0 6px var(--pb2)} .shots.watch img:nth-child(n+3){display:block}}
 
 .demo{padding:20px 0 10px} .stage{display:flex;justify-content:center;align-items:flex-end;gap:0;margin:10px auto 26px;max-width:1040px}
-.car{position:relative;width:50%;max-width:520px;aspect-ratio:887/760;-webkit-mask:radial-gradient(72% 72% at 50% 50%,#000 62%,transparent 100%);mask:radial-gradient(72% 72% at 50% 50%,#000 62%,transparent 100%)}
+.car{position:relative;width:42.5%;max-width:442px;aspect-ratio:887/760;-webkit-mask:radial-gradient(72% 72% at 50% 50%,#000 62%,transparent 100%);mask:radial-gradient(72% 72% at 50% 50%,#000 62%,transparent 100%)}
 .car img{position:absolute;inset:0;width:100%;height:100%} .lamp{mix-blend-mode:plus-lighter;opacity:0;transition:opacity .12s ease-out}
 .lamp.on{opacity:1} .lamp{will-change:opacity}
 .pads{display:flex;flex-wrap:wrap;justify-content:center;gap:18px 10px;max-width:880px;margin:0 auto}
 .pbtn{background:none;border:0;color:var(--t1);font:inherit;cursor:pointer;width:76px;display:flex;flex-direction:column;align-items:center;gap:7px;-webkit-tap-highlight-color:transparent}
 .pp{width:62px;height:62px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#8e8e93;background:var(--pb);box-shadow:0 0 0 1px rgba(255,255,255,.07) inset;transition:all .15s}
-.pbtn:active .pp{transform:scale(.94)} .pl{font-size:12px;font-weight:600;text-align:center;line-height:1.2}
+.pbtn:active .pp,.pbtn.press .pp{transform:scale(.94)} .pl{font-size:12px;font-weight:600;text-align:center;line-height:1.2}
 .pbtn.on .pp{color:var(--c);background:radial-gradient(120% 120% at 30% 15%, color-mix(in srgb,var(--c) 40%,transparent), var(--pb) 75%);box-shadow:0 0 0 1.5px color-mix(in srgb,var(--c) 70%,transparent) inset,0 6px 22px -4px color-mix(in srgb,var(--c) 60%,transparent)}
 .pbtn.on .pp svg{filter:drop-shadow(0 0 6px var(--c))} .pbtn.on .pl{color:var(--c)}
 .showrow{flex-basis:100%;display:flex;justify-content:center;margin-top:6px}
@@ -54,7 +54,7 @@ header .wrap{position:relative}
 header nav{position:absolute;left:50%;transform:translateX(-50%);display:flex;gap:10px}
 header nav a{padding:8px 16px;border-radius:20px;font-weight:600;transition:color .15s;background:var(--pb);box-shadow:0 0 0 1px rgba(255,255,255,.07) inset;color:#8e8e93}
 header nav a:hover{color:#fff} header nav a.on{color:#fff;background:radial-gradient(120% 140% at 30% 10%,rgba(10,132,255,.45),var(--pb) 75%);box-shadow:0 0 0 1.5px rgba(10,132,255,.75) inset,0 6px 22px -4px rgba(10,132,255,.65)}
-header{transition:transform .25s ease}
+header{transition:transform .45s cubic-bezier(.32,.72,0,1),box-shadow .25s}
 @media (max-width:700px){
  header .wrap{flex-wrap:wrap;height:auto;padding-top:10px;gap:0}
  header .cta{display:none}
@@ -62,7 +62,7 @@ header{transition:transform .25s ease}
  header nav a{padding:7px 11px;font-size:12.5px}
  header.hide{transform:translateY(-100%)}
 }
-body{font-family:Inter,-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",Inter,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
 .shots img{height:auto;border-radius:13.6%/6.25%;outline:1px solid rgba(255,255,255,.12);outline-offset:-1px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation-duration:1.6s!important} header{transition:none}}
 html,button,a{touch-action:manipulation}
@@ -115,6 +115,31 @@ footer .wrap.fbottom>*{margin:0}
  .fcols{display:grid;grid-template-columns:1fr 1fr;gap:26px 20px;width:100%} .fcols .fcontact{grid-column:1/-1}
  .fcols a{font-size:15px} footer .wrap.fbottom{flex-direction:column;margin-top:30px}}
 
+header nav a,.cta,.mode,.allbtn button,.seg button,.lang button,.modeseg button{transition:transform .12s ease-out,color .15s,background-color .15s}
+header nav a:active,.cta:active,.mode:active,.allbtn button:active,.seg button:active,.lang button:active{transform:scale(.96)}
+header{backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);border-bottom-color:transparent!important;
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.08)}
+header.scrolled{box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 10px 18px -12px rgba(0,0,0,.55)}
+.hero h1{letter-spacing:-.035em;line-height:1.04} h2{letter-spacing:-.022em;line-height:1.1} h3{letter-spacing:-.01em}
+.lead,.sub,.feat p{letter-spacing:0;line-height:1.45}
+@media (max-width:700px){.stage{background:rgba(0,0,0,.55)!important;backdrop-filter:blur(22px) saturate(170%);-webkit-backdrop-filter:blur(22px) saturate(170%)}}
+.modeseg{display:flex;gap:2px;background:rgba(120,120,128,.24);border-radius:9px;padding:2px;width:260px;max-width:100%;margin:6px auto 18px}
+.modeseg button{flex:1;border:0;background:none;color:var(--t2);font:600 13px/1 inherit;font-family:inherit;padding:8px 0;border-radius:7px;cursor:pointer}
+.modeseg button.on{background:#636366;color:#fff;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.features.collapsed .feat:nth-child(n+4){display:none}
+.allbtn{display:flex;justify-content:center;margin:24px 0 0}
+.allbtn button{border:0;cursor:pointer;padding:12px 22px;border-radius:22px;background:rgba(120,120,128,.24);color:#0a84ff;font:600 15px inherit;font-family:inherit}
+@view-transition{navigation:auto}
+::view-transition-old(root),::view-transition-new(root){animation-duration:.22s}
+header{view-transition-name:entete}
+@media (prefers-reduced-transparency:reduce){header{background:var(--bg)!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+ .stage{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}}
+@media (prefers-contrast:more){.pp{box-shadow:0 0 0 1.5px currentColor inset!important} header{border-bottom:1px solid var(--t2)!important}
+ .feat{border-color:var(--t2)!important} .sub,.lead,.hint,.soon{color:var(--t1)!important}}
+@media (prefers-reduced-motion:reduce){header.hide{transform:none!important;opacity:0;pointer-events:none}
+ ::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}
+ .pbtn:active .pp,.pbtn.press .pp{transform:none!important}}
+
 :root{color-scheme:dark}
 .mode{width:36px;height:36px;border-radius:50%;border:0;cursor:pointer;display:flex;align-items:center;justify-content:center;
  background:var(--pb);color:var(--t1);box-shadow:0 0 0 1px rgba(255,255,255,.07) inset;margin-left:10px;flex:none}
@@ -125,11 +150,18 @@ html:not([data-mode=dark]){color-scheme:light;--bg:#f5f5f7;--glass:rgba(245,245,
  --t1:#1d1d1f;--t2:#6e6e73;--t3:#3a3a3c}
 html:not([data-mode=dark]) .cta{background:#1d1d1f;color:#fff} html:not([data-mode=dark]) header nav a:hover{color:#1d1d1f} html:not([data-mode=dark]) header nav a.on{color:#0a84ff}
 html:not([data-mode=dark])[data-theme] header nav a.on{color:rgb(var(--acc))}
-html:not([data-mode=dark]) .pp,html:not([data-mode=dark]) header nav a,html:not([data-mode=dark]) .pills a,html:not([data-mode=dark]) .mode{box-shadow:0 0 0 1px rgba(0,0,0,.08) inset} html:not([data-mode=dark]) .pbtn{color:#1d1d1f}
+html:not([data-mode=dark]) header nav a,html:not([data-mode=dark]) .pills a,html:not([data-mode=dark]) .mode{box-shadow:0 0 0 1px rgba(0,0,0,.08) inset} html:not([data-mode=dark]) .pbtn{color:#1d1d1f}
+/* Pastilles : blanches, ombre douce, icône foncée ; allumées, teintées de la couleur du feu. */
+html:not([data-mode=dark]) .pp{background:#fff;color:#3a3a3c;box-shadow:0 1px 2px rgba(0,0,0,.08),0 6px 16px rgba(0,0,0,.06),inset 0 0 0 .5px rgba(0,0,0,.06)}
+html:not([data-mode=dark]) .pbtn.on .pp{background:radial-gradient(120% 120% at 30% 15%,color-mix(in srgb,var(--c) 30%,#fff),color-mix(in srgb,var(--c) 10%,#fff) 75%);
+ box-shadow:0 0 0 1.5px color-mix(in srgb,var(--c) 55%,transparent) inset,0 8px 20px -6px color-mix(in srgb,var(--c) 55%,transparent)}
+html:not([data-mode=dark]) .modeseg button.on{background:#fff;color:#1d1d1f;box-shadow:0 1px 3px rgba(0,0,0,.15)}
+/* La voiture dans une vitrine sombre, au fond du widget de l'app : noir bleuté, halo bleu (couleur du thème en saison). */
+html:not([data-mode=dark]) .stage{background:radial-gradient(60% 85% at 50% 52%,rgba(40,110,255,.42),transparent 70%),linear-gradient(160deg,#0d1424,#05070c 70%)!important;
+ border-radius:28px;padding:18px 10px 8px!important;max-width:980px;box-shadow:inset 0 1px 0 rgba(255,255,255,.10),0 18px 40px -18px rgba(0,0,0,.45)!important}
+html:not([data-mode=dark])[data-theme] .stage{background:radial-gradient(60% 85% at 50% 52%,rgba(var(--acc),.38),transparent 70%),linear-gradient(160deg,#141017,#05070c 70%)!important}
+html:not([data-mode=dark]) header{box-shadow:inset 0 1px 0 rgba(255,255,255,.6)} html:not([data-mode=dark]) header.scrolled{box-shadow:0 10px 18px -12px rgba(0,0,0,.18)}
 html:not([data-mode=dark]) .feat,html:not([data-mode=dark]) .card,html:not([data-mode=dark]) .acc,html:not([data-mode=dark]) .st{box-shadow:0 1px 2px rgba(0,0,0,.04)}
-/* La voiture, sans fond : posée directement sur la page. Pas de masque (il isolait les calques de lumière,
-   qui doivent s'ajouter à la page claire). */
-html:not([data-mode=dark]) .car{-webkit-mask:none!important;mask:none!important}
 html:not([data-mode=dark]) .hero{background:radial-gradient(circle 520px at 50% 30%,rgba(10,132,255,.12),transparent 70%)}
 html:not([data-mode=dark]) .lg-hero,html:not([data-mode=dark]) .help{background:linear-gradient(160deg,#e8f0ff,#fff 70%);border-color:#d6e2f7}
 html:not([data-mode=dark])[data-theme] .lg-hero,html:not([data-mode=dark])[data-theme] .help{background:linear-gradient(160deg,rgba(var(--acc),.16),#fff 70%);border-color:rgba(var(--acc),.3)}
@@ -142,18 +174,25 @@ html:not([data-mode=dark]) .mode .sun{display:none} html:not([data-mode=dark]) .
 /* Logo « Nuit » : ses parties blanches passent en noir sur fond clair. */
 html:not([data-mode=dark]) .hero svg [fill="#ffffff"]{fill:#1d1d1f} html:not([data-mode=dark]) .hero svg [stroke="#ffffff"]{stroke:#1d1d1f}
 @media (max-width:700px){html:not([data-mode=dark]) .shots.watch img{box-shadow:0 0 0 5px #1d1d1f,0 0 0 6px #3a3a3c}
- html:not([data-mode=dark]) .stage{box-shadow:0 12px 18px -14px rgba(0,0,0,.25)!important}}
+ html:not([data-mode=dark]) .stage{border-radius:0 0 24px 24px;padding:6px 24px 6px!important}}
 }
 
 html[data-mode=light]{color-scheme:light;--bg:#f5f5f7;--glass:rgba(245,245,247,.78);--card:#fff;--line:#e3e3e8;--pb:#fff;--pb2:#e9e9ee;--band:#fff;
  --t1:#1d1d1f;--t2:#6e6e73;--t3:#3a3a3c}
 html[data-mode=light] .cta{background:#1d1d1f;color:#fff} html[data-mode=light] header nav a:hover{color:#1d1d1f} html[data-mode=light] header nav a.on{color:#0a84ff}
 html[data-mode=light][data-theme] header nav a.on{color:rgb(var(--acc))}
-html[data-mode=light] .pp,html[data-mode=light] header nav a,html[data-mode=light] .pills a,html[data-mode=light] .mode{box-shadow:0 0 0 1px rgba(0,0,0,.08) inset} html[data-mode=light] .pbtn{color:#1d1d1f}
+html[data-mode=light] header nav a,html[data-mode=light] .pills a,html[data-mode=light] .mode{box-shadow:0 0 0 1px rgba(0,0,0,.08) inset} html[data-mode=light] .pbtn{color:#1d1d1f}
+/* Pastilles : blanches, ombre douce, icône foncée ; allumées, teintées de la couleur du feu. */
+html[data-mode=light] .pp{background:#fff;color:#3a3a3c;box-shadow:0 1px 2px rgba(0,0,0,.08),0 6px 16px rgba(0,0,0,.06),inset 0 0 0 .5px rgba(0,0,0,.06)}
+html[data-mode=light] .pbtn.on .pp{background:radial-gradient(120% 120% at 30% 15%,color-mix(in srgb,var(--c) 30%,#fff),color-mix(in srgb,var(--c) 10%,#fff) 75%);
+ box-shadow:0 0 0 1.5px color-mix(in srgb,var(--c) 55%,transparent) inset,0 8px 20px -6px color-mix(in srgb,var(--c) 55%,transparent)}
+html[data-mode=light] .modeseg button.on{background:#fff;color:#1d1d1f;box-shadow:0 1px 3px rgba(0,0,0,.15)}
+/* La voiture dans une vitrine sombre, au fond du widget de l'app : noir bleuté, halo bleu (couleur du thème en saison). */
+html[data-mode=light] .stage{background:radial-gradient(60% 85% at 50% 52%,rgba(40,110,255,.42),transparent 70%),linear-gradient(160deg,#0d1424,#05070c 70%)!important;
+ border-radius:28px;padding:18px 10px 8px!important;max-width:980px;box-shadow:inset 0 1px 0 rgba(255,255,255,.10),0 18px 40px -18px rgba(0,0,0,.45)!important}
+html[data-mode=light][data-theme] .stage{background:radial-gradient(60% 85% at 50% 52%,rgba(var(--acc),.38),transparent 70%),linear-gradient(160deg,#141017,#05070c 70%)!important}
+html[data-mode=light] header{box-shadow:inset 0 1px 0 rgba(255,255,255,.6)} html[data-mode=light] header.scrolled{box-shadow:0 10px 18px -12px rgba(0,0,0,.18)}
 html[data-mode=light] .feat,html[data-mode=light] .card,html[data-mode=light] .acc,html[data-mode=light] .st{box-shadow:0 1px 2px rgba(0,0,0,.04)}
-/* La voiture, sans fond : posée directement sur la page. Pas de masque (il isolait les calques de lumière,
-   qui doivent s'ajouter à la page claire). */
-html[data-mode=light] .car{-webkit-mask:none!important;mask:none!important}
 html[data-mode=light] .hero{background:radial-gradient(circle 520px at 50% 30%,rgba(10,132,255,.12),transparent 70%)}
 html[data-mode=light] .lg-hero,html[data-mode=light] .help{background:linear-gradient(160deg,#e8f0ff,#fff 70%);border-color:#d6e2f7}
 html[data-mode=light][data-theme] .lg-hero,html[data-mode=light][data-theme] .help{background:linear-gradient(160deg,rgba(var(--acc),.16),#fff 70%);border-color:rgba(var(--acc),.3)}
@@ -166,4 +205,4 @@ html[data-mode=light] .mode .sun{display:none} html[data-mode=light] .mode .moon
 /* Logo « Nuit » : ses parties blanches passent en noir sur fond clair. */
 html[data-mode=light] .hero svg [fill="#ffffff"]{fill:#1d1d1f} html[data-mode=light] .hero svg [stroke="#ffffff"]{stroke:#1d1d1f}
 @media (max-width:700px){html[data-mode=light] .shots.watch img{box-shadow:0 0 0 5px #1d1d1f,0 0 0 6px #3a3a3c}
- html[data-mode=light] .stage{box-shadow:0 12px 18px -14px rgba(0,0,0,.25)!important}}
+ html[data-mode=light] .stage{border-radius:0 0 24px 24px;padding:6px 24px 6px!important}}

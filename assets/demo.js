@@ -13,15 +13,15 @@ const THEMES = {
 };
 const THEME = Object.hasOwn(THEMES, document.documentElement.dataset.theme || '') ? document.documentElement.dataset.theme : null;   // choisi par theme.js
 if (THEME) {
-  const dir = 'assets/theme/' + THEME + '/', v = '?v=7c25d9b1';
+  const dir = 'assets/theme/' + THEME + '/', v = '?v=fa77664e';
   if (true) document.querySelectorAll('.car').forEach((car, i) => {   // décor de saison autour de la voiture
     const side = i === 0 ? 'front' : 'rear', p = i === 0 ? 'f' : 'r';
     car.querySelector('.base').src = dir + side + '-off.webp' + v;
-    const twk = new Image(); twk.className = 'twk'; twk.alt = ''; twk.src = dir + side + '-twinkle.jpg' + v; car.querySelector('.base').after(twk);
+    const twk = new Image(); twk.className = 'twk'; twk.alt = ''; twk.src = dir + side + '-twinkle.webp' + v; car.querySelector('.base').after(twk);
   });
-  if (THEMES[THEME].tail) document.querySelectorAll('.lamp[data-id^="r:tail-"]').forEach(l => { l.src = dir + l.dataset.id.slice(2) + '.jpg' + v; });
-  if (THEMES[THEME].interior) document.querySelectorAll('.lamp[data-id$=":interior"]').forEach(l => { l.src = dir + (l.dataset.id[0] === 'f' ? 'front' : 'rear') + '-interior.jpg' + v; });
-  if (THEMES[THEME].drl) document.querySelectorAll('.lamp[data-id^="f:drl-"]').forEach(l => { l.src = dir + l.dataset.id.slice(2) + '.jpg' + v; });
+  if (THEMES[THEME].tail) document.querySelectorAll('.lamp[data-id^="r:tail-"]').forEach(l => { l.src = dir + l.dataset.id.slice(2) + '.webp' + v; });
+  if (THEMES[THEME].interior) document.querySelectorAll('.lamp[data-id$=":interior"]').forEach(l => { l.src = dir + (l.dataset.id[0] === 'f' ? 'front' : 'rear') + '-interior.webp' + v; });
+  if (THEMES[THEME].drl) document.querySelectorAll('.lamp[data-id^="f:drl-"]').forEach(l => { l.src = dir + l.dataset.id.slice(2) + '.webp' + v; });
   MAP.gL = ['f:drl-screenRight', 'r:tail-screenLeft']; MAP.gR = ['f:drl-screenLeft', 'r:tail-screenRight'];
   document.querySelectorAll('[data-theme-only]').forEach(b => { b.hidden = b.dataset.themeOnly !== THEME; });
   const hint = document.querySelector('.hint');

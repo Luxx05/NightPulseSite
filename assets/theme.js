@@ -1,4 +1,8 @@
 (function () {
+  // Mode clair / sombre choisi avec le bouton de l'en-tête (sinon : celui de l'appareil).
+  try { var mode = localStorage.getItem('mode'); if (mode === 'light' || mode === 'dark') document.documentElement.setAttribute('data-mode', mode); } catch (e) {}
+})();
+(function () {
   // [mois, premier jour, dernier jour] ; le Nouvel An est à cheval sur deux années
   var T = { 'octobre-rose': [[10, 1, 19]], halloween: [[10, 20, 31]], noel: [[12, 1, 25]],
             'nouvel-an': [[12, 26, 31], [1, 1, 6]], paques: [[4, 1, 30]] }, t = null, q = null, kept = null;

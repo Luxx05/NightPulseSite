@@ -117,24 +117,55 @@ footer .wrap.fbottom>*{margin:0}
  .fcols{display:grid;grid-template-columns:1fr 1fr;gap:26px 20px;width:100%} .fcols .fcontact{grid-column:1/-1}
  .fcols a{font-size:15px} footer .wrap.fbottom{flex-direction:column;margin-top:30px}}
 
+:root{color-scheme:dark}
+.mode{width:36px;height:36px;border-radius:50%;border:0;cursor:pointer;display:flex;align-items:center;justify-content:center;
+ background:var(--pb);color:var(--t1);box-shadow:0 0 0 1px rgba(255,255,255,.07) inset;margin-left:10px;flex:none}
+.mode svg{width:18px;height:18px} .mode .moon{display:none}
+@media (max-width:700px){.mode{position:absolute;right:24px;top:10px}}
 @media (prefers-color-scheme:light){
-:root{color-scheme:light;--bg:#f5f5f7;--glass:rgba(245,245,247,.78);--card:#fff;--line:#e3e3e8;--pb:#fff;--pb2:#e9e9ee;--band:#fff;
+html:not([data-mode=dark]){color-scheme:light;--bg:#f5f5f7;--glass:rgba(245,245,247,.78);--card:#fff;--line:#e3e3e8;--pb:#fff;--pb2:#e9e9ee;--band:#fff;
  --t1:#1d1d1f;--t2:#6e6e73;--t3:#3a3a3c}
-.cta{background:#1d1d1f;color:#fff} header nav a:hover{color:#1d1d1f} header nav a.on{color:#0a84ff}
-html[data-theme] header nav a.on{color:rgb(var(--acc))}
-.pp,header nav a,.pills a{box-shadow:0 0 0 1px rgba(0,0,0,.08) inset} .pbtn{color:#1d1d1f}
-.feat,.card,.acc,.st{box-shadow:0 1px 2px rgba(0,0,0,.04)}
+html:not([data-mode=dark]) .cta{background:#1d1d1f;color:#fff} html:not([data-mode=dark]) header nav a:hover{color:#1d1d1f} html:not([data-mode=dark]) header nav a.on{color:#0a84ff}
+html:not([data-mode=dark])[data-theme] header nav a.on{color:rgb(var(--acc))}
+html:not([data-mode=dark]) .pp,html:not([data-mode=dark]) header nav a,html:not([data-mode=dark]) .pills a,html:not([data-mode=dark]) .mode{box-shadow:0 0 0 1px rgba(0,0,0,.08) inset} html:not([data-mode=dark]) .pbtn{color:#1d1d1f}
+html:not([data-mode=dark]) .feat,html:not([data-mode=dark]) .card,html:not([data-mode=dark]) .acc,html:not([data-mode=dark]) .st{box-shadow:0 1px 2px rgba(0,0,0,.04)}
 /* La voiture, sans fond : posée directement sur la page. Pas de masque (il isolait les calques de lumière,
    qui doivent s'ajouter à la page claire). */
-.car{-webkit-mask:none!important;mask:none!important}
-.hero{background:radial-gradient(circle 520px at 50% 30%,rgba(10,132,255,.12),transparent 70%)}
-:root .lg-hero,:root .help{background:linear-gradient(160deg,#e8f0ff,#fff 70%);border-color:#d6e2f7}
-html[data-theme] .lg-hero,html[data-theme] .help{background:linear-gradient(160deg,rgba(var(--acc),.16),#fff 70%);border-color:rgba(var(--acc),.3)}
+html:not([data-mode=dark]) .car{-webkit-mask:none!important;mask:none!important}
+html:not([data-mode=dark]) .hero{background:radial-gradient(circle 520px at 50% 30%,rgba(10,132,255,.12),transparent 70%)}
+html:not([data-mode=dark]) .lg-hero,html:not([data-mode=dark]) .help{background:linear-gradient(160deg,#e8f0ff,#fff 70%);border-color:#d6e2f7}
+html:not([data-mode=dark])[data-theme] .lg-hero,html:not([data-mode=dark])[data-theme] .help{background:linear-gradient(160deg,rgba(var(--acc),.16),#fff 70%);border-color:rgba(var(--acc),.3)}
 /* Feux clairs (blanc, bleu pâle, jaune) : sur fond clair, le texte et l'icône allumés sont foncés pour rester lisibles. */
-.pbtn.on .pl{color:color-mix(in srgb,var(--c) 55%,#1d1d1f)} .pbtn.on .pp{color:color-mix(in srgb,var(--c) 70%,#1d1d1f)}
-.shots img{filter:drop-shadow(0 24px 30px rgba(0,0,0,.18))}
-.shots.watch img{box-shadow:0 0 0 10px #1d1d1f,0 0 0 11px #3a3a3c}
-.hint,.soon{color:#86868b}
+html:not([data-mode=dark]) .pbtn.on .pl{color:color-mix(in srgb,var(--c) 55%,#1d1d1f)} html:not([data-mode=dark]) .pbtn.on .pp{color:color-mix(in srgb,var(--c) 70%,#1d1d1f)}
+html:not([data-mode=dark]) .shots img{filter:drop-shadow(0 24px 30px rgba(0,0,0,.18))}
+html:not([data-mode=dark]) .shots.watch img{box-shadow:0 0 0 10px #1d1d1f,0 0 0 11px #3a3a3c}
+html:not([data-mode=dark]) .hint,html:not([data-mode=dark]) .soon{color:#86868b}
+html:not([data-mode=dark]) .mode .sun{display:none} html:not([data-mode=dark]) .mode .moon{display:block}
+/* Logo « Nuit » : ses parties blanches passent en noir sur fond clair. */
+html:not([data-mode=dark]) .hero svg [fill="#ffffff"]{fill:#1d1d1f} html:not([data-mode=dark]) .hero svg [stroke="#ffffff"]{stroke:#1d1d1f}
+@media (max-width:700px){html:not([data-mode=dark]) .shots.watch img{box-shadow:0 0 0 5px #1d1d1f,0 0 0 6px #3a3a3c}
+ html:not([data-mode=dark]) .stage{box-shadow:0 12px 18px -14px rgba(0,0,0,.25)!important}}
 }
-@media (prefers-color-scheme:light) and (max-width:700px){.shots.watch img{box-shadow:0 0 0 5px #1d1d1f,0 0 0 6px #3a3a3c}
- .stage{box-shadow:0 12px 18px -14px rgba(0,0,0,.25)!important}}
+
+html[data-mode=light]{color-scheme:light;--bg:#f5f5f7;--glass:rgba(245,245,247,.78);--card:#fff;--line:#e3e3e8;--pb:#fff;--pb2:#e9e9ee;--band:#fff;
+ --t1:#1d1d1f;--t2:#6e6e73;--t3:#3a3a3c}
+html[data-mode=light] .cta{background:#1d1d1f;color:#fff} html[data-mode=light] header nav a:hover{color:#1d1d1f} html[data-mode=light] header nav a.on{color:#0a84ff}
+html[data-mode=light][data-theme] header nav a.on{color:rgb(var(--acc))}
+html[data-mode=light] .pp,html[data-mode=light] header nav a,html[data-mode=light] .pills a,html[data-mode=light] .mode{box-shadow:0 0 0 1px rgba(0,0,0,.08) inset} html[data-mode=light] .pbtn{color:#1d1d1f}
+html[data-mode=light] .feat,html[data-mode=light] .card,html[data-mode=light] .acc,html[data-mode=light] .st{box-shadow:0 1px 2px rgba(0,0,0,.04)}
+/* La voiture, sans fond : posée directement sur la page. Pas de masque (il isolait les calques de lumière,
+   qui doivent s'ajouter à la page claire). */
+html[data-mode=light] .car{-webkit-mask:none!important;mask:none!important}
+html[data-mode=light] .hero{background:radial-gradient(circle 520px at 50% 30%,rgba(10,132,255,.12),transparent 70%)}
+html[data-mode=light] .lg-hero,html[data-mode=light] .help{background:linear-gradient(160deg,#e8f0ff,#fff 70%);border-color:#d6e2f7}
+html[data-mode=light][data-theme] .lg-hero,html[data-mode=light][data-theme] .help{background:linear-gradient(160deg,rgba(var(--acc),.16),#fff 70%);border-color:rgba(var(--acc),.3)}
+/* Feux clairs (blanc, bleu pâle, jaune) : sur fond clair, le texte et l'icône allumés sont foncés pour rester lisibles. */
+html[data-mode=light] .pbtn.on .pl{color:color-mix(in srgb,var(--c) 55%,#1d1d1f)} html[data-mode=light] .pbtn.on .pp{color:color-mix(in srgb,var(--c) 70%,#1d1d1f)}
+html[data-mode=light] .shots img{filter:drop-shadow(0 24px 30px rgba(0,0,0,.18))}
+html[data-mode=light] .shots.watch img{box-shadow:0 0 0 10px #1d1d1f,0 0 0 11px #3a3a3c}
+html[data-mode=light] .hint,html[data-mode=light] .soon{color:#86868b}
+html[data-mode=light] .mode .sun{display:none} html[data-mode=light] .mode .moon{display:block}
+/* Logo « Nuit » : ses parties blanches passent en noir sur fond clair. */
+html[data-mode=light] .hero svg [fill="#ffffff"]{fill:#1d1d1f} html[data-mode=light] .hero svg [stroke="#ffffff"]{stroke:#1d1d1f}
+@media (max-width:700px){html[data-mode=light] .shots.watch img{box-shadow:0 0 0 5px #1d1d1f,0 0 0 6px #3a3a3c}
+ html[data-mode=light] .stage{box-shadow:0 12px 18px -14px rgba(0,0,0,.25)!important}}

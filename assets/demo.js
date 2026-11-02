@@ -11,7 +11,7 @@ const THEMES = {
 };
 const THEME = Object.hasOwn(THEMES, document.documentElement.dataset.theme || '') ? document.documentElement.dataset.theme : null;   // choisi par theme.js
 if (THEME) {
-  const dir = 'assets/theme/' + THEME + '/', v = '?v=add2a521';
+  const dir = 'assets/theme/' + THEME + '/', v = '?v=2d380305';
   if (false) document.querySelectorAll('.car').forEach((car, i) => {   // décor de saison autour de la voiture
     const side = i === 0 ? 'front' : 'rear', p = i === 0 ? 'f' : 'r';
     car.querySelector('.base').src = dir + side + '-off.jpg' + v;

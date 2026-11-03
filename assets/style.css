@@ -228,3 +228,8 @@ html .stage.is360.is360.is360{background:none!important;-webkit-backdrop-filter:
 html[data-mode=light] .seg360{background:rgba(0,0,0,.05);box-shadow:inset 0 0 0 .5px rgba(0,0,0,.08)}
 html[data-mode=light] .seg360 button{color:rgba(0,0,0,.5)}
 html[data-mode=light] .seg360 button.on{background:#fff;color:#1d1d1f;box-shadow:0 1px 3px rgba(0,0,0,.12)}
+/* Photos cachées dès le départ (classe c360 posée par theme.js) ; la 360° apparaît en fondu */
+html.c360 .stage:not(.is360) .car{visibility:hidden}
+.car360{animation:car360in .5s cubic-bezier(.2,.8,.2,1) both}
+@keyframes car360in{from{opacity:0;transform:scale(.985)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.car360{animation-duration:.01s}}

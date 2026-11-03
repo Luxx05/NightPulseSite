@@ -1,3 +1,4 @@
+document.documentElement.classList.add('c360');   // voiture 360° : photos cachées d'avance (car360.js les remontre en secours)
 (function () {
   // Toujours en mode sombre, quel que soit le réglage de l'appareil (sa demande, 03/11/2026). Le mode clair reste
   // dans le style (LIGHT_RULES) mais ne s'affiche plus : remettre data-mode selon l'appareil pour le retrouver.

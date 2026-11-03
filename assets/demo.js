@@ -124,7 +124,7 @@ for (const b of buttons) {
     render();
   });
 }
-if (document.querySelector('.stage')) { state.add('drl'); state.add('tail'); state.add('inside'); }   // ancienne démo seulement : à l'arrivée, feux de jour, feux arrière et intérieur (l'histoire du défilement gère les siens)
+if (document.querySelector('.stage')) { state.add('drl'); state.add('tail'); }   // à l'arrivée : feux de jour (toujours allumés, sans pastille) et feux arrière
 render();
 
 // Animations du thème (neige / chauves-souris et brume), dessinées par-dessus la voiture.

@@ -13,7 +13,7 @@
   let started = false;
   const fallback = () => { if (!started) root.classList.remove('c360'); };
   setTimeout(fallback, 8000);
-  if (!stage || !window.fetch || (theme && theme !== 'aucun')) { fallback(); return; }   // thèmes de saison : décor sur les photos
+  if (!stage || !window.fetch) { fallback(); return; }   // thèmes de saison aussi : même voiture, seules les couleurs du site changent (sa demande)
   const conn = navigator.connection || {};
   const slow = conn.saveData || /2g/.test(conn.effectiveType || '');
   const size = slow ? 'tel' : 'pc';

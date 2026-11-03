@@ -199,17 +199,28 @@
     new IntersectionObserver(es => { visible = es[0].isIntersecting; if (visible) wake(); }).observe(box);
     const go3d = () => { if (mode3d || !window.__car3d) return; box.append(window.__car3d.canvas); void window.__car3d.canvas.offsetWidth; mode3d = true; window.__car3d.fit();
       lowRes = false; box.classList.add('en3d'); wake(); };
+    // Quand la 3D arrive, l'image 360° (rendu Blender, un peu différent) ne s'affiche pas du tout : sinon on voit
+    // « l'ancienne » voiture une seconde au rechargement. Elle ne sert qu'en secours (pas de 3D, échec, > 8 s).
+    let backup = false;
+    const use2d = () => { if (mode3d || backup) return; backup = true; box.classList.remove('wait3d'); loadRest(); wake(); };
     if (window.__car3dState === 'ready') go3d();
-    else if (window.__car3dState === 'loading') addEventListener('car3d', go3d, { once: true });
+    else if (window.__car3dState === 'loading') {
+      box.classList.add('wait3d');
+      addEventListener('car3d', go3d, { once: true });
+      addEventListener('car3d-fail', use2d, { once: true });
+      setTimeout(use2d, 8000);
+    } else use2d();
     addEventListener('resize', () => { if (mode3d) { window.__car3d.fit(); wake(); } });
     window.__car360 = { turn, get: () => ang, set: a => { ang = goal = a; vel = 0; wake(); }, loaded: () => Object.keys(frames).length, total: 360 / step };
     wake();
-    // Le reste en arrière-plan (secours si la 3D ne vient pas) : angles voisins de la vue avant d'abord (des deux côtés), 4 à la fois
+    // Le reste en arrière-plan (seulement en secours, sans 3D) : angles voisins de la vue avant d'abord (des deux côtés), 4 à la fois
+    function loadRest() {
     const order = M.angles.filter(a => a % step === 0).sort((a, b) => Math.min(a, 360 - a) - Math.min(b, 360 - b));
     let i = 0;
     const next = () => { if (i >= order.length) return; const a = order[i++];
       fetchAngle(a).then(() => { if (Math.abs(((a - norm(ang) + 540) % 360) - 180) <= step) wake(); }, () => {}).finally(next); };
     for (let k = 0; k < 4; k++) next();
+    }
   }
   start().catch(fallback);   // photos d'origine en secours
 })();

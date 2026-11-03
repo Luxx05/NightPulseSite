@@ -94,7 +94,11 @@
     // roues posées au même endroit quel que soit l'angle (pas de saut vertical), voiture centrée
     return { k, x: W / 2 - (b[0] + b[2]) / 2 * k, y: H * (narrow ? .8 : .88) - b[3] * k };
   }
+  // Vraie 3D (car3d.js) : la vue avant en image s'affiche d'abord, puis la voiture 3D prend le relais en fondu ;
+  // même rotation, même geste, mêmes pastilles. Sans WebGL2 ou si le modèle ne charge pas : les images 360°.
+  let mode3d = false;
   function draw() {
+    if (mode3d) { window.__car3d.draw(ang, { ...level, low: (level.low || 0) * 1.6 }, 1); return; }
     if (!W) return;
     const a = norm(ang), a0 = Math.floor(a / step) * step, f = (a - a0) / step;
     const A = near(a0), B = frames[norm(a0 + step)] || A;
@@ -139,7 +143,7 @@
       if (Math.abs(d) > .01) { level[g] = c + d * Math.min(1, dt * 22); moving = true; } else level[g] = want[g];
     }
     const spin = dragging || (!anim && goal === null && ang !== before);   // flou léger seulement au doigt et sur l'élan
-    if (spin) { clearTimeout(sharpen); sharpen = 0; if (!lowRes) { lowRes = true; fit(); } }
+    if (spin && !mode3d) { clearTimeout(sharpen); sharpen = 0; if (!lowRes) { lowRes = true; fit(); } }
     else if (lowRes && !sharpen) sharpen = setTimeout(() => { sharpen = 0; lowRes = false; fit(); }, 140);
     if (moving || dirty || ang !== before) { draw(); mark(); dirty = false; }   // dernière image à l'arrivée aussi (sinon mélange de deux angles figé)
     if (moving && visible) raf = requestAnimationFrame(tick); else last = 0;
@@ -193,9 +197,14 @@
     }, 0)));
     new MutationObserver(wake).observe(stage, { subtree: true, attributes: true, attributeFilter: ['class'] });
     new IntersectionObserver(es => { visible = es[0].isIntersecting; if (visible) wake(); }).observe(box);
+    const go3d = () => { if (mode3d || !window.__car3d) return; box.append(window.__car3d.canvas); void window.__car3d.canvas.offsetWidth; mode3d = true; window.__car3d.fit();
+      lowRes = false; box.classList.add('en3d'); wake(); };
+    if (window.__car3dState === 'ready') go3d();
+    else if (window.__car3dState === 'loading') addEventListener('car3d', go3d, { once: true });
+    addEventListener('resize', () => { if (mode3d) { window.__car3d.fit(); wake(); } });
     window.__car360 = { turn, get: () => ang, set: a => { ang = goal = a; vel = 0; wake(); }, loaded: () => Object.keys(frames).length, total: 360 / step };
     wake();
-    // Le reste en arrière-plan : angles voisins de la vue avant d'abord (des deux côtés), 4 à la fois
+    // Le reste en arrière-plan (secours si la 3D ne vient pas) : angles voisins de la vue avant d'abord (des deux côtés), 4 à la fois
     const order = M.angles.filter(a => a % step === 0).sort((a, b) => Math.min(a, 360 - a) - Math.min(b, 360 - b));
     let i = 0;
     const next = () => { if (i >= order.length) return; const a = order[i++];

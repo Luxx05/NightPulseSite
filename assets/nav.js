@@ -1,3 +1,6 @@
+// Logo aux couleurs de la fête du moment (en-tête et pied de page), comme dans l'app.
+(() => { const t = document.documentElement.dataset.theme;
+  if (t && t !== 'aucun') document.querySelectorAll('img[src^="assets/img/icone.png"]').forEach(i => { i.src = 'assets/img/icone-' + t + '.png'; }); })();
 // En-tête : se cache quand on descend, revient dès qu'on remonte (sur téléphone, voir le CSS).
 let last = window.scrollY;
 const header = document.querySelector('header');

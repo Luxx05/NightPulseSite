@@ -77,6 +77,7 @@ html[data-theme=noel] .hero{background:radial-gradient(circle 520px at 50% 30%,r
 html[data-theme=halloween]{--acc:255,122,0;--acc2:163,92,255} html[data-theme=noel]{--acc:255,69,58;--acc2:48,209,88}
 html[data-theme=octobre-rose]{--acc:255,55,150;--acc2:255,150,205} html[data-theme=paques]{--acc:255,150,190;--acc2:120,210,150}
 html[data-theme=nouvel-an]{--acc:255,196,60;--acc2:255,235,190} html[data-theme=saint-valentin]{--acc:255,45,85;--acc2:255,150,180}
+html[data-theme]:not([data-theme=aucun]):not([data-theme=""]) .hero svg polyline{stroke:rgb(var(--acc));filter:drop-shadow(0 0 10px rgba(var(--acc),.55))}
 html[data-theme=octobre-rose] .pads>.pbtn,html[data-theme=paques] .pads>.pbtn:nth-child(odd),html[data-theme=nouvel-an] .pads>.pbtn:nth-child(odd),html[data-theme=saint-valentin] .pads>.pbtn:nth-child(odd){--c:rgb(var(--acc))!important}
 html[data-theme=paques] .pads>.pbtn:nth-child(even),html[data-theme=nouvel-an] .pads>.pbtn:nth-child(even),html[data-theme=saint-valentin] .pads>.pbtn:nth-child(even){--c:rgb(var(--acc2))!important}
 html[data-theme=octobre-rose] .hero,html[data-theme=paques] .hero,html[data-theme=nouvel-an] .hero,html[data-theme=saint-valentin] .hero{background:radial-gradient(circle 520px at 50% 30%,rgba(var(--acc),.2),transparent 70%),radial-gradient(circle 600px at 50% 90%,rgba(var(--acc2),.14),transparent 70%)}

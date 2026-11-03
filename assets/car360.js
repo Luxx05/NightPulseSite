@@ -38,6 +38,9 @@
   if (!cx || !lx) return;
   let M, step, scale = 1, frames = {}, level = {}, mark = () => {};
   let ang = 0, vel = 0, goal = 0, dragging = false, dirty = true, visible = true, raf = 0, last = 0, W = 0, H = 0;
+  // Pendant la rotation : image dessinée un peu moins fine (l'œil ne voit pas les détails d'un objet qui tourne), donc
+  // moins de travail et plus de fluidité ; pleine netteté dès que la voiture s'arrête.
+  let fit = () => {}, lowRes = false, sharpen = 0, litShown = true;
 
   const bitmap = async src => {
     const r = await fetch(src, { cache: 'force-cache' });
@@ -89,11 +92,14 @@
     };
     lights(A, B === A ? 1 : 1 - f);
     if (B !== A) lights(B, f);
+    const lit = Object.values(level).some(v => v > .01);   // aucun feu : la toile des feux n'est pas mêlée à l'écran
+    if (lit !== litShown) { litShown = lit; light.style.visibility = lit ? '' : 'hidden'; }
   }
   function tick(t) {
     raf = 0;
     const dt = Math.min(.05, last ? (t - last) / 1000 : .016); last = t;
     let moving = false;
+    const before = ang;
     if (!dragging) {
       if (goal !== null) { const d = goal - ang; vel += (d * 90 - vel * 19) * dt; if (Math.abs(d) < .05 && Math.abs(vel) < .5) { ang = goal; vel = 0; } else moving = true; }
       else if (Math.abs(vel) > 8) { vel *= Math.pow(.12, dt); moving = true; }   // élan au lâcher
@@ -105,6 +111,9 @@
       const c = level[g] || 0, d = want[g] - c;
       if (Math.abs(d) > .01) { level[g] = c + d * Math.min(1, dt * 22); moving = true; } else level[g] = want[g];
     }
+    const spin = dragging || ang !== before;
+    if (spin && (moving || dragging)) { clearTimeout(sharpen); sharpen = 0; if (!lowRes) { lowRes = true; fit(); } }
+    else if (lowRes && !sharpen) sharpen = setTimeout(() => { sharpen = 0; lowRes = false; fit(); }, 140);
     if (moving || dirty) { draw(); mark(); dirty = false; }
     if (moving && visible) raf = requestAnimationFrame(tick); else last = 0;
   }
@@ -126,7 +135,7 @@
     stage.classList.add('is360');
     box.append(seg); stage.prepend(box);
     // Taille réelle à l'écran (netteté sur les écrans Retina)
-    const fit = () => { const r = box.getBoundingClientRect(), d = Math.min(devicePixelRatio || 1, 2.5);
+    fit = () => { const r = box.getBoundingClientRect(), d = Math.min(devicePixelRatio || 1, lowRes ? 1.25 : 2);
       const w = Math.round(r.width * d), h = Math.round(r.height * d);
       if (w && (w !== W || h !== H)) { W = car.width = light.width = w; H = car.height = light.height = h; dirty = true; draw(); } };
     fit(); new ResizeObserver(fit).observe(box);

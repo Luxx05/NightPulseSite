@@ -31,16 +31,16 @@
     t.plaque = Math.max(t.tail_G, t.tail_D) > 0 ? 1 : 0;
     return t;
   };
-  // Deux toiles : la voiture (transparente, sur le fond de la vitrine) et la lumière des feux (fond noir, mêlée en
-  // « screen » par-dessus : le noir ne change rien, la lumière s'ajoute ; aucun calcul pixel par pixel).
-  const car = document.createElement('canvas'), light = document.createElement('canvas');
-  const cx = car.getContext('2d'), lx = light.getContext('2d', { alpha: false });
-  if (!cx || !lx) return;
+  // Une seule toile transparente : la voiture, puis la lumière des feux ajoutée par-dessus (« lighter »). La voiture se
+  // pose directement sur la page (pas de vitrine), en mode sombre comme en clair.
+  const car = document.createElement('canvas');
+  const cx = car.getContext('2d');
+  if (!cx) return;
   let M, step, scale = 1, frames = {}, level = {}, mark = () => {};
   let ang = 0, vel = 0, goal = 0, dragging = false, dirty = true, visible = true, raf = 0, last = 0, W = 0, H = 0;
   // Pendant la rotation : image dessinée un peu moins fine (l'œil ne voit pas les détails d'un objet qui tourne), donc
   // moins de travail et plus de fluidité ; pleine netteté dès que la voiture s'arrête.
-  let fit = () => {}, lowRes = false, sharpen = 0, litShown = true;
+  let fit = () => {}, lowRes = false, sharpen = 0;
 
   const bitmap = async src => {
     const r = await fetch(src, { cache: 'force-cache' });
@@ -49,12 +49,29 @@
     if (window.createImageBitmap) return createImageBitmap(b);   // décodé en arrière-plan : pas d'à-coup en tournant
     const i = new Image(); i.src = URL.createObjectURL(b); await i.decode(); return i;
   };
+  // Calques des feux : fond noir → transparent (opacité = luminosité), sinon le noir des rectangles se verrait sur la
+  // page. Fait une fois par angle, au chargement, quand le navigateur a un moment libre.
+  const scratch = document.createElement('canvas'), sx = scratch.getContext('2d', { willReadFrequently: true });
+  async function glow(img) {
+    await new Promise(r => (window.requestIdleCallback || setTimeout)(r));
+    scratch.width = img.width; scratch.height = img.height;
+    sx.clearRect(0, 0, img.width, img.height); sx.drawImage(img, 0, 0);
+    const d = sx.getImageData(0, 0, img.width, img.height), p = d.data;
+    for (let i = 0; i < p.length; i += 4) {
+      const m = Math.max(p[i], p[i + 1], p[i + 2]);
+      if (m) { const k = 255 / m; p[i] *= k; p[i + 1] *= k; p[i + 2] *= k; }
+      p[i + 3] = m;
+    }
+    if (img.close) img.close();
+    if (window.createImageBitmap) return createImageBitmap(d);
+    const c = document.createElement('canvas'); c.width = d.width; c.height = d.height; c.getContext('2d').putImageData(d, 0, 0); return c;
+  }
   async function fetchAngle(a) {
     if (frames[a]) return frames[a];
     const p = 'assets/car360/' + size + '/a' + String(a).padStart(3, '0'), v = '?v=' + M.v;
     const lit = M.tailles[size].feux[a] || {};
     const [off, feux] = await Promise.all([bitmap(p + '.webp' + v), Object.keys(lit).length ? bitmap(p + '-feux.webp' + v) : null]);
-    return (frames[a] = { off, feux, lit });
+    return (frames[a] = { off, feux: feux && await glow(feux), lit });
   }
   const norm = a => ((a % 360) + 360) % 360;
   // Angle déjà chargé le plus proche
@@ -76,24 +93,22 @@
     if (!A) return;
     const c = camera(a), sk = c.k * scale;
     cx.setTransform(1, 0, 0, 1, 0, 0); cx.clearRect(0, 0, W, H);
-    lx.setTransform(1, 0, 0, 1, 0, 0); lx.globalCompositeOperation = 'source-over'; lx.globalAlpha = 1; lx.fillStyle = '#000'; lx.fillRect(0, 0, W, H);
-    for (const x of [cx, lx]) { x.setTransform(sk, 0, 0, sk, c.x, c.y); x.imageSmoothingQuality = 'high'; }
+    cx.setTransform(sk, 0, 0, sk, c.x, c.y); cx.imageSmoothingQuality = 'high'; cx.globalCompositeOperation = 'source-over';
     cx.globalAlpha = 1; cx.drawImage(A.off, 0, 0);
     if (B !== A && f > .01) { cx.globalAlpha = f; cx.drawImage(B.off, 0, 0); }   // fondu entre deux angles voisins
-    lx.globalCompositeOperation = 'lighter';
+    cx.globalCompositeOperation = 'lighter';
     const lights = (F, alpha) => {
       if (!F.feux) return;
       for (const g in F.lit) {
         const k = (level[g] || 0) * alpha;
         if (k < .01) continue;
-        lx.globalAlpha = Math.min(1, k);
-        for (const [sx, sy, sw, sh, dx, dy] of F.lit[g]) lx.drawImage(F.feux, sx, sy, sw, sh, dx, dy, sw, sh);
+        cx.globalAlpha = Math.min(1, k);
+        for (const [sx, sy, sw, sh, dx, dy] of F.lit[g]) cx.drawImage(F.feux, sx, sy, sw, sh, dx, dy, sw, sh);
       }
     };
     lights(A, B === A ? 1 : 1 - f);
     if (B !== A) lights(B, f);
-    const lit = Object.values(level).some(v => v > .01);   // aucun feu : la toile des feux n'est pas mêlée à l'écran
-    if (lit !== litShown) { litShown = lit; light.style.visibility = lit ? '' : 'hidden'; }
+    cx.globalCompositeOperation = 'source-over'; cx.globalAlpha = 1;
   }
   function tick(t) {
     raf = 0;
@@ -128,7 +143,7 @@
     await fetchAngle(0);
     const box = document.createElement('div'); box.className = 'car360';
     box.setAttribute('role', 'img'); box.setAttribute('aria-label', 'Voiture en 3D, à faire tourner');
-    light.className = 'lit'; box.append(car, light);
+    box.append(car);
     const seg = document.createElement('div'); seg.className = 'seg360'; seg.setAttribute('role', 'group'); seg.setAttribute('aria-label', 'Vue');
     seg.innerHTML = '<button type="button" class="on" data-a="0">Avant</button><button type="button" data-a="180">Arrière</button>';
     stage.querySelectorAll('.car').forEach(c => { c.hidden = true; });
@@ -137,7 +152,7 @@
     // Taille réelle à l'écran (netteté sur les écrans Retina)
     fit = () => { const r = box.getBoundingClientRect(), d = Math.min(devicePixelRatio || 1, lowRes ? 1.25 : 2);
       const w = Math.round(r.width * d), h = Math.round(r.height * d);
-      if (w && (w !== W || h !== H)) { W = car.width = light.width = w; H = car.height = light.height = h; dirty = true; draw(); } };
+      if (w && (w !== W || h !== H)) { W = car.width = w; H = car.height = h; dirty = true; draw(); } };
     fit(); new ResizeObserver(fit).observe(box);
     const segs = [...seg.querySelectorAll('button')];
     let shown = null;

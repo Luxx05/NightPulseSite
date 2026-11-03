@@ -210,8 +210,7 @@ html[data-mode=light] .hero svg [fill="#ffffff"]{fill:#1d1d1f} html[data-mode=li
 .stage.is360{display:block;padding:0!important;overflow:hidden}
 .car360{position:relative;width:100%;aspect-ratio:2.1/1;cursor:grab;touch-action:pan-y;-webkit-user-select:none;user-select:none}
 .car360.grab{cursor:grabbing}
-.car360 canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
-.car360 .lit{mix-blend-mode:screen;pointer-events:none}
+.car360 canvas{position:absolute;inset:0;width:100%;height:100%;display:block;-webkit-mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent)}
 .seg360{position:absolute;left:50%;bottom:12px;transform:translateX(-50%);display:flex;gap:2px;padding:3px;border-radius:999px;z-index:3;
   background:rgba(255,255,255,.07);-webkit-backdrop-filter:blur(14px) saturate(160%);backdrop-filter:blur(14px) saturate(160%);box-shadow:inset 0 0 0 .5px rgba(255,255,255,.12)}
 .seg360 button{font:500 12px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text",Inter,system-ui,sans-serif;letter-spacing:.01em;color:rgba(255,255,255,.55);
@@ -221,3 +220,11 @@ html[data-mode=light] .hero svg [fill="#ffffff"]{fill:#1d1d1f} html[data-mode=li
 @media(max-width:700px){.car360{aspect-ratio:4/3}.seg360{bottom:10px}}
 .credits{margin:40px 0 10px;font-size:13px;line-height:1.5;color:var(--mut,#8e8e93)}
 .credits a{color:inherit;text-decoration:underline;text-underline-offset:2px}
+/* Sans vitrine : la voiture (fond transparent, ombre douce) se pose directement sur la page, en sombre comme en clair */
+html .stage.is360.is360.is360{background:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;box-shadow:none!important;border:0!important}
+@media (prefers-color-scheme:light){html:not([data-mode=dark]) .seg360{background:rgba(0,0,0,.05);box-shadow:inset 0 0 0 .5px rgba(0,0,0,.08)}
+  html:not([data-mode=dark]) .seg360 button{color:rgba(0,0,0,.5)}
+  html:not([data-mode=dark]) .seg360 button.on{background:#fff;color:#1d1d1f;box-shadow:0 1px 3px rgba(0,0,0,.12)}}
+html[data-mode=light] .seg360{background:rgba(0,0,0,.05);box-shadow:inset 0 0 0 .5px rgba(0,0,0,.08)}
+html[data-mode=light] .seg360 button{color:rgba(0,0,0,.5)}
+html[data-mode=light] .seg360 button.on{background:#fff;color:#1d1d1f;box-shadow:0 1px 3px rgba(0,0,0,.12)}

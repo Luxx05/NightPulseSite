@@ -237,6 +237,9 @@ html.c360 .stage:not(.is360) .car{visibility:hidden}
 /* Vraie 3D (car3d.js) dans le même cadre : la toile 3D arrive en fondu, l'image 360° s'efface */
 .car360 #recit-car3d{opacity:0;transition:opacity .6s ease}
 .car360.en3d canvas:first-child{opacity:0;transition:opacity .6s ease}
+.car360.wait3d canvas:first-child{opacity:0}
+/* Thèmes de saison : plus de décor ni d'animations sur la voiture, seules les couleurs du site changent */
+.stage.is360 .fx{display:none}
 /* Accueil qui raconte une histoire au défilement (story.js) */
 #recit{position:relative;height:560vh}
 #recit.sans-voiture{height:auto}
@@ -274,6 +277,3 @@ html.c360 .stage:not(.is360) .car{visibility:hidden}
 /* Vraie 3D (car3d.js) : prend le relais de la vue avant en image, en fondu */
 #recit-car3d{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .6s ease}
 #recit.en3d #recit-car{opacity:0!important;transition:opacity .6s ease}
-.car360.wait3d canvas:first-child{opacity:0}
-/* Thèmes de saison : plus de décor ni d'animations sur la voiture, seules les couleurs du site changent */
-.stage.is360 .fx{display:none}

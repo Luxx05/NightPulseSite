@@ -33,9 +33,11 @@
     sx.clearRect(0, 0, img.width, img.height); sx.drawImage(img, 0, 0);
     const d = sx.getImageData(0, 0, img.width, img.height), p = d.data;
     for (let i = 0; i < p.length; i += 4) {
-      const m = Math.max(p[i], p[i + 1], p[i + 2]);
+      // Lumière très faible (reflets diffus sur la carrosserie) retirée : sinon, en additionnant croisement et route,
+      // elle forme un voile gris sur toute la voiture. Seule la vraie lumière des feux reste.
+      const m = Math.max(p[i], p[i + 1], p[i + 2]), a = m <= 22 ? 0 : (m - 22) * 255 / 233;
       if (m) { const k = 255 / m; p[i] *= k; p[i + 1] *= k; p[i + 2] *= k; }
-      p[i + 3] = m;
+      p[i + 3] = a;
     }
     if (img.close) img.close();
     return createImageBitmap(d);
@@ -91,7 +93,7 @@
       }
     }
     // Lueur des phares projetée au sol devant la voiture (croisement, route), seulement quand on la voit de face.
-    const face = Math.max(0, Math.cos(a * Math.PI / 180)), beam = (.22 * (lv.low || 0) + .3 * (lv.high || 0)) * face * alpha;
+    const face = Math.max(0, Math.cos(a * Math.PI / 180)), beam = Math.min(.3, .14 * (lv.low || 0) + .16 * (lv.high || 0)) * face * alpha;
     if (beam > .01) {
       g.setTransform(1, 0, 0, 1, 0, 0); g.globalAlpha = 1;
       g.save(); g.translate(W / 2, H * .965); g.scale(1, .16);

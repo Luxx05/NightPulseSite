@@ -141,7 +141,7 @@
     const spin = dragging || (!anim && goal === null && ang !== before);   // flou léger seulement au doigt et sur l'élan
     if (spin) { clearTimeout(sharpen); sharpen = 0; if (!lowRes) { lowRes = true; fit(); } }
     else if (lowRes && !sharpen) sharpen = setTimeout(() => { sharpen = 0; lowRes = false; fit(); }, 140);
-    if (moving || dirty) { draw(); mark(); dirty = false; }
+    if (moving || dirty || ang !== before) { draw(); mark(); dirty = false; }   // dernière image à l'arrivée aussi (sinon mélange de deux angles figé)
     if (moving && visible) raf = requestAnimationFrame(tick); else last = 0;
   }
   const wake = () => { dirty = true; if (!raf && visible) raf = requestAnimationFrame(tick); };
@@ -193,7 +193,7 @@
     }, 0)));
     new MutationObserver(wake).observe(stage, { subtree: true, attributes: true, attributeFilter: ['class'] });
     new IntersectionObserver(es => { visible = es[0].isIntersecting; if (visible) wake(); }).observe(box);
-    window.__car360 = { turn, set: a => { ang = goal = a; vel = 0; wake(); }, loaded: () => Object.keys(frames).length, total: 360 / step };
+    window.__car360 = { turn, get: () => ang, set: a => { ang = goal = a; vel = 0; wake(); }, loaded: () => Object.keys(frames).length, total: 360 / step };
     wake();
     // Le reste en arrière-plan : angles voisins de la vue avant d'abord (des deux côtés), 4 à la fois
     const order = M.angles.filter(a => a % step === 0).sort((a, b) => Math.min(a, 360 - a) - Math.min(b, 360 - b));

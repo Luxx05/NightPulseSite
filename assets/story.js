@@ -52,8 +52,11 @@
   const near = a => { for (let d = 0; d <= 180; d += step) for (const s of [1, -1]) { const k = norm(a + s * d); if (F[k]) return F[k]; } return null; };
 
   // --- Dessin ---------------------------------------------------------------------------------------------------
+  // Pendant le mouvement : image un peu moins fine (l'œil ne voit pas les détails d'un objet qui tourne), donc moins de
+  // travail et plus de fluidité ; pleine netteté dès que la voiture s'arrête.
+  let lowRes = false, sharpen = 0;
   function fit() {
-    const r = cvs.getBoundingClientRect(), d = Math.min(devicePixelRatio || 1, 2);
+    const r = cvs.getBoundingClientRect(), d = Math.min(devicePixelRatio || 1, lowRes ? 1.25 : 2);
     const w = Math.round(r.width * d), h = Math.round(r.height * d);
     if (w && (w !== W || h !== H)) { W = cvs.width = w; H = cvs.height = h; }
   }
@@ -79,11 +82,22 @@
     for (const [Fr, w] of (B === A ? [[A, 1]] : [[A, 1 - f], [B, f]])) {
       if (!Fr.feux || w < .01) continue;
       for (const gr in Fr.lit) {
-        const v = (lv[gr] || 0) * w * alpha;
-        if (v < .01) continue;
-        g.globalAlpha = Math.min(1, v);
-        for (const [sx2, sy, sw, sh, dx, dy] of Fr.lit[gr]) g.drawImage(Fr.feux, sx2, sy, sw, sh, dx, dy, sw, sh);
+        let v = (lv[gr] || 0) * w * alpha;
+        while (v >= .01) {   // au-delà de 1 (croisement renforcé), la couche est ajoutée une seconde fois
+          g.globalAlpha = Math.min(1, v);
+          for (const [sx2, sy, sw, sh, dx, dy] of Fr.lit[gr]) g.drawImage(Fr.feux, sx2, sy, sw, sh, dx, dy, sw, sh);
+          v -= 1;
+        }
       }
+    }
+    // Lueur des phares projetée au sol devant la voiture (croisement, route), seulement quand on la voit de face.
+    const face = Math.max(0, Math.cos(a * Math.PI / 180)), beam = (.22 * (lv.low || 0) + .3 * (lv.high || 0)) * face * alpha;
+    if (beam > .01) {
+      g.setTransform(1, 0, 0, 1, 0, 0); g.globalAlpha = 1;
+      g.save(); g.translate(W / 2, H * .965); g.scale(1, .16);
+      const gr = g.createRadialGradient(0, 0, 0, 0, 0, W * .48);
+      gr.addColorStop(0, `rgba(255,244,225,${beam})`); gr.addColorStop(.5, `rgba(255,236,210,${beam * .45})`); gr.addColorStop(1, 'rgba(255,236,210,0)');
+      g.fillStyle = gr; g.fillRect(-W * .5, -W * .5, W, W); g.restore();
     }
     g.globalCompositeOperation = 'source-over'; g.globalAlpha = 1;
   }
@@ -92,6 +106,11 @@
   const on = l => { const b = recit.querySelector('.pbtn[data-l="' + l + '"]'); return b && b.classList.contains('on') ? 1 : 0; };
   const progress = () => { const r = recit.getBoundingClientRect(); return Math.min(1, Math.max(0, -r.top / (recit.offsetHeight - innerHeight))); };
   const target = p => -90 * ramp(p, .34, .46) - 90 * ramp(p, .64, .76);   // face → profil → arrière
+  // Les feux de jour s'allument à l'arrivée et les feux arrière en arrivant derrière : c'est leur pastille qui
+  // s'allume (comme un appui), donc un vrai appui les éteint.
+  const auto = {};
+  const press = l => { if (auto[l]) return; auto[l] = true; const b = recit.querySelector('.pbtn[data-l="' + l + '"]'); if (b && !b.classList.contains('on')) b.click(); };
+  const level = {};
   function frame(t) {
     raf = 0;
     const dt = Math.min(.05, last ? (t - last) / 1000 : .016); last = t;
@@ -100,15 +119,26 @@
     cur += (goal - cur) * (calm ? 1 : Math.min(1, dt * 9));
     const moving = Math.abs(goal - cur) > .05;
     if (!moving) cur = goal;
+    // Netteté réduite tant que la voiture tourne, pleine netteté 150 ms après l'arrêt (redessinée aussitôt : pas de
+    // toile vide entre les deux).
+    if (moving) { clearTimeout(sharpen); sharpen = 0; if (!lowRes) { lowRes = true; fit(); } }
+    else if (lowRes && !sharpen) sharpen = setTimeout(() => { sharpen = 0; lowRes = false; fit(); if (raf) cancelAnimationFrame(raf); frame(performance.now()); }, 150);
     const time = (t - t0) / 1000;
     const intro = calm ? 1 : ease(time / 1.1);                             // la voiture apparaît en douceur au chargement
     const blink = Math.floor(time * 3) % 2 === 0;
     const ind = l => (on(l) || on('hazard')) && blink ? 1 : 0;
-    const drl = Math.max(calm ? 1 : ramp(time, .7, 1.1), on('drl'));       // feux de jour à l'arrivée, comme dans l'app
-    const tail = Math.max(ramp(p, .74, .8), on('tail')), brake = on('brake');
-    draw(cur, { drl_G: drl * (ind('indL') ? .3 : 1), drl_D: drl * (ind('indR') ? .3 : 1), low: on('low'), high: on('high'),
+    if (time > .7 || calm) press('drl');                                    // feux de jour à l'arrivée, comme dans l'app
+    if (p > .74) press('tail');
+    const drl = on('drl'), tail = on('tail'), brake = on('brake');
+    const want = { drl_G: drl * (ind('indL') ? .3 : 1), drl_D: drl * (ind('indR') ? .3 : 1), low: 1.6 * on('low'), high: on('high'),
       indL: ind('indL'), indR: ind('indR'), tail_G: Math.max(tail, brake), tail_D: Math.max(tail, brake), brake,
-      reverse: on('reverse'), plaque: Math.max(tail, brake), inside: on('inside') }, intro);
+      reverse: on('reverse'), plaque: Math.max(tail, brake), inside: on('inside') };
+    let fading = false;
+    for (const k in want) {   // fondu court des feux (~150 ms) ; clignotants nets
+      const c = level[k] || 0, d = want[k] - c, fast = k === 'indL' || k === 'indR';
+      if (Math.abs(d) > .01 && !fast) { level[k] = c + d * Math.min(1, dt * 18); fading = true; } else level[k] = want[k];
+    }
+    draw(cur, level, intro);
     const red = tail > .5 || brake;
     const halo = $('recit-halo');
     halo.style.opacity = ((.3 + .7 * Math.max(drl, tail)) * intro).toFixed(3);
@@ -128,7 +158,7 @@
       });
     }
     $('recit-hint').style.opacity = (1 - ramp(p, 0, .04)).toFixed(3);
-    const busy = moving || time < 1.2 || on('indL') || on('indR') || on('hazard');
+    const busy = moving || fading || time < 1.2 || on('indL') || on('indR') || on('hazard');
     if (busy && visible) raf = requestAnimationFrame(frame); else last = 0;
   }
   const wake = () => { if (!raf && visible) raf = requestAnimationFrame(frame); };

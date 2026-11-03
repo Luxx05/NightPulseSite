@@ -1,6 +1,7 @@
 (function () {
-  // Mode clair / sombre choisi avec le bouton de l'en-tête (sinon : celui de l'appareil).
-  try { var mode = localStorage.getItem('mode'); if (mode === 'light' || mode === 'dark') document.documentElement.setAttribute('data-mode', mode); } catch (e) {}
+  // Toujours en mode sombre, quel que soit le réglage de l'appareil (sa demande, 03/11/2026). Le mode clair reste
+  // dans le style (LIGHT_RULES) mais ne s'affiche plus : remettre data-mode selon l'appareil pour le retrouver.
+  document.documentElement.setAttribute('data-mode', 'dark');
 })();
 (function () {
   // [mois, premier jour, dernier jour] ; le Nouvel An est à cheval sur deux années

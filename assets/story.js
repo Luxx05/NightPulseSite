@@ -177,7 +177,8 @@
       if (r.bottom < -200 || r.top > innerHeight + 200) return;
       const q = Math.max(-1.2, Math.min(1.2, ((r.top + r.height / 2) - innerHeight * .5) / (innerHeight * .55)));
       const k = Math.abs(q), side = i % 2 ? 1 : -1;
-      c.style.transform = `translateZ(${(-k * k * 220).toFixed(1)}px) rotateX(${(q * 38).toFixed(2)}deg) rotateY(${(side * q * 10).toFixed(2)}deg) scale(${(1 - k * .06).toFixed(3)})`;
+      // Perspective propre à chaque carte : elles s'inclinent chacune de leur côté sans jamais se traverser (Safari).
+      c.style.transform = `perspective(900px) translateZ(${(-k * k * 150).toFixed(1)}px) rotateX(${(q * 26).toFixed(2)}deg) rotateY(${(side * q * 6).toFixed(2)}deg) scale(${(1 - k * .05).toFixed(3)})`;
       c.style.opacity = Math.max(0, Math.min(1, 1.25 - k * k)).toFixed(3);
       c.style.setProperty('--sheen', (q * 60).toFixed(1) + '%');
     });

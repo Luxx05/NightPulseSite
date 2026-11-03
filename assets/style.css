@@ -261,8 +261,7 @@ html.c360 .stage:not(.is360) .car{visibility:hidden}
 .apres-recit{text-align:center;padding:10px 20px 30px}
 .apres-recit .lead{margin-left:auto;margin-right:auto}
 /* Cartes des fonctions en 3D liées au défilement */
-.features.f3d{perspective:900px;perspective-origin:50% 40%}
-.features.f3d .feat{position:relative;overflow:hidden;transform-style:preserve-3d;will-change:transform,opacity;
+.features.f3d .feat{position:relative;overflow:hidden;will-change:transform,opacity;backface-visibility:hidden;
   box-shadow:0 30px 60px -30px rgba(0,0,0,.9)}
 .features.f3d .feat::after{content:"";position:absolute;inset:-40%;pointer-events:none;
   background:linear-gradient(115deg,transparent 40%,rgba(255,255,255,.10) 50%,transparent 60%);transform:translateX(var(--sheen,0%))}

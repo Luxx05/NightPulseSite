@@ -268,3 +268,6 @@ html.c360 .stage:not(.is360) .car{visibility:hidden}
 @media (prefers-reduced-motion:reduce){#recit{height:auto}#recit .scene{position:static;height:auto}#recit .t{position:static;opacity:1!important;visibility:visible!important;transform:none!important;margin-bottom:24px}
   #recit .textes{height:auto}#recit .voiture{height:46vh;flex:none}#recit .rails{height:auto}#recit .rail{position:static;flex-wrap:wrap;margin:10px 0}
   #recit .rail .pbtn{opacity:1!important;visibility:visible!important;transform:none!important}}
+/* Vraie 3D (car3d.js) : prend le relais de la vue avant en image, en fondu */
+#recit-car3d{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .6s ease}
+#recit.en3d #recit-car{opacity:0!important;transition:opacity .6s ease}

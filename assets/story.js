@@ -56,7 +56,7 @@
   // --- Dessin ---------------------------------------------------------------------------------------------------
   // Pendant le mouvement : image un peu moins fine (l'œil ne voit pas les détails d'un objet qui tourne), donc moins de
   // travail et plus de fluidité ; pleine netteté dès que la voiture s'arrête.
-  let lowRes = false, sharpen = 0;
+  let lowRes = false, sharpen = 0, mode3d = false;
   function fit() {
     const r = cvs.getBoundingClientRect(), d = Math.min(devicePixelRatio || 1, lowRes ? 1.25 : 2);
     const w = Math.round(r.width * d), h = Math.round(r.height * d);
@@ -123,7 +123,7 @@
     if (!moving) cur = goal;
     // Netteté réduite tant que la voiture tourne, pleine netteté 150 ms après l'arrêt (redessinée aussitôt : pas de
     // toile vide entre les deux).
-    if (moving) { clearTimeout(sharpen); sharpen = 0; if (!lowRes) { lowRes = true; fit(); } }
+    if (moving && !mode3d) { clearTimeout(sharpen); sharpen = 0; if (!lowRes) { lowRes = true; fit(); } }
     else if (lowRes && !sharpen) sharpen = setTimeout(() => { sharpen = 0; lowRes = false; fit(); if (raf) cancelAnimationFrame(raf); frame(performance.now()); }, 150);
     const time = (t - t0) / 1000;
     const intro = calm ? 1 : ease(time / 1.1);                             // la voiture apparaît en douceur au chargement
@@ -140,7 +140,7 @@
       const c = level[k] || 0, d = want[k] - c, fast = k === 'indL' || k === 'indR';
       if (Math.abs(d) > .01 && !fast) { level[k] = c + d * Math.min(1, dt * 18); fading = true; } else level[k] = want[k];
     }
-    draw(cur, level, intro);
+    if (mode3d) window.__car3d.draw(cur, level, intro); else draw(cur, level, intro);   // vraie 3D si possible
     const red = tail > .5 || brake;
     const halo = $('recit-halo');
     halo.style.opacity = ((.3 + .7 * Math.max(drl, tail)) * intro).toFixed(3);
@@ -205,11 +205,26 @@
     new IntersectionObserver(es => { visible = es[0].isIntersecting; if (visible) wake(); }).observe(recit);
     t0 = performance.now(); wake();
     // Les angles de l'histoire (face → arrière par la gauche), du plus proche au plus lointain, 4 à la fois.
-    const order = [];
-    for (let a = 0; a <= 180; a += step) order.push(norm(-a));
-    let i = 1;
-    const next = () => { if (i >= order.length) return; const a = order[i++]; load(a).then(wake, () => {}).finally(next); };
-    for (let n = 0; n < 4; n++) next();
+    let started2d = false;
+    const load2d = () => {
+      if (started2d || mode3d) return; started2d = true;
+      const order = [];
+      for (let a = 0; a <= 180; a += step) order.push(norm(-a));
+      let i = 1;
+      const next = () => { if (i >= order.length) return; const a = order[i++]; load(a).then(wake, () => {}).finally(next); };
+      for (let n = 0; n < 4; n++) next();
+    };
+    // Vraie 3D (car3d.js) : la vue avant en image s'affiche tout de suite, puis la voiture 3D prend le relais en fondu.
+    // Sans 3D (vieil appareil, échec) ou si elle tarde trop : les images 360°.
+    const go3d = () => { mode3d = true; window.__car3d.fit(); recit.classList.add('en3d'); wake(); };
+    const st = window.__car3dState;
+    if (st === 'ready') go3d();
+    else if (st === 'loading') {
+      addEventListener('car3d', go3d, { once: true });
+      addEventListener('car3d-fail', load2d, { once: true });
+      setTimeout(() => { if (!mode3d) load2d(); }, 8000);
+    } else load2d();
+    addEventListener('resize', () => { if (mode3d) window.__car3d.fit(); });
   }
   start().catch(fail);
 })();

@@ -234,3 +234,38 @@ html.c360 .stage:not(.is360) .car{visibility:hidden}
 .car360{animation:car360in .5s cubic-bezier(.2,.8,.2,1) both}
 @keyframes car360in{from{opacity:0;transform:scale(.985)}to{opacity:1;transform:none}}
 @media(prefers-reduced-motion:reduce){.car360{animation-duration:.01s}}
+/* Accueil qui raconte une histoire au défilement (story.js) */
+#recit{position:relative;height:560vh}
+#recit.sans-voiture{height:auto}
+#recit .scene{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;display:flex;flex-direction:column;align-items:center}
+#recit.sans-voiture .scene{position:static;height:auto;padding-bottom:40px}
+#recit .textes{position:relative;width:100%;max-width:760px;height:190px;margin-top:max(84px,10vh);flex:none}
+#recit .t{position:absolute;left:20px;right:20px;top:0;text-align:center;will-change:opacity,transform}
+#recit .t h1{font-size:clamp(38px,7vw,72px);line-height:1.04;letter-spacing:-.03em;font-weight:800;margin:0}
+#recit .t h2{font-size:clamp(28px,4.4vw,48px);line-height:1.08;letter-spacing:-.02em;font-weight:750;margin:0}
+#recit .t p{color:var(--t2,#a1a1a6);font-size:clamp(16px,1.6vw,20px);line-height:1.4;margin:10px 0 0}
+#recit .t2,#recit .t3,#recit .t4{opacity:0;visibility:hidden}
+#recit .grad{background:linear-gradient(90deg,#fff,rgb(var(--acc,10,132,255)));-webkit-background-clip:text;background-clip:text;color:transparent}
+#recit .voiture{position:relative;width:min(1100px,100%);flex:1 1 auto;min-height:0}
+#recit-car{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .4s}
+#recit.pret #recit-car{opacity:1}
+#recit.sans-voiture .voiture{display:none}
+#recit-halo{position:absolute;left:50%;top:55%;width:min(900px,180vw);height:min(620px,120vw);transform:translate(-50%,-50%);border-radius:50%;opacity:0;pointer-events:none;
+  background:radial-gradient(closest-side,rgba(var(--acc,10,132,255),.30),transparent);transition:background .6s}
+#recit-halo.rouge{background:radial-gradient(closest-side,rgba(255,40,40,.30),transparent)}
+#recit .rails{position:relative;width:100%;height:130px;flex:none;margin-bottom:max(40px,6vh)}
+#recit .rail{position:absolute;inset:0;display:flex;justify-content:center;align-items:flex-start;gap:10px;pointer-events:none}
+#recit .rail .pbtn{opacity:0;visibility:hidden;will-change:transform,opacity}
+#recit.sans-voiture .rail .pbtn{opacity:1!important;visibility:visible!important;transform:none!important}
+#recit-hint{position:absolute;bottom:18px;left:0;right:0;text-align:center;color:#6e6e73;font-size:13px}
+.apres-recit{text-align:center;padding:10px 20px 30px}
+.apres-recit .lead{margin-left:auto;margin-right:auto}
+/* Cartes des fonctions en 3D liées au défilement */
+.features.f3d{perspective:900px;perspective-origin:50% 40%}
+.features.f3d .feat{position:relative;overflow:hidden;transform-style:preserve-3d;will-change:transform,opacity;
+  box-shadow:0 30px 60px -30px rgba(0,0,0,.9)}
+.features.f3d .feat::after{content:"";position:absolute;inset:-40%;pointer-events:none;
+  background:linear-gradient(115deg,transparent 40%,rgba(255,255,255,.10) 50%,transparent 60%);transform:translateX(var(--sheen,0%))}
+@media (prefers-reduced-motion:reduce){#recit{height:auto}#recit .scene{position:static;height:auto}#recit .t{position:static;opacity:1!important;visibility:visible!important;transform:none!important;margin-bottom:24px}
+  #recit .textes{height:auto}#recit .voiture{height:46vh;flex:none}#recit .rails{height:auto}#recit .rail{position:static;flex-wrap:wrap;margin:10px 0}
+  #recit .rail .pbtn{opacity:1!important;visibility:visible!important;transform:none!important}}

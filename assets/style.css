@@ -64,6 +64,16 @@ header{transition:transform .45s cubic-bezier(.32,.72,0,1),box-shadow .25s}
 }
 body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",Inter,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
 .shots img{height:auto;border-radius:13.6%/6.25%;outline:1px solid rgba(255,255,255,.12);outline-offset:-1px}
+.shots{align-items:flex-start;gap:26px} .shot{margin:0;width:230px;flex:none;text-align:center} .shots .shot img{width:100%;display:block}
+.shot figcaption{margin-top:18px;font-size:14px;line-height:1.45;color:var(--t2);padding:0 4px} .shot figcaption b{display:block;color:#fff;font-size:16.5px;font-weight:700;margin-bottom:4px}
+.shot.w{width:214px} .wf{position:relative;padding:11px;margin-right:7px;border-radius:31%/26%;background:linear-gradient(150deg,#6a6a70,#232327 42%,#2e2e33 70%,#55555b);box-shadow:0 28px 46px rgba(0,0,0,.65),inset 0 1px 1.5px rgba(255,255,255,.3),inset 0 0 0 1px rgba(0,0,0,.6)}
+.shots.watch .wf img{width:100%;border-radius:24%/20%;box-shadow:none;outline:none;filter:none}
+.wf:before{content:"";position:absolute;right:-7px;top:22%;width:8px;height:17%;border-radius:3px 5px 5px 3px;background:linear-gradient(90deg,#3a3a3f,#7a7a80 60%,#3a3a3f)}
+.wf:after{content:"";position:absolute;right:-4px;top:47%;width:5px;height:20%;border-radius:2px 4px 4px 2px;background:linear-gradient(90deg,#2e2e33,#5a5a60)}
+@media (max-width:700px){
+ .shots{justify-content:flex-start;overflow-x:auto;scroll-snap-type:x mandatory;gap:16px;padding:4px 4px 14px;scrollbar-width:none} .shots::-webkit-scrollbar{display:none}
+ .shot{width:64vw;scroll-snap-align:center} .shot.w{width:56vw} .shots.watch .wf img{width:100%;box-shadow:none}
+}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation-duration:1.6s!important} header{transition:none}}
 html,button,a{touch-action:manipulation}
 .pbtn[hidden]{display:none!important} .shpads{flex-wrap:wrap;row-gap:14px} .stage{position:relative} .fx{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:2}

@@ -140,29 +140,31 @@ header.scrolled{box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 10px 18px -12px
 .modeseg button{flex:1;border:0;background:none;color:var(--t2);font:600 13px/1 inherit;font-family:inherit;padding:8px 0;border-radius:7px;cursor:pointer}
 .modeseg button.on{background:#636366;color:#fff;box-shadow:0 1px 3px rgba(0,0,0,.2)}
 .features.collapsed .feat:nth-child(n+4){display:none}
-.cf{--w:360px;position:relative;overflow:hidden;-webkit-mask:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);mask:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent)}
-.cf-track{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:34px calc(50% - var(--w) / 2) 54px;outline:none;overscroll-behavior-x:contain}
-.cf-track::-webkit-scrollbar{display:none}
-@media (hover:hover) and (pointer:fine){.cf-track{cursor:grab} .cf-track.drag{cursor:grabbing;scroll-snap-type:none;user-select:none;-webkit-user-select:none}}
-.cf-card{--d:0;--a:1;flex:none;width:var(--w);min-height:380px;scroll-snap-align:center;position:relative;border-radius:32px;padding:30px 28px;overflow:hidden;
+.cf{--w:360px;position:relative;overflow:hidden;-webkit-mask:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);mask:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
+.cf-track{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:40px calc(50% - var(--w) / 2) 64px;outline:none;overscroll-behavior-x:contain}
+.cf-track::-webkit-scrollbar{display:none} .cf-track.free{scroll-snap-type:none}
+@media (hover:hover) and (pointer:fine) and (min-width:701px){.cf-track{cursor:grab;padding-bottom:128px} .cf-track.drag{cursor:grabbing;user-select:none;-webkit-user-select:none}
+ .cf-face{-webkit-box-reflect:below 14px linear-gradient(transparent 74%,rgba(255,255,255,.2))} .cf-dots{margin-top:-96px!important}}
+.cf-card{flex:none;width:var(--w);scroll-snap-align:center;position:relative;display:flex}
+.cf-face{--d:0;flex:1;min-height:380px;position:relative;border-radius:32px;padding:30px 28px;overflow:hidden;
  background:radial-gradient(130% 75% at 50% 0%,color-mix(in srgb,var(--c) 38%,transparent),#121214 64%);
- box-shadow:inset 0 0 0 1px rgba(255,255,255,.09),0 34px 70px -26px color-mix(in srgb,var(--c) calc(var(--a) * 70%),transparent);
- transform:perspective(1100px) translateX(calc(var(--d) * -14%)) rotateY(calc(var(--d) * -34deg)) scale(calc(.84 + var(--a) * .16));
- opacity:calc(.38 + var(--a) * .62);will-change:transform}
-.cf-card:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.11) 45%,transparent 60%);transform:translateX(calc(var(--d) * 60%))}
+ box-shadow:inset 0 0 0 1px rgba(255,255,255,.09),0 34px 70px -26px color-mix(in srgb,var(--c) 60%,transparent);
+ transform-origin:50% 50%;will-change:transform,opacity;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.cf-face:after{content:"";position:absolute;inset:-20%;pointer-events:none;background:linear-gradient(110deg,transparent 38%,rgba(255,255,255,.13) 48%,transparent 58%);
+ transform:translate3d(calc(var(--d) * 45%),0,0)}
 .cf-card .past{width:78px!important;height:78px!important}.cf-card .past svg{width:38px;height:38px}
 .cf-card h3{font-size:30px;line-height:1.06;font-weight:800;letter-spacing:-.03em;margin:28px 0 12px} .cf-card h3 em{font-style:normal}
 .cf-card p{color:#c7c7cc;font-size:16px;line-height:1.5}
 .cf-nav{width:38px;height:38px;margin:0 10px;border-radius:50%;border:0;cursor:pointer;font:400 26px/1 inherit;font-family:inherit;color:#fff;padding-bottom:3px;
  background:rgba(60,60,67,.55);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:inset 0 0 0 1px rgba(255,255,255,.12);transition:transform .12s,opacity .2s}
 .cf-nav:active{transform:scale(.92)} .cf-nav[disabled]{opacity:.25;pointer-events:none}
-.cf-dots{display:flex;gap:7px;justify-content:center;align-items:center;margin-top:-18px}
-.cf-dots .dot{width:8px;height:8px;border-radius:4px;border:0;padding:0;background:#3a3a3c;cursor:pointer;transition:width .25s,background-color .25s}
+.cf-dots{position:relative;z-index:60;display:flex;gap:7px;justify-content:center;align-items:center;margin-top:-26px}
+.cf-dots .dot{width:8px;height:8px;border-radius:4px;border:0;padding:0;background:#3a3a3c;cursor:pointer;transition:width .3s cubic-bezier(.32,.72,0,1),background-color .3s}
 .cf-dots .dot.on{width:22px;background:#fff}
-@media (max-width:700px){.cf{--w:min(76vw,310px)} .cf-track{gap:12px;padding:26px calc(50% - var(--w) / 2) 40px} .cf-card{min-height:300px;padding:24px 22px}
+@media (max-width:700px){.cf{--w:min(76vw,310px)} .cf-track{gap:12px;padding:30px calc(50% - var(--w) / 2) 48px} .cf-face{min-height:300px;padding:24px 22px}
  .cf-card h3{font-size:26px;margin-top:22px} .cf-card p{font-size:15px} .cf-card .past{width:66px!important;height:66px!important} .cf-nav{display:none}
  .cf{-webkit-mask:none;mask:none}}
-@media (prefers-reduced-motion:reduce){.cf-card{transform:none!important} .cf-card:after{display:none}}
+@media (prefers-reduced-motion:reduce){.cf-face{transform:none!important;opacity:1!important} .cf-face:after{display:none}}
 .allbtn{display:flex;justify-content:center;margin:24px 0 0}
 .allbtn button{border:0;cursor:pointer;padding:12px 22px;border-radius:22px;background:rgba(120,120,128,.24);color:#0a84ff;font:600 15px inherit;font-family:inherit}
 @view-transition{navigation:auto}

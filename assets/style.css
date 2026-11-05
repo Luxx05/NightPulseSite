@@ -64,8 +64,10 @@ header{transition:transform .45s cubic-bezier(.32,.72,0,1),box-shadow .25s}
 }
 body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",Inter,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
 .shots img{height:auto;border-radius:13.6%/6.25%;outline:1px solid rgba(255,255,255,.12);outline-offset:-1px}
-.shots{align-items:flex-start;gap:26px} .shot{margin:0;width:230px;flex:none;text-align:center} .shots .shot img{width:100%;display:block}
-.shot figcaption{margin-top:18px;font-size:14px;line-height:1.45;color:var(--t2);padding:0 4px} .shot figcaption b{display:block;color:#fff;font-size:16.5px;font-weight:700;margin-bottom:4px}
+.shots{align-items:stretch;gap:26px} .shot{margin:0;width:230px;flex:none;text-align:center} .shots .shot img{width:100%;display:block}
+.shot{display:flex;flex-direction:column} .shot figcaption{order:-1;flex:1;margin-bottom:22px;font-size:14px;line-height:1.45;color:var(--t3);padding:0 2px}
+.shot figcaption b{display:block;color:#fff;font-size:25px;line-height:1.08;font-weight:800;letter-spacing:-.6px;margin-bottom:10px} .shot figcaption em{font-style:normal;white-space:nowrap}
+
 .shot.w{width:214px} .wf{position:relative;padding:11px;margin-right:7px;border-radius:31%/26%;background:linear-gradient(150deg,#6a6a70,#232327 42%,#2e2e33 70%,#55555b);box-shadow:0 28px 46px rgba(0,0,0,.65),inset 0 1px 1.5px rgba(255,255,255,.3),inset 0 0 0 1px rgba(0,0,0,.6)}
 .shots.watch .wf img{width:100%;border-radius:24%/20%;box-shadow:none;outline:none;filter:none}
 .wf:before{content:"";position:absolute;right:-7px;top:22%;width:8px;height:17%;border-radius:3px 5px 5px 3px;background:linear-gradient(90deg,#3a3a3f,#7a7a80 60%,#3a3a3f)}

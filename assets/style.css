@@ -314,3 +314,198 @@ html.c360 .stage:not(.is360) .car{visibility:hidden}
 /* Vraie 3D (car3d.js) : prend le relais de la vue avant en image, en fondu */
 #recit-car3d{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .6s ease}
 #recit.en3d #recit-car{opacity:0!important;transition:opacity .6s ease}
+
+/* ---------- fond et texte ---------- */
+html{background:#030304}
+body,html[data-theme] body{background:radial-gradient(ellipse 1100px 760px at -8% -6%,rgba(205,220,255,.11),rgba(205,220,255,.035) 45%,transparent 72%),
+ linear-gradient(180deg,#121419 0,#07080a 900px,#030304 1800px) no-repeat,#030304!important}
+html[data-theme]:not([data-theme=aucun]) body{background:radial-gradient(ellipse 1100px 760px at -8% -6%,rgba(var(--acc,10,132,255),.16),rgba(var(--acc,10,132,255),.04) 45%,transparent 72%),
+ linear-gradient(180deg,#121419 0,#07080a 900px,#030304 1800px) no-repeat,#030304!important}
+.caps{font-size:12px;font-weight:600;letter-spacing:2.4px;text-transform:uppercase;color:rgba(255,255,255,.5)}
+
+/* ---------- en-tête : logo + nom en petites capitales, liens fins, point d'accent sous la page ouverte ---------- */
+header{background:rgba(3,3,4,.62)!important;box-shadow:inset 0 -.5px 0 rgba(255,255,255,.08)!important}
+header.scrolled{box-shadow:inset 0 -.5px 0 rgba(255,255,255,.1),0 10px 18px -12px rgba(0,0,0,.6)!important}
+header .wrap{height:64px}
+header .brand{font-size:13px;font-weight:600;letter-spacing:3px;text-transform:uppercase;gap:11px}
+header .brand img{border-radius:8px;box-shadow:0 0 0 .5px rgba(255,255,255,.18)}
+header nav{gap:30px}
+header nav a,html[data-theme] header nav a.on{background:none!important;box-shadow:none!important;padding:6px 0;border-radius:0;font-weight:500;font-size:14px;color:rgba(255,255,255,.55)}
+header nav a:hover{color:#fff}
+header nav a.on,html[data-theme] header nav a.on{color:#fff;position:relative}
+header nav a.on:after{content:"";position:absolute;left:50%;bottom:-6px;width:4px;height:4px;border-radius:2px;background:rgb(var(--acc,10,132,255));transform:translateX(-50%);box-shadow:0 0 6px rgba(var(--acc,10,132,255),.8)}
+.cta{white-space:nowrap}
+@media (max-width:700px){
+ header .wrap{height:auto}
+ header nav{justify-content:space-between;gap:0;margin:2px 0 8px}
+ header nav a,html[data-theme] header nav a.on{padding:6px 0 8px;font-size:13.5px}
+ header nav a.on:after{bottom:0}
+}
+
+/* ---------- pastilles des feux (comme l'app) ---------- */
+.pp{background:radial-gradient(110% 110% at 30% 15%,rgba(255,255,255,.09),rgba(255,255,255,.03) 70%);color:rgba(255,255,255,.88);
+ box-shadow:inset 0 .5px 0 rgba(255,255,255,.2),inset 0 0 0 .5px rgba(255,255,255,.09)}
+.pbtn.on .pp{background:radial-gradient(110% 110% at 30% 15%,color-mix(in srgb,var(--c) 45%,transparent),rgba(10,10,12,.92) 75%);
+ box-shadow:inset 0 0 0 1.3px color-mix(in srgb,var(--c) 75%,transparent),0 8px 26px -6px var(--c)}
+.pl{color:rgba(255,255,255,.62);font-weight:500} .pbtn.on .pl{color:#fff}
+
+/* ---------- accueil ---------- */
+.nx{overflow-x:hidden} @supports (overflow:clip){.nx{overflow-x:clip}}
+.nx h1,.nx h2{text-align:left}
+#fonctions{scroll-margin-top:70px}
+.nx-hero{padding:64px 0 0}
+.nx-grid{display:grid;grid-template-columns:1fr 1.12fr;align-items:center;gap:24px}
+.nx h1{font-size:66px;font-weight:700;letter-spacing:-.032em;line-height:1.02;margin:18px 0 20px}
+.nx .lead{font-size:19px;line-height:1.45;color:rgba(255,255,255,.58);max-width:470px;margin:0 0 32px;text-align:left}
+.nx-act{display:flex;align-items:center;gap:26px;flex-wrap:wrap}
+.nx-lien{color:rgb(var(--acc,10,132,255));font-weight:500;font-size:16px}
+.nx-sous{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:22px;font-size:13px;color:rgba(255,255,255,.45)}
+.nx-sous span{display:flex;align-items:center;gap:7px}
+.nx-car{position:relative}
+.nx-car:after{content:"";position:absolute;left:14%;right:14%;bottom:2%;height:44px;border-radius:50%;pointer-events:none;
+ background:radial-gradient(closest-side,rgba(150,190,255,.16),transparent);filter:blur(8px)}
+html[data-theme]:not([data-theme=aucun]) .nx-car:after{background:radial-gradient(closest-side,rgba(var(--acc,10,132,255),.2),transparent)}
+.nx .stage{margin:0;max-width:none}
+.nx .car360{aspect-ratio:1.2/1}
+.nx-barre{display:flex;align-items:center;gap:34px;padding:22px 0;border-top:.5px solid rgba(255,255,255,.1)}
+.nx-barre:first-of-type{margin-top:26px}
+.nx-barre+.nx-barre{border-top:.5px solid rgba(255,255,255,.06)}
+.nx-lab{width:200px;flex:none} .nx-lab p,.nx .hint{font-size:13px;line-height:1.4;color:rgba(255,255,255,.42);margin:6px 0 0;text-align:left}
+.nx .pads{flex:1;justify-content:flex-start;gap:16px 18px;max-width:none;margin:0}
+.nx .pbtn{width:72px} .nx .pp{width:58px;height:58px} .nx .pl{font-size:12px}
+.nx .shpads{flex:1;display:flex;flex-wrap:wrap;align-items:center;gap:12px 18px;justify-content:flex-start}
+.nx .shpads .pbtn{width:72px} .nx .shpads .pp{width:58px;height:58px}
+.nx .showbtn,.nx .showrow .showbtn{width:auto;margin:0 0 22px 8px;flex-direction:row;gap:10px;padding:6px 18px 6px 6px;border-radius:30px;background:none;
+ box-shadow:inset 0 0 0 .5px rgba(255,255,255,.18)}
+.nx .showbtn .pp{width:38px;height:38px} .nx .showbtn .pl{font-size:14px;color:rgba(255,255,255,.85)}
+.nx .showbtn.on{box-shadow:inset 0 0 0 1.2px color-mix(in srgb,var(--c) 75%,transparent),0 6px 22px -6px var(--c)}
+.nx-bord{border-bottom:.5px solid rgba(255,255,255,.1)}
+
+.nx-sec{padding:110px 0 0}
+.nx-titre{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;margin-bottom:46px}
+.nx h2{font-size:46px;font-weight:700;letter-spacing:-.025em;line-height:1.06;margin:14px 0 0}
+.nx-titre p{max-width:360px;color:rgba(255,255,255,.5);font-size:16px;line-height:1.5;margin:0}
+
+/* fonctions : liste fine à gauche, écran de l'app à droite */
+.nx-fonc{display:grid;grid-template-columns:1fr 330px;gap:70px;align-items:center}
+.nx-liste{display:flex;flex-direction:column}
+.nx-r{all:unset;box-sizing:border-box;cursor:pointer;display:flex;align-items:center;gap:18px;padding:19px 0;position:relative;
+ border-top:.5px solid rgba(255,255,255,.1);-webkit-tap-highlight-color:transparent;transition:opacity .2s}
+.nx-r:last-child{border-bottom:.5px solid rgba(255,255,255,.1)}
+.nx-r svg{flex:none;color:rgba(255,255,255,.9)}
+.nx-r b{display:block;font-size:19px;font-weight:600;letter-spacing:-.01em;color:#fff}
+.nx-r small{display:block;font-size:14px;line-height:1.4;color:rgba(255,255,255,.45);margin-top:2px}
+.nx-r i{margin-left:auto;font-style:normal;font-size:20px;color:rgba(255,255,255,.3);transition:transform .2s}
+.nx-r:not(.on){opacity:.72} .nx-r:hover{opacity:1}
+.nx-r.on svg{color:rgb(var(--acc,10,132,255))} .nx-r.on i{color:rgb(var(--acc,10,132,255));transform:translateX(3px)}
+.nx-r.on:before{content:"";position:absolute;left:-22px;top:24px;bottom:24px;width:2px;border-radius:1px;background:rgb(var(--acc,10,132,255));box-shadow:0 0 12px rgb(var(--acc,10,132,255))}
+.nx-r:focus-visible{outline:2px solid rgb(var(--acc,10,132,255));outline-offset:4px;border-radius:6px}
+.nx-ecran{position:relative}
+.nx-ecran:before{content:"";position:absolute;inset:12% -14%;background:radial-gradient(closest-side,rgba(var(--acc,10,132,255),.2),transparent);filter:blur(20px)}
+.nx-phone{position:relative;width:300px;margin:0 auto;border-radius:50px;padding:9px;
+ background:linear-gradient(150deg,#45474d,#141518 38%,#0e0f11 62%,#2c2e33);
+ box-shadow:0 50px 70px -25px rgba(0,0,0,.95),inset 0 0 0 .5px rgba(255,255,255,.3),inset 0 0 0 2.5px #08080a}
+.nx-phone img{display:block;width:100%;height:auto;border-radius:41px;transition:opacity .18s ease}
+.nx-phone img.out{opacity:0}
+.nx-phone:after{content:"";position:absolute;left:50%;top:17px;transform:translateX(-50%);width:28.6%;height:23px;border-radius:12px;background:#000}
+
+/* Apple Watch */
+.nx-montres{display:flex;justify-content:center;gap:40px}
+.nx-montres figure{margin:0;width:250px;text-align:left}
+.nx-montres img{display:block;width:100%;height:auto;filter:drop-shadow(0 26px 36px rgba(0,0,0,.8))}
+.nx-montres figcaption{margin-top:20px;font-size:14px;line-height:1.45;color:rgba(255,255,255,.5)}
+.nx-montres figcaption .caps{display:block;font-size:11px;margin-bottom:6px;color:rgba(255,255,255,.45)}
+.nx-montres figcaption b{display:block;color:#fff;font-size:18px;font-weight:600;letter-spacing:-.01em;margin-bottom:4px}
+
+/* BimmerPulse Pro : carte de membre en métal brossé */
+.nx-pro{display:grid;grid-template-columns:1.05fr 1fr;gap:70px;align-items:center}
+.nx-carte{position:relative;height:280px;border-radius:24px;padding:26px 28px;transform:perspective(1100px) rotateX(9deg) rotateY(-12deg);
+ background:repeating-linear-gradient(90deg,rgba(255,255,255,.018) 0 1px,transparent 1px 3px),
+ linear-gradient(118deg,transparent 30%,rgba(255,255,255,.08) 45%,transparent 58%),linear-gradient(150deg,#2a2c31,#121316 38%,#0b0c0e 62%,#1d1f24);
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.28),inset 0 0 0 .5px rgba(255,255,255,.12),0 50px 80px -25px #000,0 0 80px -20px rgba(var(--acc,10,132,255),.4)}
+.nx-carte img{width:52px;height:52px;border-radius:12px;box-shadow:0 0 0 .5px rgba(255,255,255,.2)}
+.nx-carte .etat{position:absolute;top:30px;right:30px;font-size:11px;letter-spacing:2px;font-weight:600;color:rgb(var(--acc,10,132,255));display:flex;align-items:center;gap:7px}
+.nx-carte .etat:before{content:"";width:6px;height:6px;border-radius:3px;background:rgb(var(--acc,10,132,255));box-shadow:0 0 8px rgb(var(--acc,10,132,255))}
+.nx-carte .nom{position:absolute;left:28px;bottom:62px;font-size:17px;letter-spacing:5px;font-weight:600;color:rgba(255,255,255,.88);
+ text-shadow:0 -1px 0 rgba(0,0,0,.8),0 1px 0 rgba(255,255,255,.12)}
+.nx-carte .nom em{font-style:normal;color:rgb(var(--acc,10,132,255))}
+.nx-carte .mono{position:absolute;left:28px;bottom:32px;font:12px ui-monospace,Menlo,monospace;letter-spacing:2px;color:rgba(255,255,255,.45)}
+.nx-carte .puce{position:absolute;right:30px;bottom:30px;width:46px;height:36px;border-radius:7px;background:linear-gradient(135deg,#d9dde4,#8d939c 50%,#c9ced6);opacity:.75}
+.nx-reflet{height:60px;margin:6px 40px 0;background:radial-gradient(closest-side,rgba(var(--acc,10,132,255),.2),transparent);filter:blur(10px)}
+.nx-pro h2{font-size:44px}
+.nx-pro .lead{font-size:17px;margin:14px 0 0}
+.nx-av{display:grid;grid-template-columns:1fr 1fr;gap:0 30px;margin:28px 0 34px}
+.nx-av div{display:flex;gap:12px;align-items:center;padding:13px 0;border-top:.5px solid rgba(255,255,255,.1);font-size:15px}
+.nx-av small{display:block;font-size:12.5px;color:rgba(255,255,255,.42)}
+
+/* 3 étapes */
+.nx-etapes{display:grid;grid-template-columns:repeat(3,1fr);border-top:.5px solid rgba(255,255,255,.1)}
+.nx-etapes>div{padding:28px 30px 0 0}
+.nx-etapes .n{font:600 13px/1 ui-monospace,Menlo,monospace;color:rgb(var(--acc,10,132,255));letter-spacing:2px}
+.nx-etapes h3{font-size:19px;font-weight:600;margin:14px 0 6px} .nx-etapes p{font-size:15px;color:rgba(255,255,255,.5);margin:0}
+.nx-fin{height:110px}
+
+@media (max-width:700px){
+ .nx-hero{padding-top:34px}
+ .nx-grid{grid-template-columns:1fr;gap:6px}
+ .nx h1{font-size:44px;letter-spacing:-.03em;margin:16px 0 16px}
+ .nx .lead{font-size:17px;margin-bottom:26px}
+ .nx-act{flex-direction:column;align-items:flex-start;gap:16px}
+ .nx .car360{aspect-ratio:4/3}
+ .nx .stage{position:relative;top:auto;z-index:auto;margin:0 -24px;padding:0;background:none!important;box-shadow:none!important}
+ .nx-barre{flex-direction:column;align-items:stretch;gap:14px;padding:20px 0}
+ .nx-barre:first-of-type{margin-top:6px}
+ .nx-lab{width:auto}
+ .nx .pads{justify-content:space-between;flex-wrap:nowrap;gap:4px}
+ .nx .pads .pbtn{width:52px} .nx .pads .pp{width:48px;height:48px} .nx .pads .pp svg{width:22px;height:22px}
+ .nx .pads .pl{font-size:10.5px;line-height:1.2}
+ .nx .shpads{gap:10px 6px} .nx .shpads .pbtn{width:66px} .nx .shpads .pp{width:52px;height:52px}
+ .nx .showbtn,.nx .showrow .showbtn{margin:4px 0 0}
+ .nx-sec{padding-top:80px}
+ .nx-titre{flex-direction:column;align-items:flex-start;gap:12px;margin-bottom:30px}
+ .nx h2,.nx-pro h2{font-size:32px}
+ .nx-fonc{grid-template-columns:1fr;gap:34px}
+ .nx-ecran{order:-1} .nx-ecran:before{inset:12% 0} .nx-phone{width:240px;border-radius:40px;padding:7px} .nx-phone img{border-radius:33px}
+ .nx-phone:after{top:13px;height:18px;border-radius:9px}
+ .nx-r.on:before{left:-12px}
+ .nx-montres{justify-content:flex-start;overflow-x:auto;scroll-snap-type:x mandatory;gap:18px;margin:0 -24px;padding:0 24px 10px;scrollbar-width:none}
+ .nx-montres::-webkit-scrollbar{display:none}
+ .nx-montres figure{flex:none;width:66vw;scroll-snap-align:center}
+ .nx-pro{grid-template-columns:1fr;gap:24px}
+ .nx-carte{height:200px;padding:20px;margin:0 6px;transform:perspective(900px) rotateX(8deg) rotateY(-6deg)}
+ .nx-carte img{width:42px;height:42px} .nx-carte .nom{font-size:14px;letter-spacing:4px;left:20px;bottom:46px}
+ .nx-carte .mono{left:20px;bottom:22px;font-size:9.5px;letter-spacing:1.3px} .nx-carte .etat{top:22px;right:22px} .nx-carte .puce{right:22px;bottom:20px;width:38px;height:30px}
+ .nx-av{grid-template-columns:1fr}
+ .nx-etapes{grid-template-columns:1fr} .nx-etapes>div{padding:24px 0;border-bottom:.5px solid rgba(255,255,255,.1)}
+ .nx-fin{height:70px}
+}
+@media (prefers-reduced-motion:reduce){.nx-phone img{transition:none}}
+
+/* ---------- pages Compatibilité, Aide, Conditions : titres sans encadré, listes en lignes fines ---------- */
+.lg-hero,html[data-theme] .lg-hero{background:none!important;border:0!important;border-radius:0!important;padding:18px 0 26px!important;margin:0!important}
+.lg-hero .k,html[data-theme] .lg-hero .k{color:rgba(255,255,255,.5)!important;font-size:12px!important;letter-spacing:2.4px!important;font-weight:600!important}
+.lg-hero h1{font-size:44px!important;font-weight:700!important;letter-spacing:-.025em!important;line-height:1.06!important;margin:14px 0 10px!important}
+.lg-hero p{font-size:17px!important;color:rgba(255,255,255,.55)!important}
+.seg{background:rgba(118,118,128,.16)!important;box-shadow:none!important;border-radius:12px!important}
+.seg button.on,html[data-theme] .seg button.on{background:rgba(255,255,255,.13)!important;box-shadow:0 2px 6px rgba(0,0,0,.35)!important;color:#fff!important}
+.acc,.st{background:none!important;border:0!important;border-top:.5px solid rgba(255,255,255,.1)!important;border-radius:0!important;margin:0!important;box-shadow:none!important}
+.doc .acc:last-child,.doc .st:last-child,.acc:last-of-type{border-bottom:.5px solid rgba(255,255,255,.1)!important}
+.acc summary{padding:18px 0!important;font-weight:500!important}
+.acc summary:after,html[data-theme] .acc summary:after{color:rgba(255,255,255,.45)!important;font-weight:300}
+.acc p{padding:0 0 18px!important;color:rgba(255,255,255,.6)!important}
+.st{padding:16px 0!important}
+.st b{font-weight:500!important}
+.help,html[data-theme] .help{background:rgba(255,255,255,.035)!important;border:0!important;border-radius:24px!important;margin-top:40px!important}
+.help .cta{background:#fff;color:#000}
+.note{color:rgba(255,255,255,.42)!important}
+
+/* ---------- pied de page ---------- */
+footer{border-top:.5px solid rgba(255,255,255,.08)!important}
+.fbrand img,html[data-theme] .fbrand img{box-shadow:0 0 0 .5px rgba(255,255,255,.18)!important;border-radius:10px!important}
+.fbrand b{font-size:14px!important;font-weight:600!important;letter-spacing:3px;text-transform:uppercase}
+.fbrand p{font-size:14px!important;color:rgba(255,255,255,.45)!important}
+.fcols h4{font-size:11px!important;font-weight:600!important;letter-spacing:2.2px!important;color:rgba(255,255,255,.5)!important}
+.fcols a{color:rgba(255,255,255,.7)!important}
+.fmail{background:none!important;box-shadow:none!important;padding:0!important;color:rgba(255,255,255,.85)!important}
+footer .wrap.fbottom{border-top:.5px solid rgba(255,255,255,.08)!important;color:rgba(255,255,255,.35)}
+@media (max-width:700px){.fbrand b{font-size:15px!important} .fbrand img{width:32px!important;height:32px!important}}

@@ -414,12 +414,12 @@ html[data-theme]:not([data-theme=aucun]) .nx-car:after{background:radial-gradien
 .nx-tilt{transform-style:preserve-3d;will-change:transform}
 @media (max-width:700px){
  .nx-pc{display:none} .nx-tel{display:inline}
- .nx-ecran{position:sticky;top:0;z-index:3;margin:0 -24px;padding:14px 24px 26px;perspective:900px;
+ .nx-ecran{position:sticky;top:0;z-index:3;margin:0 -24px;padding:14px 24px 26px;perspective:1100px;transition:top .45s cubic-bezier(.32,.72,0,1);
   background:linear-gradient(#030304 0,#030304 82%,rgba(3,3,4,0))}
  .nx-ecran:before{display:none}
  .nx-phone{width:min(46vw,200px);border-radius:32px;padding:6px} .nx-phone img{border-radius:27px}
  .nx-phone:after{top:10px;height:14px;border-radius:7px}
- .nx-tilt{transition:transform .25s ease-out}
+ .nx-tilt{transition:transform .6s cubic-bezier(.25,.8,.25,1)}
  .nx-liste{padding-bottom:34vh}
  .nx-r{padding:30px 0 30px 4px;align-items:flex-start;border-top-color:rgba(255,255,255,.07)} .nx-r i{display:none}
  .nx-r svg{margin-top:3px}

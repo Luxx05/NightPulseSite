@@ -14,11 +14,11 @@
     if (reduce || !phone.animate) { img.src = src; return; }
     if (busy) return;
     const n = new Image(); n.src = src;
-    busy = phone.animate([{ transform: 'rotateY(0deg)' }, { transform: 'rotateY(88deg)' }], { duration: 170, easing: 'cubic-bezier(.4,0,1,1)' });
+    busy = phone.animate([{ transform: 'rotateY(0deg)' }, { transform: 'rotateY(90deg)' }], { duration: 380, easing: 'cubic-bezier(.45,0,.75,.6)' });
     busy.onfinish = () => {
       const show = () => {
         img.src = wanted;
-        const back = phone.animate([{ transform: 'rotateY(-88deg)' }, { transform: 'rotateY(0deg)' }], { duration: 260, easing: 'cubic-bezier(.2,.8,.2,1)' });
+        const back = phone.animate([{ transform: 'rotateY(-90deg)' }, { transform: 'rotateY(0deg)' }], { duration: 620, easing: 'cubic-bezier(.2,.75,.25,1)' });
         back.onfinish = () => { busy = null; if (img.getAttribute('src') !== wanted) swap(wanted); };
       };
       n.complete ? show() : (n.onload = n.onerror = show);
@@ -33,6 +33,12 @@
     if (r.dataset.src !== wanted) swap(r.dataset.src);
   }
   rows.forEach((r, i) => r.addEventListener('click', () => select(i)));
+  // Téléphone : quand on remonte, l'en-tête du site revient par-dessus ; l'iPhone collant descend d'autant (même
+  // mouvement que l'en-tête) pour ne pas être coupé.
+  const header = document.querySelector('header');
+  const place = () => { ecran.style.top = mobile.matches && header && !header.classList.contains('hide') ? header.offsetHeight + 'px' : ''; };
+  if (header) new MutationObserver(place).observe(header, { attributes: true, attributeFilter: ['class'] });
+  addEventListener('resize', place); place();
   // Téléphone : la fonction juste sous l'iPhone devient active en faisant défiler, et l'iPhone s'incline doucement.
   let ticking = false;
   function onScroll() {

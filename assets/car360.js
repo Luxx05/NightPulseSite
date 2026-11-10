@@ -11,7 +11,11 @@
   // si la 360° ne peut pas s'afficher, on les remontre.
   const root = document.documentElement, V = document.currentScript && document.currentScript.dataset.v;
   let started = false;
-  const fallback = () => { if (!started) root.classList.remove('c360'); };
+  // Les photos d'origine ne sont téléchargées que si on en a besoin (10/11/2026) : leur adresse attend dans data-src.
+  const photos = () => document.querySelectorAll('.stage .car img[data-src]').forEach(i => { i.src = i.dataset.src; i.removeAttribute('data-src'); });
+  const fallback = () => { if (!started) { photos(); root.classList.remove('c360'); } };
+  // La vraie 3D arrive (car3d.js, chargé juste avant) : aucune image 360° n'est téléchargée, elles ne servent qu'en secours.
+  const want3d = window.__car3dState === 'ready' || window.__car3dState === 'loading';
   setTimeout(fallback, 8000);
   if (!stage || !window.fetch) { fallback(); return; }   // thèmes de saison aussi : même voiture, seules les couleurs du site changent (sa demande)
   const conn = navigator.connection || {};
@@ -51,7 +55,7 @@
 
   const get = src => fetch(src, { cache: 'force-cache' }).then(r => { if (!r.ok) throw new Error(src); return r.blob(); });
   const PRE = {};
-  if (V) for (const k of ['', '-feux']) { const u = 'assets/car360/' + size + '/a000' + k + '.webp?v=' + V; PRE[u] = get(u); PRE[u].catch(() => {}); }
+  if (V && !want3d) for (const k of ['', '-feux']) { const u = 'assets/car360/' + size + '/a000' + k + '.webp?v=' + V; PRE[u] = get(u); PRE[u].catch(() => {}); }
   const bitmap = async src => {
     const b = await (PRE[src] || get(src)); delete PRE[src];
     if (window.createImageBitmap) return createImageBitmap(b);   // décodé en arrière-plan : pas d'à-coup en tournant
@@ -154,11 +158,16 @@
     else { anim = { from: ang, to: ang + d, t0: performance.now(), dur: 450 + Math.abs(d) * 2.5 }; goal = null; vel = 0; }
     wake(); };
 
-  async function start() {
+  // Images 360° : la liste des angles puis la vue avant. Seulement sans 3D (pas de WebGL2, échec, plus de 8 s).
+  async function load2d() {
     M = await (await fetch('assets/car360/manifest.json' + (V ? '?v=' + V : ''), { cache: V ? 'force-cache' : 'no-cache' })).json();
     step = slow ? 10 : M.pas;
     scale = M.cadre[0] / M.tailles[size].taille[0];   // petites images : mêmes coordonnées que les grandes
     await fetchAngle(0);
+  }
+  async function start() {
+    if (want3d) step = 5;   // même pas que les images (la voiture s'arrête tous les 5° après un élan)
+    else await load2d();
     const box = document.createElement('div'); box.className = 'car360';
     box.setAttribute('role', 'img'); box.setAttribute('aria-label', 'Voiture en 3D, à faire tourner');
     box.append(car);
@@ -202,7 +211,10 @@
     // Quand la 3D arrive, l'image 360° (rendu Blender, un peu différent) ne s'affiche pas du tout : sinon on voit
     // « l'ancienne » voiture une seconde au rechargement. Elle ne sert qu'en secours (pas de 3D, échec, > 8 s).
     let backup = false;
-    const use2d = () => { if (mode3d || backup) return; backup = true; box.classList.remove('wait3d'); loadRest(); wake(); };
+    const use2d = () => { if (mode3d || backup) return; backup = true;
+      (M ? Promise.resolve() : load2d()).then(() => { if (mode3d) return; box.classList.remove('wait3d'); fit(); loadRest(); wake(); },
+        // ni 3D ni images 360° : les deux photos d'origine
+        () => { if (mode3d) return; box.remove(); stage.classList.remove('is360'); stage.querySelectorAll('.car').forEach(c => { c.hidden = false; }); started = false; fallback(); }); };
     if (window.__car3dState === 'ready') go3d();
     else if (window.__car3dState === 'loading') {
       box.classList.add('wait3d');

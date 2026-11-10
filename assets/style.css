@@ -460,6 +460,19 @@ html[data-theme]:not([data-theme=aucun]) .nx-car:after{background:radial-gradien
 .nx-av div{display:flex;gap:12px;align-items:center;padding:13px 0;border-top:.5px solid rgba(255,255,255,.1);font-size:15px}
 .nx-av small{display:block;font-size:12.5px;color:rgba(255,255,255,.42)}
 
+/* « Et aussi » : lignes fines sous les fonctions (10/11/2026) */
+.nx-plus-t{margin-top:64px}
+.nx-plus{display:grid;grid-template-columns:repeat(4,1fr);gap:0 30px;margin-top:16px}
+.nx-plus div{display:flex;gap:12px;align-items:flex-start;padding:18px 0 0;border-top:.5px solid rgba(255,255,255,.1);font-size:15px;font-weight:500}
+.nx-plus svg{flex:none;margin-top:1px}
+.nx-plus small{display:block;font-size:13px;font-weight:400;line-height:1.45;color:rgba(255,255,255,.45);margin-top:4px}
+@media (max-width:980px){.nx-plus{grid-template-columns:1fr 1fr} .nx-plus div{padding-bottom:18px}}
+
+/* Zones de toucher d'au moins 44 pt (liens du menu, liens bleus, Avant / Arrière, pied de page), sans changer l'apparence */
+header nav a,.nx-lien,.seg360 button,.fcols a{position:relative}
+header nav a:before,.nx-lien:before,.seg360 button:before{content:"";position:absolute;left:-6px;right:-6px;top:50%;height:44px;transform:translateY(-50%)}
+.fcols a:before{content:"";position:absolute;left:0;right:0;top:50%;height:34px;transform:translateY(-50%)}
+
 /* 3 étapes */
 .nx-etapes{display:grid;grid-template-columns:repeat(3,1fr);border-top:.5px solid rgba(255,255,255,.1)}
 .nx-etapes>div{padding:28px 30px 0 0}
@@ -497,6 +510,7 @@ html[data-theme]:not([data-theme=aucun]) .nx-car:after{background:radial-gradien
  .nx-carte img{width:42px;height:42px} .nx-carte .nom{font-size:14px;letter-spacing:4px;left:20px;bottom:46px}
  .nx-carte .mono{left:20px;bottom:22px;font-size:9.5px;letter-spacing:1.3px} .nx-carte .etat{top:22px;right:22px} .nx-carte .puce{right:22px;bottom:20px;width:38px;height:30px}
  .nx-av{grid-template-columns:1fr}
+ .nx-plus-t{margin-top:44px} .nx-plus{grid-template-columns:1fr}
  .nx-etapes{grid-template-columns:1fr} .nx-etapes>div{padding:24px 0;border-bottom:.5px solid rgba(255,255,255,.1)}
  .nx-fin{height:70px}
 }

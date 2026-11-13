@@ -646,7 +646,7 @@ html.sans3d .rf-halo{display:block}
 .rf-c.mid p{max-width:200px}
 
 /* ---------- la partition d'un show ---------- */
-.rf-jeu{min-height:400px}
+.rf-jeu{min-height:400px;z-index:2}
 .rf-part{display:grid;grid-template-columns:132px repeat(var(--n,16),minmax(0,1fr));gap:7px;align-items:center;margin-top:30px}
 .rf-part span{font-size:12.5px;color:rgba(255,255,255,.55);white-space:nowrap}
 .rf-part i{height:34px;border-radius:8px;background:rgba(255,255,255,.05);transition:transform .12s,filter .12s,background-color .2s}
@@ -654,11 +654,15 @@ html.sans3d .rf-halo{display:block}
 .rf-part i.t{background:rgba(255,255,255,.12)}
 .rf-part i.x.t{background:var(--c);box-shadow:0 0 22px var(--c);transform:scale(1.08)}
 .rf-leg{margin-top:22px}
-.rf-scene{padding:0;min-height:400px;background:radial-gradient(90% 60% at 50% 100%,rgba(255,60,50,.1),transparent 70%),#050506}
-.rf-scene .rf-slot{position:absolute;inset:0;aspect-ratio:auto}
+/* La voiture qui joue le show : posée sur la page, sans carte, comme en haut (sa demande du 13/11/2026). Son emplacement
+   déborde de la colonne pour qu'elle soit assez grande : on ne grossit jamais l'image après coup (c'était flou). À droite,
+   le débord suit la largeur de l'écran pour que l'anneau ne soit pas coupé par le bord. Pas d'effet « carte qui se pose »
+   ici : une transformation fausserait la taille de la toile 3D (mesurée à l'écran). */
+.rf-scene{position:relative;min-height:400px}
+.rf-scene .rf-slot{position:absolute;inset:-80px calc(-1 * min(130px, max(68px, (100vw - 1200px) / 2 + 44px))) -120px -56px;aspect-ratio:auto}
 .rf-scene .seg360{display:none}
-/* dans la carte des shows, la voiture est cadrée plus serré (l'anneau déborde de la carte) */
-.rf-scene .car360 canvas{transform:scale(1.42);transform-origin:50% 60%;-webkit-mask-image:none;mask-image:none}
+/* sans 3D (images 360°, qui remplissent toute la place) : la voiture reste dans sa colonne, ni sous la partition ni coupée par le bord */
+@media (min-width:821px){.sans3d .rf-scene .rf-slot{inset:-10px -24px -10px 0}}
 
 /* ---------- compatibilité ---------- */
 .rf-compat{padding:38px}
@@ -722,7 +726,7 @@ html.sans3d .rf-halo{display:block}
  .rf-wt{right:50%;transform:translateX(50%);top:auto;bottom:16px;width:170px}
  .rf-jeu{min-height:0} .rf-styles{margin-bottom:0}
  .rf-part{grid-template-columns:82px repeat(var(--n,16),minmax(0,1fr));gap:3px;margin-top:22px} .rf-part i{height:26px;border-radius:5px} .rf-part span{font-size:11px}
- .rf-scene{min-height:0;aspect-ratio:1.25/1}
+ .rf-scene{min-height:0;aspect-ratio:1.5/1} .rf-scene .rf-slot{inset:-8px -24px -40px}
  .rf-compat{padding:22px} .rf-series button{height:42px;padding:0 17px;font-size:14.5px}
  .rf-rep{gap:10px 16px;margin-top:26px} .rf-rep h3{font-size:27px;width:100%} .rf-rep p{margin-left:0;width:100%}
  .rf-fin{padding-top:96px} .rf-fin .rf-slot{width:auto;margin:0 -24px;aspect-ratio:1.2/1}

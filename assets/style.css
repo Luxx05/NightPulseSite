@@ -530,6 +530,12 @@ header nav a:before,.nx-lien:before,.seg360 button:before{content:"";position:ab
 .acc p{padding:0 0 18px!important;color:rgba(255,255,255,.6)!important}
 .st{padding:16px 0!important}
 .st b{font-weight:500!important}
+.buy{position:relative;display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;letter-spacing:.2px;color:#fff;text-decoration:none;
+padding:6px 12px;border-radius:14px;background:rgba(255,255,255,.07);box-shadow:0 0 0 .5px rgba(255,255,255,.24) inset;white-space:nowrap;transition:background .15s,transform .15s}
+.buy:after{content:'';position:absolute;inset:-9px -4px}
+.buy:hover{background:rgba(255,255,255,.14)} .buy:active{transform:scale(.96)}
+.buy svg{opacity:.7}
+.note.pub{margin-top:14px;font-size:12.5px;line-height:1.5} .note.pub b{color:rgba(255,255,255,.7);font-weight:600;letter-spacing:.2px}
 .help,html[data-theme] .help{background:rgba(255,255,255,.035)!important;border:0!important;border-radius:24px!important;margin-top:40px!important}
 .help .cta{background:#fff;color:#000}
 .note{color:rgba(255,255,255,.42)!important}

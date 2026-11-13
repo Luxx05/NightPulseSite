@@ -515,29 +515,12 @@ header nav a:before,.nx-lien:before,.seg360 button:before{content:"";position:ab
 }
 @media (prefers-reduced-motion:reduce){.nx-phone img{transition:none}}
 
-/* ---------- pages Compatibilité, Aide, Conditions : titres sans encadré, listes en lignes fines ---------- */
-.lg-hero,html[data-theme] .lg-hero{background:none!important;border:0!important;border-radius:0!important;padding:18px 0 26px!important;margin:0!important}
-.lg-hero .k,html[data-theme] .lg-hero .k{color:rgba(255,255,255,.5)!important;font-size:12px!important;letter-spacing:2.4px!important;font-weight:600!important}
-.lg-hero h1{font-size:44px!important;font-weight:700!important;letter-spacing:-.025em!important;line-height:1.06!important;margin:14px 0 10px!important}
-.lg-hero p{font-size:17px!important;color:rgba(255,255,255,.55)!important}
-.seg{background:rgba(118,118,128,.16)!important;box-shadow:none!important;border-radius:12px!important}
-.seg button.on,html[data-theme] .seg button.on{background:rgba(255,255,255,.13)!important;box-shadow:0 2px 6px rgba(0,0,0,.35)!important;color:#fff!important}
-.acc,.st{background:none!important;border:0!important;border-top:.5px solid rgba(255,255,255,.1)!important;border-radius:0!important;margin:0!important;box-shadow:none!important}
-.doc .acc:last-child,.doc .st:last-child,.acc:last-of-type{border-bottom:.5px solid rgba(255,255,255,.1)!important}
-.acc summary{padding:18px 0!important;font-weight:500!important}
-.acc summary:after,html[data-theme] .acc summary:after{color:rgba(255,255,255,.45)!important;font-weight:300}
-.acc p{padding:0 0 18px!important;color:rgba(255,255,255,.6)!important}
-.st{padding:16px 0!important}
-.st b{font-weight:500!important}
+/* ---------- bouton « Acheter » (lien partenaire) d'une ligne de la page Compatibilité (mise en page : _pages.py) ---------- */
 .buy{position:relative;display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;letter-spacing:.2px;color:#fff;text-decoration:none;
 padding:6px 12px;border-radius:14px;background:rgba(255,255,255,.07);box-shadow:0 0 0 .5px rgba(255,255,255,.24) inset;white-space:nowrap;transition:background .15s,transform .15s}
 .buy:after{content:'';position:absolute;inset:-9px -4px}
 .buy:hover{background:rgba(255,255,255,.14)} .buy:active{transform:scale(.96)}
 .buy svg{opacity:.7}
-.note.pub{margin-top:14px;font-size:12.5px;line-height:1.5} .note.pub b{color:rgba(255,255,255,.7);font-weight:600;letter-spacing:.2px}
-.help,html[data-theme] .help{background:rgba(255,255,255,.035)!important;border:0!important;border-radius:24px!important;margin-top:40px!important}
-.help .cta{background:#fff;color:#000}
-.note{color:rgba(255,255,255,.42)!important}
 
 /* ---------- pied de page ---------- */
 footer{border-top:.5px solid rgba(255,255,255,.08)!important}
@@ -743,4 +726,128 @@ html.sans3d .rf-halo{display:block}
  .rf-compat{padding:22px} .rf-series button{height:42px;padding:0 17px;font-size:14.5px}
  .rf-rep{gap:10px 16px;margin-top:26px} .rf-rep h3{font-size:27px;width:100%} .rf-rep p{margin-left:0;width:100%}
  .rf-fin{padding-top:96px} .rf-fin .rf-slot{width:auto;margin:0 -24px;aspect-ratio:1.2/1}
+}
+
+/* ---------- pages Compatibilité, Aide et Conditions (refonte du 13/11/2026, site/_pages.py) ---------- */
+html:has(main.rp){scroll-behavior:smooth}
+main.rp{padding:0 0 30px}
+.rp h1{font-size:clamp(40px,4.7vw,66px);line-height:1.03;letter-spacing:-.038em;font-weight:700;margin:16px 0 20px;color:#fff}
+.rp h2{font-size:clamp(30px,3.3vw,46px);line-height:1.06;letter-spacing:-.032em;font-weight:700;margin:12px 0 0;color:#fff}
+.rp h3{font-size:22px;letter-spacing:-.02em;font-weight:650;margin:0 0 6px;color:#fff}
+.rp .lead{font-size:19px;line-height:1.5;color:rgba(255,255,255,.6);max-width:520px;margin:0 0 26px}
+.rp-hero{padding:74px 0 0}
+.rp-2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:60px;align-items:center}
+.rp .rf-sec{padding-top:112px;scroll-margin-top:0}
+.rp .s6{grid-column:span 6}
+.rp .rf-c p{max-width:none}
+.rp-rapides,.rp-brefs{margin-top:26px}
+.rp-tag{display:flex;align-items:center;gap:8px;font-size:11.5px;font-weight:700;letter-spacing:2.2px;text-transform:uppercase;margin-bottom:16px}
+.rp-tag i{width:7px;height:7px;border-radius:50%;background:currentColor;box-shadow:0 0 10px currentColor}
+.rp-tag.ok{color:#30d158}.rp-tag.mid{color:#4da3ff}.rp-tag.soon{color:rgba(255,255,255,.5)}.rp-tag.warn{color:#ff9f0a}.rp-tag.ko{color:#ff6259}
+.rp-rows{margin-top:20px}
+.rp-row{display:flex;align-items:center;gap:14px;padding:15px 0;border-top:.5px solid rgba(255,255,255,.1);font-size:16.5px;color:#fff;font-weight:500}
+.rp-row small{display:block;font-size:13px;font-weight:400;color:rgba(255,255,255,.45);margin-top:2px}
+.rp-row>span{flex:1;min-width:0}
+.rp-row svg.ck{flex:none;color:#30d158}
+.rp-row em{font-style:normal;font-size:12px;font-weight:600;letter-spacing:1.6px;text-transform:uppercase;color:rgba(255,255,255,.42);white-space:nowrap}
+.rp-row em.vite{color:#30d158}
+/* la vérification de l'app (haut de Compatibilité) */
+.rp-verif{padding:30px 34px 28px}
+.rp-verif img{display:block;width:74%;height:auto;margin:6px auto -6px;filter:drop-shadow(0 30px 40px rgba(0,0,0,.6))}
+.rp-verif .rp-row{padding:13px 0;font-size:16px}
+.rp-verdict{display:flex;align-items:center;gap:10px;margin-top:18px;padding:14px 18px;border-radius:16px;background:rgba(48,209,88,.1);
+ box-shadow:inset 0 0 0 .5px rgba(48,209,88,.4);color:#30d158;font-weight:600;font-size:16px}
+/* l'adaptateur recommandé */
+.rp-star{display:flex;flex-direction:column;min-height:520px}
+.rp-star .art{flex:1;display:grid;place-items:center;margin:8px 0 6px}
+.rp-star .art svg{width:320px;max-width:88%;height:auto;filter:drop-shadow(0 0 22px rgba(10,132,255,.45))}
+.rp-btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;height:52px;padding:0 26px;border-radius:26px;background:#fff;color:#000;
+ font-weight:600;font-size:16.5px;text-decoration:none;margin-top:24px;align-self:flex-start;transition:transform .15s,background .15s}
+.rp-btn:hover{background:#e9e9ee} .rp-btn:active{transform:scale(.97)}
+.rp-note{color:rgba(255,255,255,.42);font-size:13px;line-height:1.55;margin:22px 4px 0;max-width:820px}
+.rp-note b{color:rgba(255,255,255,.7);font-weight:600}
+.rp-note a{color:rgba(255,255,255,.7);text-decoration:underline;text-underline-offset:2px}
+/* aide */
+a.rp-quick{min-height:214px;display:flex;flex-direction:column;text-decoration:none;color:inherit;transition:transform .2s cubic-bezier(.2,.7,.2,1)}
+a.rp-quick:active{transform:scale(.98)}
+a.rp-quick:hover .rf-pill{background:rgba(255,255,255,.13)}
+.rp-quick .ic{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.07);
+ box-shadow:inset 0 0 0 .5px rgba(255,255,255,.22);margin-bottom:22px;color:#fff}
+.rp-quick p{flex:1}
+.rp-quick .rf-pill{align-self:flex-start;margin-top:20px}
+.rp-quick .rf-pill .l{display:inline}
+.rp-faq{padding:8px 34px}
+.rp-faq details{border-top:.5px solid rgba(255,255,255,.1)}
+.rp-faq details:first-child{border-top:0}
+.rp-faq summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:16px;padding:22px 0;font-size:18px;font-weight:550;color:#fff}
+.rp-faq summary::-webkit-details-marker{display:none}
+.rp-faq summary:after{content:"";margin-left:auto;flex:none;width:12px;height:12px;border-right:1.6px solid rgba(255,255,255,.55);
+ border-bottom:1.6px solid rgba(255,255,255,.55);transform:rotate(45deg) translate(-3px,-3px);transition:transform .2s}
+.rp-faq details[open] summary:after{transform:rotate(225deg) translate(-3px,-3px)}
+.rp-faq details p{margin:-4px 40px 24px 0;font-size:16px;line-height:1.6;color:rgba(255,255,255,.6)}
+.rp-groupe{margin:44px 0 16px}
+.rp-groupe:first-child{margin-top:0}
+.rp-cote{position:sticky;top:96px;align-self:start}
+.rp-cote .pas{font:600 12px/1.4 ui-monospace,Menlo,monospace;color:#4da3ff;letter-spacing:2px;text-transform:uppercase}
+.rp-cote h3{margin-top:16px}
+.rp-chemin{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 18px}
+.rp-chemin span{font-size:14px;font-weight:550;color:#fff;padding:8px 13px;border-radius:12px;background:rgba(255,255,255,.07);box-shadow:inset 0 0 0 .5px rgba(255,255,255,.18)}
+.rp-chemin i{font-style:normal;color:rgba(255,255,255,.35);align-self:center}
+.rp-cote .rf-pills{margin-top:22px}
+/* conditions */
+.rp-bref{min-height:186px}
+.rp-bref .ic{color:#fff;opacity:.9;margin-bottom:20px}
+.rp-bref h3{font-size:19px}
+.rp-bref p{font-size:15px!important}
+.rp-onglets{display:none;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 34px;scroll-margin-top:92px}
+.js .rp-onglets{display:flex}
+.rp-onglets button{border:0;font-family:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.rp-onglets .rf-pill.on{background:#fff;color:#000;box-shadow:none}
+.rp-onglets .langue{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:14px;color:rgba(255,255,255,.45)}
+.rp-onglets .langue i{font-style:normal}
+.rp-onglets .langue button{position:relative;background:none;padding:0;font-size:14px;font-weight:500;color:rgba(255,255,255,.45)}
+.rp-onglets .langue button:before{content:"";position:absolute;inset:-14px -6px}
+.rp-onglets .langue button.on{color:#fff;font-weight:600}
+.rp-doc{display:grid;grid-template-columns:300px minmax(0,1fr);gap:70px;align-items:start}
+.rp-doc+.rp-doc{margin-top:90px}
+.js .rp-doc{display:none} .js .rp-doc.on{display:grid;margin-top:0}
+.rp-doc-titre{margin:0 0 34px!important} .js .rp-doc-titre{display:none}
+.rp-som{display:block;position:sticky;top:96px;max-height:calc(100vh - 120px);overflow-y:auto;scrollbar-width:none}
+.rp-som::-webkit-scrollbar{display:none}
+.rp-som .caps{margin-bottom:14px}
+.rp-som a{display:flex;gap:14px;padding:11px 0;border-top:.5px solid rgba(255,255,255,.09);font-size:15px;color:rgba(255,255,255,.55);text-decoration:none;transition:color .15s}
+.rp-som a:first-of-type{border-top:0}
+.rp-som a:hover{color:#fff}
+.rp-som a b{font:600 12px/1.6 ui-monospace,Menlo,monospace;color:rgba(255,255,255,.35);letter-spacing:1px}
+.rp-som a.on{color:#fff}.rp-som a.on b{color:#4da3ff}
+.rp-art{padding:0 0 38px;margin:0 0 38px;border-bottom:.5px solid rgba(255,255,255,.1);max-width:720px;scroll-margin-top:96px}
+.rp-art .n{font:600 13px/1 ui-monospace,Menlo,monospace;color:#4da3ff;letter-spacing:2px}
+.rp-art h3{font-size:26px;margin:14px 0 14px}
+.rp-art p{font-size:17px;line-height:1.65;color:rgba(255,255,255,.66);margin:0 0 12px}
+.rp-credits{margin-top:0}
+@media (prefers-reduced-motion:reduce){html:has(main.rp){scroll-behavior:auto}}
+@media (max-width:1020px){
+ .rp-2{grid-template-columns:1fr;gap:34px} .rp-doc{grid-template-columns:1fr;gap:26px}
+ .rp-som{position:static;display:flex;gap:8px;max-height:none;overflow-x:auto;overflow-y:hidden;margin:0 -24px;padding:0 24px 4px}
+ .rp-som .caps{display:none}
+ .rp-som a{flex:none;border:0!important;padding:9px 14px;border-radius:999px;background:rgba(255,255,255,.07);box-shadow:inset 0 0 0 .5px rgba(255,255,255,.2);
+  font-size:14px;gap:8px;white-space:nowrap}
+ .rp-cote{position:static}
+}
+@media (max-width:820px){
+ .rp-hero{padding-top:34px} .rp h1{font-size:42px} .rp .lead{font-size:17px}
+ .rp .rf-sec{padding-top:72px;scroll-margin-top:8px} .rp .rf-head{display:block;margin-bottom:28px} .rp .rf-head p{margin-top:14px;font-size:16px}
+ .rp .rf-grid{grid-template-columns:minmax(0,1fr);gap:14px} .rp .rf-grid>*{grid-column:auto!important;grid-row:auto!important}
+ .rp .rf-c{padding:26px 22px;border-radius:24px;min-height:0!important}
+ .rp-verif{padding:24px 22px!important} .rp-star{min-height:0} .rp-star .art{margin:18px 0}
+ .rp-row{font-size:16px} .rp-row .buy span{display:none} .rp-row .buy{padding:9px 11px}
+ a.rp-quick{flex-direction:row!important;align-items:center;gap:14px;padding:16px 18px!important} .rp-quick .ic{margin:0;flex:none}
+ .rp-quick h3{flex:1;margin:0;font-size:17px} .rp-quick p{display:none}
+ .rp-quick .rf-pill{margin:0;align-self:center;padding:9px 14px} .rp-quick .rf-pill .l{display:none} .rp-quick .rf-pill .c{display:inline}
+ .rp .rp-brefs{grid-template-columns:1fr 1fr!important;gap:10px} .rp-bref{padding:20px 18px!important} .rp-bref .ic{margin-bottom:12px}
+ .rp-bref .ic svg{width:22px;height:22px} .rp-bref h3{font-size:16px!important;line-height:1.25} .rp-bref p{font-size:13.5px!important;line-height:1.45}
+ .rp-faq{padding:4px 22px!important} .rp-faq summary{font-size:16.5px;padding:19px 0} .rp-faq details p{margin-right:0;font-size:15.5px}
+ .rp-btn{align-self:stretch}
+ .rp-onglets{scroll-margin-top:16px} .rp-onglets .langue{margin-left:0;width:100%;margin-top:6px}
+ .rp-art{scroll-margin-top:20px} .rp-art h3{font-size:22px} .rp-art p{font-size:16px}
 }

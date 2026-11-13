@@ -28,7 +28,7 @@ if (THEME) {
   MAP.gL = ['f:drl-screenRight', 'r:tail-screenLeft']; MAP.gR = ['f:drl-screenLeft', 'r:tail-screenRight'];
   document.querySelectorAll('[data-theme-only]').forEach(b => { b.hidden = b.dataset.themeOnly !== THEME; });
   const hint = document.querySelector('.hint');
-  if (hint) hint.textContent = THEMES[THEME].label + " · touche une pastille : les feux s'allument comme dans l'app.";
+  if (hint) hint.textContent = THEMES[THEME].label;
 }
 const lamps = [...document.querySelectorAll('.lamp')];
 const buttons = [...document.querySelectorAll('.pbtn')];
@@ -47,7 +47,8 @@ function render() {
   for (const k of state) {
     // Comme dans l'app : le feu de jour et le feu arrière s'atténuent du côté qui clignote.
     if (k === 'hazard') { ['indL', 'indR'].forEach(s => { MAP[s].forEach(id => blink.add(id)); DIM[s].forEach(id => dim.add(id)); }); continue; }
-    if (k === 'indL' || k === 'indR') { MAP[k].forEach(id => blink.add(id)); DIM[k].forEach(id => dim.add(id)); continue; }
+    // Pendant un show, un clignotant reste allumé fixe le temps du pas (comme dans l'app) ; à la main, il clignote.
+    if ((k === 'indL' || k === 'indR') && !playing) { MAP[k].forEach(id => blink.add(id)); DIM[k].forEach(id => dim.add(id)); continue; }
     (MAP[k] || []).forEach(id => lit.add(id));
   }
   blinking = blink;
@@ -60,6 +61,7 @@ function render() {
     b.classList.toggle('on', on);
     b.setAttribute('aria-pressed', on);
   }
+  dispatchEvent(new CustomEvent('demo-change', { detail: { on: [...state], playing } }));
 }
 // Pas des shows de l'app (Shows/LightShow.swift) : [durée en temps, feux allumés], au même tempo.
 const SHOWS = {
@@ -82,7 +84,9 @@ const SHOWS = {
     [0.5, ['drl', 'tail', 'fog', 'low', 'high', 'brake', 'inside']], [0.5, ['drl', 'tail', 'low', 'inside']],
     [2, ['drl', 'tail', 'low', 'inside']], [1, []]] },
 };
-function stopShow() { clearTimeout(showTimer); showTimer = null; playing = null; state.clear(); render(); }
+Object.assign(SHOWS, {"quatre": {"nom": "Quatre temps", "style": "Tech house", "bpm": 128, "steps": [[0.5, ["drl", "high", "tail"]], [0.5, ["drl", "high", "tail"]], [0.5, ["drl", "brake", "tail"]], [0.5, ["drl", "reverse", "tail"]], [0.5, ["drl", "high", "tail"]], [0.5, ["drl", "reverse", "tail"]], [0.5, ["drl", "brake", "tail"]], [0.5, ["drl", "reverse", "tail"]], [0.5, ["drl", "high", "tail"]], [0.5, ["drl", "reverse", "tail"]], [0.5, ["drl", "brake", "tail"]], [0.5, ["drl", "reverse", "tail"]], [0.5, ["drl", "high", "tail"]], [0.5, ["drl", "reverse", "tail"]], [0.5, ["drl", "brake", "tail"]], [0.5, ["drl", "reverse", "tail"]]], "rows": ["high", "brake", "reverse", "tail"]}, "tunnel": {"nom": "Tunnel", "style": "Techno", "bpm": 140, "steps": [[0.5, ["drl", "high"]], [0.5, ["drl", "low"]], [0.5, ["drl", "high"]], [0.5, ["drl", "tail"]], [0.5, ["drl", "high"]], [0.5, ["drl", "brake"]], [0.5, ["drl", "high"]], [0.5, ["drl", "reverse"]], [0.5, ["drl", "high"]], [0.5, ["drl", "low"]], [0.5, ["drl", "high"]], [0.5, ["drl", "tail"]], [0.5, ["drl", "high"]], [0.5, ["drl", "brake"]], [0.5, ["drl"]], [0.5, ["drl"]]], "rows": ["high", "low", "tail", "brake", "reverse"]}, "drill": {"nom": "Drill", "style": "Drill", "bpm": 140, "steps": [[0.5, ["drl", "high", "tail"]], [0.5, ["drl", "high", "tail"]], [0.5, ["drl", "inside", "tail"]], [0.5, ["drl", "reverse", "tail"]], [0.5, ["drl", "brake", "tail"]], [0.5, ["drl", "reverse", "tail"]], [0.5, ["drl", "inside", "tail"]], [0.5, ["drl", "reverse", "tail"]], [0.5, ["drl", "high", "low"]], [0.5, ["drl", "high", "low"]], [0.5, ["drl", "inside", "low"]], [0.5, ["drl", "reverse", "low"]], [0.5, ["drl", "brake", "low"]], [0.5, ["drl", "reverse", "low"]], [0.5, ["drl"]], [0.5, ["drl"]]], "rows": ["high", "inside", "brake", "reverse", "tail", "low"]}, "montagem": {"nom": "Montagem", "style": "Funk brésilien", "bpm": 130, "steps": [[0.5, ["drl", "high", "tail"]], [0.5, ["drl", "brake", "tail"]], [0.5, ["drl", "reverse", "tail"]], [0.5, ["drl", "high", "tail"]], [0.5, ["drl", "brake", "tail"]], [0.5, ["drl", "reverse", "tail"]], [0.5, ["drl", "high", "tail"]], [0.5, ["drl", "brake", "tail"]], [0.5, ["drl", "high", "tail"]], [0.5, ["drl", "brake", "tail"]], [0.5, ["drl", "reverse", "tail"]], [0.5, ["drl", "high", "tail"]], [0.5, ["drl", "brake", "tail"]], [0.5, ["drl", "reverse", "tail"]], [0.5, ["drl", "high", "tail"]], [0.5, ["drl", "brake", "tail"]]], "rows": ["high", "brake", "reverse", "tail"]}, "phonk": {"nom": "Phonk", "style": "Phonk", "bpm": 150, "steps": [[0.5, ["drl", "high"]], [0.5, ["drl", "indL"]], [0.5, ["drl", "indR"]], [0.5, ["drl", "indL"]], [0.5, ["drl", "high"]], [0.5, ["drl", "indR"]], [0.5, ["drl", "indL"]], [0.5, ["drl", "indR"]], [0.5, ["drl", "high"]], [0.5, ["drl", "indL"]], [0.5, ["drl", "indR"]], [0.5, ["drl", "indL"]], [0.5, ["drl", "brake"]], [0.5, ["drl", "indR"]], [0.5, ["drl", "indL"]], [0.5, ["drl", "indR"]]], "rows": ["high", "indL", "indR", "brake"]}, "reggaeton": {"nom": "Reggaeton", "style": "Reggaeton", "bpm": 95, "steps": [[0.5, ["drl", "high"]], [0.5, ["drl", "indL"]], [0.5, ["drl", "high", "indL"]], [0.5, ["drl", "indL", "brake"]], [0.5, ["drl", "high", "indL"]], [0.5, ["drl", "indR"]], [0.5, ["drl", "high", "indR"]], [0.5, ["drl", "indR", "brake"]], [0.5, ["drl", "high"]], [0.5, ["drl", "indL"]], [0.5, ["drl", "high", "indL"]], [0.5, ["drl", "indL", "brake"]], [0.5, ["drl", "high"]], [0.5, ["drl", "brake"]], [0.5, ["drl", "high"]], [0.5, ["drl", "brake"]]], "rows": ["high", "indL", "indR", "brake"]}});   // shows de la refonte du 13/11/2026 (site/_refonte.py) : 16 demi-temps, une ligne par feu
+const BASE = document.querySelector('.stage') ? ['drl', 'tail', 'low'] : [];   // au repos : feux de jour, feux arrière et croisement (la voiture arrive phares allumés)
+function stopShow() { clearTimeout(showTimer); showTimer = null; playing = null; state.clear(); BASE.forEach(k => state.add(k)); render(); }
 function startShow(name) {
   stopShow();
   playing = name;
@@ -91,6 +95,7 @@ function startShow(name) {
   const next = () => {
     const [beats, on] = steps[i++ % steps.length];
     state.clear(); on.forEach(k => state.add(k)); render();
+    dispatchEvent(new CustomEvent('demo-step', { detail: { name, i: (i - 1) % steps.length } }));
     showTimer = setTimeout(next, beats * 60000 / bpm);
   };
   next();
@@ -127,8 +132,11 @@ for (const b of buttons) {
     render();
   });
 }
-if (document.querySelector('.stage')) { state.add('drl'); state.add('tail'); }   // à l'arrivée : feux de jour (toujours allumés, sans pastille) et feux arrière
+if (document.querySelector('.stage')) { state.add('drl'); state.add('tail'); state.add('low'); }   // à l'arrivée : feux de jour, feux arrière et croisement
 render();
+// Pour l'accueil (refonte.js) : lancer / arrêter un show, lire et poser les feux allumés.
+window.__demo = { shows: SHOWS, start: startShow, stop: stopShow, playing: () => playing, get: () => [...state],
+  set: list => { if (showTimer) stopShow(); state.clear(); list.forEach(k => state.add(k)); render(); } };
 
 // Animations du thème (neige / chauves-souris et brume), dessinées par-dessus la voiture.
 const fx = document.querySelector('.fx');

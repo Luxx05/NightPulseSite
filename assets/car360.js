@@ -37,6 +37,7 @@
       reverse: Math.max(lamp('r:reverse-screenLeft'), lamp('r:reverse-screenRight')),
       inside: Math.max(lamp('f:interior'), lamp('r:interior')),
     };
+    t.rtail = Math.max(t.tail_G, t.tail_D);   // feux arrière seuls (sans le stop), pour la part de l'anneau au sol
     if (t.brake) { t.tail_G = Math.max(t.tail_G, .3 + .7 * t.brake); t.tail_D = Math.max(t.tail_D, .3 + .7 * t.brake); }   // le stop passe par les feux arrière
     t.plaque = Math.max(t.tail_G, t.tail_D) > 0 ? 1 : 0;
     return t;
@@ -180,7 +181,8 @@
     fit = () => { const r = box.getBoundingClientRect(), d = Math.min(devicePixelRatio || 1, lowRes ? 1.25 : 2);
       const w = Math.round(r.width * d), h = Math.round(r.height * d);
       if (w && (w !== W || h !== H)) { W = car.width = w; H = car.height = h; dirty = true; draw(); } };
-    fit(); new ResizeObserver(fit).observe(box);
+    // La voiture change de place dans la page (refonte du 13/11/2026) : la toile 3D suit la taille de son cadre.
+    fit(); new ResizeObserver(() => { fit(); if (mode3d) { window.__car3d.fit(); wake(); } }).observe(box);
     const segs = [...seg.querySelectorAll('button')];
     let shown = null;
     mark = () => { const a = norm(ang), back = a > 90 && a < 270; if (back === shown) return; shown = back;
@@ -188,14 +190,26 @@
     segs.forEach(b => b.addEventListener('click', e => { e.stopPropagation(); turn(+b.dataset.a); }));
     seg.addEventListener('pointerdown', e => e.stopPropagation());
     // Geste : glisser pour tourner (une largeur de vitrine = un demi-tour), élan + ressort au lâcher
-    let px = 0, pt = 0, id = null;
-    box.addEventListener('pointerdown', e => { anim = null; id = e.pointerId; box.setPointerCapture(id); dragging = true; goal = null; px = e.clientX; pt = e.timeStamp; vel = 0; box.classList.add('grab'); });
+    let px = 0, pt = 0, id = null, x0 = 0, y0 = 0, t0 = 0, moved = 0;
+    // Anneau au sol (voiture 3D) : toucher une part sans glisser allume ce feu, comme le Halo de l'app.
+    const part = e => (mode3d && window.__car3d.pick) ? window.__car3d.pick(e.clientX, e.clientY) : null;
+    const hover = k => { if (!mode3d || window.__car3d.hover === k) return; window.__car3d.hover = k; box.classList.toggle('vise', !!k); wake(); };
+    box.addEventListener('pointerdown', e => { anim = null; id = e.pointerId; box.setPointerCapture(id); dragging = true; goal = null; px = e.clientX; pt = e.timeStamp; vel = 0; box.classList.add('grab');
+      x0 = e.clientX; y0 = e.clientY; t0 = e.timeStamp; moved = 0; });
+    box.addEventListener('pointermove', e => { if (id === null && e.pointerType === 'mouse') hover(part(e)); });
+    box.addEventListener('pointerleave', () => hover(null));
     box.addEventListener('pointermove', e => { if (e.pointerId !== id) return;
+      moved = Math.max(moved, Math.hypot(e.clientX - x0, e.clientY - y0));
       const k = 180 / box.clientWidth, dx = e.clientX - px, dt = Math.max(8, e.timeStamp - pt) / 1000;
       ang -= dx * k; vel = vel * .5 + (-dx * k / dt) * .5; px = e.clientX; pt = e.timeStamp; wake(); });
     const up = e => { if (e.pointerId !== id) return; id = null; dragging = false; box.classList.remove('grab');
       if (calm.matches || e.timeStamp - pt > 90) vel = 0;   // doigt arrêté avant de lâcher : pas d'élan
-      vel = Math.max(-720, Math.min(720, vel)); goal = null; wake(); };
+      vel = Math.max(-720, Math.min(720, vel)); goal = null; wake();
+      if (e.type === 'pointerup' && moved < 7 && e.timeStamp - t0 < 450) {
+        const k = part(e), b = k && document.querySelector('.pbtn[data-l="' + k + '"]');
+        if (b) b.click();
+      }
+      box.dispatchEvent(new CustomEvent('car360-lache', { bubbles: true, detail: { tourne: moved >= 7 } })); };
     box.addEventListener('pointerup', up); box.addEventListener('pointercancel', up);
     // Toucher un feu qu'on ne voit que d'un côté tourne la voiture vers lui
     const SIDE = { drl: 0, low: 0, high: 0, fog: 0, tail: 180, brake: 180, reverse: 180, rfog: 180 };
@@ -223,7 +237,9 @@
       setTimeout(use2d, 8000);
     } else use2d();
     addEventListener('resize', () => { if (mode3d) { window.__car3d.fit(); wake(); } });
-    window.__car360 = { turn, get: () => ang, set: a => { ang = goal = a; vel = 0; wake(); }, loaded: () => Object.keys(frames).length, total: 360 / step };
+    window.__car360 = { turn, get: () => ang, set: a => { ang = goal = a; vel = 0; wake(); },
+      // Suit un angle en douceur (ressort) : la voiture accompagne le défilement de la page sans jamais le bloquer.
+      to: a => { if (dragging) return; anim = null; goal = a; wake(); }, drag: () => dragging, loaded: () => Object.keys(frames).length, total: 360 / step };
     wake();
     // Le reste en arrière-plan (seulement en secours, sans 3D) : angles voisins de la vue avant d'abord (des deux côtés), 4 à la fois
     function loadRest() {

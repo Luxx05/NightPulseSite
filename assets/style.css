@@ -544,3 +544,188 @@ footer{border-top:.5px solid rgba(255,255,255,.08)!important}
 .fmail{background:none!important;box-shadow:none!important;padding:0!important;color:rgba(255,255,255,.85)!important}
 footer .wrap.fbottom{border-top:.5px solid rgba(255,255,255,.08)!important;color:rgba(255,255,255,.35)}
 @media (max-width:700px){.fbrand b{font-size:15px!important} .fbrand img{width:32px!important;height:32px!important}}
+
+/* ===================== Refonte de l'accueil (13/11/2026) ===================== */
+body:has(main.rf) header .wrap,body:has(main.rf) footer .wrap,.rf .wrap{max-width:1200px}
+.rf{overflow-x:hidden} @supports (overflow:clip){.rf{overflow-x:clip}}
+.rf h1{font-size:clamp(44px,5vw,72px);font-weight:650;letter-spacing:-.037em;line-height:1;margin:20px 0 24px;white-space:nowrap}
+.rf h2{font-size:clamp(34px,4.5vw,62px);font-weight:650;letter-spacing:-.034em;line-height:1.03;margin:16px 0 0}
+.rf h3{font-size:31px;font-weight:650;letter-spacing:-.026em;line-height:1.08;margin:12px 0 10px;color:#fff;text-align:left}
+.rf .lead{max-width:500px}
+
+/* ---------- haut de page : le titre, la voiture posée sur son anneau ---------- */
+.rf-hero{padding:26px 0 0}
+.rf-top{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);align-items:center;gap:0}
+.rf-txt{position:relative;z-index:2;padding:20px 0}
+.rf-slot{position:relative;aspect-ratio:1.3/1}
+#slot-hero{margin:0 -110px 0 -60px}
+.rf .stage{position:absolute!important;inset:0;margin:0!important;padding:0!important;max-width:none;border-radius:0!important;z-index:1;
+ background:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;transition:opacity .4s ease}
+.rf .stage.rf-out{opacity:0;transition:none}
+.rf .car360{aspect-ratio:auto;width:100%;height:100%}
+.rf .car360 canvas{-webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
+.rf .car360.vise{cursor:pointer}
+.rf .seg360{bottom:auto;top:14px;left:auto;right:124px;transform:none}
+.rf-bar{position:relative;z-index:3;display:flex;align-items:center;gap:22px;padding:16px 22px;margin-top:-6px;border-radius:26px;
+ background:rgba(255,255,255,.04);box-shadow:inset 0 0 0 .5px rgba(255,255,255,.11),inset 0 1px 0 rgba(255,255,255,.07);
+ -webkit-backdrop-filter:blur(18px) saturate(150%);backdrop-filter:blur(18px) saturate(150%)}
+.rf-bar .lab{width:290px;flex:none;font-size:13.5px;line-height:1.38;color:rgba(255,255,255,.5)}
+.rf-bar .lab b{display:block;color:#fff;font-size:15px;font-weight:600;margin-bottom:1px}
+.rf-bar .hint{display:block;color:rgb(var(--acc,10,132,255))} .rf-bar .hint:empty{display:none}
+.rf-2d{display:none} html.sans3d .rf-3d{display:none} html.sans3d .rf-2d{display:inline}
+.rf-chips{display:flex;flex-wrap:wrap;gap:10px}
+.rf-chip{all:unset;box-sizing:border-box;cursor:pointer;display:inline-flex;align-items:center;gap:9px;height:44px;padding:0 18px;border-radius:22px;
+ box-shadow:inset 0 0 0 .5px rgba(255,255,255,.2);font-size:14.5px;font-weight:500;color:rgba(255,255,255,.82);white-space:nowrap;
+ -webkit-tap-highlight-color:transparent;transition:transform .16s cubic-bezier(.3,.7,.2,1),background-color .2s,color .2s}
+.rf-chip[hidden]{display:none}
+.rf-chip u{text-decoration:none;color:rgba(255,255,255,.42);font-variant-numeric:tabular-nums}
+.rf-chip:before{content:"";width:0;height:0;border-left:8px solid currentColor;border-top:5px solid transparent;border-bottom:5px solid transparent;opacity:.85}
+.rf-chip:hover{box-shadow:inset 0 0 0 .5px rgba(255,255,255,.45)}
+.rf-chip.on{background:#fff;color:#000;box-shadow:none} .rf-chip.on u{color:rgba(0,0,0,.5)}
+.rf-chip.on:before{border:0;width:9px;height:9px;border-radius:2px;background:currentColor;opacity:1}
+.rf-chip:active{transform:scale(.96)}
+.rf-chip:focus-visible,.rf-series button:focus-visible{outline:2px solid rgb(var(--acc,10,132,255));outline-offset:3px}
+.rf-pads[hidden]{display:none!important}
+
+/* Le Halo à plat (téléphone, ou sans 3D) : même anneau que l'app */
+.rf-halo{display:none;width:min(82vw,330px);margin:2px auto 22px}
+html.sans3d .rf-halo{display:block}
+.rf-halo svg{display:block;width:100%;height:auto;overflow:visible;-webkit-tap-highlight-color:transparent}
+.rf-halo .hp{cursor:pointer;fill:rgba(255,255,255,.065);stroke:rgba(255,255,255,.12);stroke-width:.6;outline:none;transition:fill .12s,stroke .12s}
+.rf-halo .hi{color:rgba(255,255,255,.72);pointer-events:none;transition:color .12s}
+.rf-halo .hp.on{fill:color-mix(in srgb,var(--c) 40%,#0c0c0e);stroke:var(--c);stroke-width:1.2;filter:drop-shadow(0 0 7px var(--c))}
+.rf-halo .hp.on+.hi{color:#fff}
+.rf-halo .hp:focus-visible{stroke:#fff;stroke-width:1.5}
+.rf-halo .hw{fill:rgba(255,255,255,.05)}
+.rf-halo text{font:600 8px/1 inherit;letter-spacing:2.6px;fill:rgba(255,255,255,.38);pointer-events:none}
+.rf-halo-nom{text-align:center;font-size:13.5px;color:rgba(255,255,255,.45);margin-top:12px;min-height:19px;transition:color .2s}
+.rf-halo-nom.on{color:#fff}
+
+/* ---------- sections ---------- */
+.rf-sec{padding:140px 0 0;scroll-margin-top:20px}
+.rf-head{display:flex;justify-content:space-between;align-items:flex-end;gap:60px;margin-bottom:52px}
+.rf-head p{max-width:400px;color:rgba(255,255,255,.55);font-size:17px;line-height:1.5;margin:0;text-align:left}
+.rf-grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:20px}
+.rf-c{position:relative;overflow:hidden;border-radius:28px;padding:34px;text-align:left;
+ background:repeating-linear-gradient(90deg,rgba(255,255,255,.012) 0 1px,transparent 1px 3px),linear-gradient(155deg,#1c1e23,#101114 46%,#0a0b0d);
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.1),inset 0 0 0 .5px rgba(255,255,255,.08)}
+.rf-c p{font-size:16px;line-height:1.5;color:rgba(255,255,255,.56);margin:0;max-width:270px;text-align:left}
+.rf-c .caps{font-size:11.5px}
+.s7{grid-column:span 7}.s5{grid-column:span 5}.s3{grid-column:span 3}.s4{grid-column:span 4}.s8{grid-column:span 8}
+.rf-c.tall{grid-row:span 2;min-height:580px}.rf-c.half{min-height:280px}.rf-c.low{min-height:226px}.rf-c.mid{min-height:310px}
+/* reflet qui glisse sur le métal quand la carte se pose */
+.rf-c:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(105deg,transparent 36%,rgba(255,255,255,.075) 50%,transparent 64%);transform:translateX(-130%)}
+.js-rf .rf-c.vu:after{animation:rf-reflet 1.25s .28s cubic-bezier(.3,.6,.2,1) both}
+@keyframes rf-reflet{to{transform:translateX(130%)}}
+.js-rf .rf-rev{opacity:0;transform:perspective(1200px) translateY(50px) rotateX(14deg) scale(.96);transform-origin:50% 100%}
+.js-rf .rf-rev.vu{opacity:1;transform:none;transition:opacity .7s cubic-bezier(.2,.7,.2,1) var(--d,0s),transform .95s cubic-bezier(.2,.7,.2,1) var(--d,0s)}
+
+.rf-ph{position:absolute;right:38px;top:44px;width:278px;border-radius:48px;padding:7px;
+ background:linear-gradient(150deg,#4a4d55,#1b1c20 30%,#33353b 70%,#15161a);box-shadow:0 40px 80px rgba(0,0,0,.6),inset 0 0 0 .5px rgba(255,255,255,.3)}
+.rf-ph img{display:block;width:100%;height:auto;border-radius:41px;box-shadow:0 0 0 4px #000}
+.rf-rings{position:absolute;right:-30px;top:-24px;width:320px;height:320px;pointer-events:none}
+.rf-rings i{position:absolute;inset:0;margin:auto;border-radius:50%;border:1.5px solid rgba(255,55,95,.5);animation:rf-bat 1.875s ease-in-out infinite}
+.rf-rings i:nth-child(1){width:300px;height:300px;opacity:.22}.rf-rings i:nth-child(2){width:230px;height:230px;opacity:.4;animation-delay:.08s}
+.rf-rings i:nth-child(3){width:160px;height:160px;opacity:.6;animation-delay:.16s}.rf-rings i:nth-child(4){width:90px;height:90px;opacity:.85;animation-delay:.24s}
+@keyframes rf-bat{0%,100%{transform:scale(1)}12%{transform:scale(1.045)}30%{transform:scale(1)}}
+.rf-vf{position:absolute;right:22px;top:60px;width:216px;height:170px;pointer-events:none}
+.rf-vf img{display:block;width:100%;height:100%;object-fit:contain}
+.rf-vf b{position:absolute;width:22px;height:22px;border:2px solid rgba(255,255,255,.72)}
+.rf-vf b:nth-of-type(1){left:0;top:0;border-right:0;border-bottom:0}.rf-vf b:nth-of-type(2){right:0;top:0;border-left:0;border-bottom:0}
+.rf-vf b:nth-of-type(3){left:0;bottom:0;border-right:0;border-top:0}.rf-vf b:nth-of-type(4){right:0;bottom:0;border-left:0;border-top:0}
+.rf-c.half p{max-width:210px}
+.rf-big{font-size:58px;font-weight:650;letter-spacing:-.045em;line-height:1;margin-top:34px;color:#fff;font-variant-numeric:tabular-nums}
+.rf-big small{font-size:.5em;font-weight:600;color:rgba(255,255,255,.55);letter-spacing:-.02em}
+.rf-cap{font-size:11px;letter-spacing:2.2px;font-weight:600;color:rgba(255,255,255,.44);margin-top:14px;text-transform:uppercase;line-height:1.55}
+.rf-c.bleu:before,.rf-c.vert:before{content:"";position:absolute;right:-70px;bottom:-90px;width:250px;height:250px;border-radius:50%;filter:blur(52px);opacity:.34;pointer-events:none}
+.rf-c.bleu:before{background:#0a84ff}.rf-c.vert:before{background:#30d158}
+.rf-cp{position:absolute;right:34px;top:40px;width:400px;border-radius:22px;background:#000;box-shadow:0 0 0 5px #25272c,0 30px 60px rgba(0,0,0,.5);padding:14px;
+ display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.rf-cp div{border-radius:14px;background:linear-gradient(160deg,#24262c,#101114);padding:12px;min-height:104px;font-size:10px;letter-spacing:1.6px;
+ text-transform:uppercase;color:rgba(255,255,255,.5);font-weight:600}
+.rf-cp b{display:block;font-size:24px;font-weight:650;letter-spacing:-.03em;text-transform:none;color:#fff;margin-top:38px}
+.rf-cp b.v{color:#30d158}.rf-cp b.b{color:#4da3ff}
+.rf-cp .l{grid-column:span 3;min-height:0;display:flex;align-items:center;justify-content:space-between}.rf-cp .l span{color:#fff;font-size:14px}
+.rf-wt{position:absolute;right:44px;top:26px;width:190px;height:auto;filter:drop-shadow(0 26px 36px rgba(0,0,0,.8))}
+.rf-c.mid p{max-width:200px}
+
+/* ---------- la partition d'un show ---------- */
+.rf-jeu{min-height:400px}
+.rf-part{display:grid;grid-template-columns:132px repeat(var(--n,16),minmax(0,1fr));gap:7px;align-items:center;margin-top:30px}
+.rf-part span{font-size:12.5px;color:rgba(255,255,255,.55);white-space:nowrap}
+.rf-part i{height:34px;border-radius:8px;background:rgba(255,255,255,.05);transition:transform .12s,filter .12s,background-color .2s}
+.rf-part i.x{background:color-mix(in srgb,var(--c) 62%,#0c0c0e)}
+.rf-part i.t{background:rgba(255,255,255,.12)}
+.rf-part i.x.t{background:var(--c);box-shadow:0 0 22px var(--c);transform:scale(1.08)}
+.rf-leg{margin-top:22px}
+.rf-scene{padding:0;min-height:400px;background:radial-gradient(90% 60% at 50% 100%,rgba(255,60,50,.1),transparent 70%),#050506}
+.rf-scene .rf-slot{position:absolute;inset:0;aspect-ratio:auto}
+.rf-scene .seg360{display:none}
+/* dans la carte des shows, la voiture est cadrée plus serré (l'anneau déborde de la carte) */
+.rf-scene .car360 canvas{transform:scale(1.42);transform-origin:50% 60%;-webkit-mask-image:none;mask-image:none}
+
+/* ---------- compatibilité ---------- */
+.rf-compat{padding:38px}
+.rf-series{display:flex;flex-wrap:wrap;gap:10px}
+.rf-series button{all:unset;box-sizing:border-box;cursor:pointer;height:46px;padding:0 22px;border-radius:23px;display:inline-flex;align-items:center;
+ box-shadow:inset 0 0 0 .5px rgba(255,255,255,.2);font-size:15px;color:rgba(255,255,255,.72);-webkit-tap-highlight-color:transparent;transition:background-color .2s,color .2s}
+.rf-series button.on{box-shadow:inset 0 0 0 1.2px rgb(var(--acc,10,132,255));color:#fff;background:rgba(var(--acc,10,132,255),.13)}
+.rf-rep{display:flex;align-items:baseline;gap:24px;margin-top:36px;flex-wrap:wrap} .rf-rep[hidden]{display:none}
+.rf-rep h3{margin:0;font-size:38px} .rf-rep h3 span{color:rgba(255,255,255,.4);font-weight:500}
+.rf-rep b{font-size:12px;font-weight:700;letter-spacing:2.4px;text-transform:uppercase;white-space:nowrap}
+.rf-rep b.ok{color:#30d158}.rf-rep b.mid{color:rgb(var(--acc,10,132,255))}
+.rf-rep p{margin-left:auto;max-width:420px}
+.rf-head .nx-lien{white-space:nowrap}
+
+/* ---------- la fin : la voiture de dos ---------- */
+.rf-fin{padding:150px 0 0;text-align:center}
+.rf-fin h2{font-size:clamp(40px,7vw,96px);text-align:center;margin:22px 0 34px}
+.rf-fin .cta{position:relative;z-index:2}
+.rf-fin .rf-slot{width:min(900px,100%);margin:-10px auto 0;aspect-ratio:1.5/1}
+.rf-fin .rf-slot:after{content:"";position:absolute;left:8%;right:8%;bottom:6%;height:26%;border-radius:50%;pointer-events:none;
+ background:radial-gradient(closest-side,rgba(255,50,40,.22),transparent);filter:blur(14px)}
+.rf-fin .seg360{display:none}
+.rf .nx-sec{padding-top:140px}
+
+/* ---------- d'une page à l'autre : la page recule dans le noir, la suivante avance ---------- */
+@media (prefers-reduced-motion:no-preference){
+ ::view-transition-old(root){animation:rf-recule .3s cubic-bezier(.4,0,.9,.5) both}
+ ::view-transition-new(root){animation:rf-avance .5s cubic-bezier(.2,.7,.2,1) both}
+}
+@keyframes rf-recule{to{opacity:0;transform:scale(.93)}}
+@keyframes rf-avance{from{opacity:0;transform:scale(1.06)}}
+@media (prefers-reduced-motion:reduce){
+ .js-rf .rf-rev{opacity:1;transform:none} .js-rf .rf-c.vu:after{animation:none} .rf-rings i{animation:none} .rf .stage{transition:none}
+}
+
+@media (max-width:1020px){
+ #slot-hero{margin:0 -60px 0 -40px}
+ .rf-cp{width:330px} .rf-ph{width:240px;right:24px} .rf-bar .lab{width:220px}
+}
+@media (max-width:820px){
+ .rf-hero{padding-top:8px} .rf h1{white-space:normal;font-size:46px}
+ .rf-top{display:block} .rf-txt{padding:18px 0 0}
+ #slot-hero{margin:-6px -24px 0;aspect-ratio:1.28/1}
+ .rf .seg360{right:50%;transform:translateX(50%);top:8px}
+ .rf-halo{display:block}
+ .rf-3d{display:none} .rf-2d{display:inline}
+ .rf-bar{display:block;padding:16px} .rf-bar .lab{width:auto;margin-bottom:12px}
+ .rf-chips{flex-wrap:nowrap;overflow-x:auto;margin:0 -16px;padding:0 16px 2px;scrollbar-width:none} .rf-chips::-webkit-scrollbar{display:none}
+ .rf-sec,.rf .nx-sec{padding-top:88px} .rf-head{display:block;margin-bottom:30px} .rf-head p{margin-top:16px;font-size:16px}
+ .rf h3{font-size:26px}
+ .rf-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+ .s7,.s5,.s8,.s4{grid-column:span 2}.s3{grid-column:span 1}
+ .rf-c{padding:22px;border-radius:24px} .rf-c p{font-size:15px}
+ .rf-c.tall{min-height:650px} .rf-ph{right:50%;transform:translateX(50%);top:268px;width:232px;border-radius:40px} .rf-ph img{border-radius:34px}
+ .rf-c.half{min-height:236px} .rf-vf{width:118px;height:92px;right:14px;top:46px} .rf-c.half p{max-width:178px}
+ .rf-rings{right:-90px;top:-50px}
+ .rf-c.low{min-height:168px} .rf-big{font-size:38px;margin-top:18px} .rf-cap{font-size:9px;letter-spacing:1.6px}
+ .rf-c.mid{min-height:0;padding-bottom:250px} .rf-cp{left:22px;right:22px;top:auto;bottom:22px;width:auto} .rf-cp b{font-size:20px}
+ .rf-wt{right:50%;transform:translateX(50%);top:auto;bottom:16px;width:170px}
+ .rf-jeu{min-height:0} .rf-styles{margin-bottom:0}
+ .rf-part{grid-template-columns:82px repeat(var(--n,16),minmax(0,1fr));gap:3px;margin-top:22px} .rf-part i{height:26px;border-radius:5px} .rf-part span{font-size:11px}
+ .rf-scene{min-height:0;aspect-ratio:1.25/1}
+ .rf-compat{padding:22px} .rf-series button{height:42px;padding:0 17px;font-size:14.5px}
+ .rf-rep{gap:10px 16px;margin-top:26px} .rf-rep h3{font-size:27px;width:100%} .rf-rep p{margin-left:0;width:100%}
+ .rf-fin{padding-top:96px} .rf-fin .rf-slot{width:auto;margin:0 -24px;aspect-ratio:1.2/1}
+}

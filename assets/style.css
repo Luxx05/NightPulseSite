@@ -478,6 +478,7 @@ header nav a:before,.nx-lien:before,.seg360 button:before{content:"";position:ab
 .nx-etapes>div{padding:28px 30px 0 0}
 .nx-etapes .n{font:600 13px/1 ui-monospace,Menlo,monospace;color:rgb(var(--acc,10,132,255));letter-spacing:2px}
 .nx-etapes h3{font-size:19px;font-weight:600;margin:14px 0 6px} .nx-etapes p{font-size:15px;color:rgba(255,255,255,.5);margin:0}
+.nx-etapes .nx-lien{display:inline-block;font-size:15px;margin-top:12px}
 .nx-fin{height:110px}
 
 @media (max-width:700px){

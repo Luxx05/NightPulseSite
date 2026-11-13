@@ -7,7 +7,8 @@ document.documentElement.classList.add('c360');   // voiture 360° : photos cach
 (function () {
   // [mois, premier jour, dernier jour] ; le Nouvel An est à cheval sur deux années
   var T = { 'octobre-rose': [[10, 1, 19]], halloween: [[10, 20, 31]], noel: [[12, 1, 25]],
-            'nouvel-an': [[12, 26, 31], [1, 1, 6]], paques: [[4, 1, 30]], 'saint-valentin': [[2, 7, 14]] }, t = null, q = null, kept = null;
+            'nouvel-an': [[12, 26, 31], [1, 1, 6]], paques: [[4, 1, 30]], 'saint-valentin': [[2, 7, 14]],
+            'sunset-city': [[11, 19, 30]] }, t = null, q = null, kept = null;
   try { q = new URLSearchParams(location.search).get('theme'); } catch (e) {}
   try { if (q) sessionStorage.setItem('theme', q); kept = sessionStorage.getItem('theme'); } catch (e) { kept = q; }
   var ask = q || kept;

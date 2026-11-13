@@ -10,6 +10,7 @@ const THEMES = {
   paques: { drl: true, tail: true, label: '🐣 Édition Pâques' },
   'nouvel-an': { drl: true, tail: true, label: '🎆 Édition Nouvel An' },
   'saint-valentin': { drl: true, label: '💘 Édition Saint-Valentin' },
+  'sunset-city': { label: '🌴 Édition Sunset City' },   // couleurs et décor dessiné, pas d'image sur la voiture
 };
 const THEME = Object.hasOwn(THEMES, document.documentElement.dataset.theme || '') ? document.documentElement.dataset.theme : null;   // choisi par theme.js
 if (THEME) {
@@ -140,7 +141,7 @@ window.__demo = { shows: SHOWS, start: startShow, stop: stopShow, playing: () =>
 
 // Animations du thème (neige / chauves-souris et brume), dessinées par-dessus la voiture.
 const fx = document.querySelector('.fx');
-if (THEME && fx && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+if (THEME && THEME !== 'sunset-city' && fx && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
   const g = fx.getContext('2d');
   let W = 0, H = 0, visible = true;
   const size = () => { const r = fx.getBoundingClientRect(), d = Math.min(devicePixelRatio || 1, 2); W = r.width; H = r.height; fx.width = W * d; fx.height = H * d; g.setTransform(d, 0, 0, d, 0, 0); };

@@ -855,3 +855,35 @@ a.rp-quick:hover .rf-pill{background:rgba(255,255,255,.13)}
  .rp-onglets{scroll-margin-top:16px} .rp-onglets .langue{margin-left:0;width:100%;margin-top:6px}
  .rp-art{scroll-margin-top:20px} .rp-art h3{font-size:22px} .rp-art p{font-size:16px}
 }
+
+/* ---------- thème « Sunset City » (19-30 novembre) : rien ici ne s'applique hors du thème ---------- */
+html[data-theme=sunset-city]{--acc:255,92,138;--acc2:255,154,85}
+/* accueil : le couchant derrière la voiture, en haut et à la fin de la page */
+html[data-theme=sunset-city] #slot-hero::before,html[data-theme=sunset-city] #slot-fin::before{content:"";position:absolute;z-index:0;pointer-events:none;
+ background:url(img/sunset-scene.svg?v=2) center top/auto 100% no-repeat}
+html[data-theme=sunset-city] #slot-hero::before{inset:-6% -14% 6% 5%;
+ -webkit-mask-image:radial-gradient(52% 66% at 50% 42%,#000 46%,transparent 98%);mask-image:radial-gradient(52% 66% at 50% 42%,#000 46%,transparent 98%)}
+html[data-theme=sunset-city] #slot-fin::before{left:50%;width:100vw;top:-9%;bottom:4%;transform:translateX(-50%)}
+html[data-theme=sunset-city] .rf-fin .rf-slot:after{background:radial-gradient(closest-side,rgba(255,92,138,.26),transparent)}
+html[data-theme=sunset-city] .rf .seg360{background:rgba(12,6,16,.62);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+/* le message de l'accueil, au-dessus du sur-titre */
+html[data-theme=sunset-city] .rf-hero .rf-txt>.caps::before{content:"LA VILLE S'ALLUME";display:block;width:max-content;margin-bottom:12px;letter-spacing:.3em;
+ background:linear-gradient(90deg,#ff5c8a,#ff9a55);-webkit-background-clip:text;background-clip:text;color:transparent;
+ filter:drop-shadow(0 0 8px rgba(255,92,138,.55))}
+html[data-theme=sunset-city] .rf-fin>.wrap>.caps{background:linear-gradient(90deg,#ff5c8a,#ff9a55);-webkit-background-clip:text;background-clip:text;color:transparent;
+ width:max-content;max-width:100%;margin-left:auto;margin-right:auto}
+/* les autres pages : la ville et des palmiers posés sur le pied de page, le couchant derrière */
+html[data-theme=sunset-city] main:not(.rf)+footer{position:relative;margin-top:170px;border-top-color:rgba(255,206,150,.55)!important}
+html[data-theme=sunset-city] main:not(.rf)+footer::before{content:"";position:absolute;left:0;right:0;bottom:100%;height:170px;pointer-events:none;
+ background:url(img/sunset-palmiers-g.svg?v=2) left max(8px,calc(50% - 560px)) bottom 0/auto 150px no-repeat,
+  url(img/sunset-palmiers-d.svg?v=2) right max(8px,calc(50% - 560px)) bottom 0/auto 150px no-repeat,
+  url(img/sunset-ville.svg?v=2) left bottom/640px 26px repeat-x,
+  linear-gradient(180deg,transparent 42%,rgba(143,92,255,.14) 62%,rgba(255,92,138,.34) 85%,rgba(255,176,116,.66) 100%),
+  radial-gradient(60% 100% at 50% 100%,rgba(255,92,138,.26),transparent 76%)}
+@media (max-width:820px){
+ html[data-theme=sunset-city] #slot-hero::before{inset:0 -4% 4%;-webkit-mask-image:radial-gradient(70% 70% at 50% 42%,#000 60%,transparent 100%);mask-image:radial-gradient(70% 70% at 50% 42%,#000 60%,transparent 100%)}
+ html[data-theme=sunset-city] #slot-fin::before{top:-12%;bottom:2%}
+ html[data-theme=sunset-city] main:not(.rf)+footer{margin-top:130px}
+ html[data-theme=sunset-city] main:not(.rf)+footer::before{height:130px;background-size:auto 104px,auto 104px,480px 20px,auto,auto}
+ html[data-theme=sunset-city] .rf-hero .rf-txt>.caps::before{margin-bottom:10px}
+}

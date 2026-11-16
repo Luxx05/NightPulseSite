@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "tests": { "ouverts": true },
+  "coupees": [],
+  "messages": [
+    {
+      "id": "essai-messages-2026-11",
+      "sorte": "nouveaute",
+      "brouillon": true,
+      "titre": {
+        "fr": "Les messages arrivent dans BimmerPulse",
+        "en": "Messages are coming to BimmerPulse",
+        "es": "Los mensajes llegan a BimmerPulse",
+        "de": "Nachrichten kommen zu BimmerPulse"
+      },
+      "texte": {
+        "fr": "Message d'essai, visible seulement dans ta β : c'est ici que tu verras les nouveautés et les infos importantes.",
+        "en": "Test message, only visible in your β: this is where you'll see news and important information.",
+        "es": "Mensaje de prueba, visible solo en tu β: aquí verás las novedades y la información importante.",
+        "de": "Testnachricht, nur in deiner β sichtbar: Hier siehst du Neuheiten und wichtige Infos."
+      },
+      "bouton": { "titre": { "fr": "Voir les shows", "en": "See the shows", "es": "Ver los shows", "de": "Shows ansehen" }, "ouvre": "shows" }
+    }
+  ],
+  "quoiDeNeuf": []
+}

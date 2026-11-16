@@ -1,6 +1,8 @@
 {
   "version": 1,
-  "tests": { "ouverts": true },
+  "tests": {
+    "ouverts": true
+  },
   "coupees": [],
   "messages": [
     {
@@ -19,7 +21,50 @@
         "es": "Mensaje de prueba, visible solo en tu β: aquí verás las novedades y la información importante.",
         "de": "Testnachricht, nur in deiner β sichtbar: Hier siehst du Neuheiten und wichtige Infos."
       },
-      "bouton": { "titre": { "fr": "Voir les shows", "en": "See the shows", "es": "Ver los shows", "de": "Shows ansehen" }, "ouvre": "shows" }
+      "bouton": {
+        "titre": {
+          "fr": "Voir les shows",
+          "en": "See the shows",
+          "es": "Ver los shows",
+          "de": "Shows ansehen"
+        },
+        "ouvre": "shows"
+      }
+    },
+    {
+      "id": "merci-testeurs-2026-11",
+      "sorte": "nouveaute",
+      "brouillon": true,
+      "pour": {
+        "canal": "test"
+      },
+      "etiquette": {
+        "fr": "Merci",
+        "en": "Thank you",
+        "es": "Gracias",
+        "de": "Danke"
+      },
+      "titre": {
+        "fr": "Merci de tester BimmerPulse !",
+        "en": "Thanks for testing BimmerPulse!",
+        "es": "¡Gracias por probar BimmerPulse!",
+        "de": "Danke, dass ihr BimmerPulse testet!"
+      },
+      "texte": {
+        "fr": "Bonjour à tous, et merci d'essayer BimmerPulse avant sa sortie. Un grand merci aussi à ceux qui envoient leur rapport : chacun aide à corriger des défauts et à rendre l'app compatible avec plus de BMW. Continuez, c'est grâce à vous que l'app avance !",
+        "en": "Hi everyone, and thank you for trying BimmerPulse before its release. A big thank-you also to everyone who sends their report: each one helps fix issues and make the app work with more BMWs. Keep it up, the app moves forward thanks to you!",
+        "es": "Hola a todos, y gracias por probar BimmerPulse antes de su lanzamiento. Gracias también a quienes envían su informe: cada uno ayuda a corregir errores y a hacer la app compatible con más BMW. ¡Seguid así, la app avanza gracias a vosotros!",
+        "de": "Hallo zusammen, und danke, dass ihr BimmerPulse schon vor dem Start ausprobiert. Ein großes Dankeschön auch an alle, die ihren Bericht schicken: Jeder hilft, Fehler zu beheben und die App mit mehr BMW kompatibel zu machen. Macht weiter so, dank euch geht es voran!"
+      },
+      "bouton": {
+        "titre": {
+          "fr": "Envoyer un rapport",
+          "en": "Send a report",
+          "es": "Enviar un informe",
+          "de": "Bericht senden"
+        },
+        "ouvre": "diagnostic"
+      }
     }
   ],
   "quoiDeNeuf": []

@@ -37,6 +37,37 @@
         "es" : "¡Gracias por probar BimmerPulse!",
         "fr" : "Merci de tester BimmerPulse !"
       }
+    },
+    {
+      "bouton" : {
+        "ouvre" : "mise-a-jour",
+        "titre" : {
+          "de" : "Aktualisieren",
+          "en" : "Update",
+          "es" : "Actualizar",
+          "fr" : "Mettre à jour"
+        }
+      },
+      "brouillon" : true,
+      "debut" : "2026-11-16",
+      "fin" : "2026-11-23",
+      "id" : "msg-2026-11-16-1120",
+      "pour" : {
+        "canal" : "test"
+      },
+      "sorte" : "important",
+      "texte" : {
+        "de" : "Aktualisieren Sie BimmerPulse, um von den neuesten Neuheiten und Korrekturen zu profitieren. Ihre Shows und Einstellungen bleiben erhalten.",
+        "en" : "Update BimmerPulse to enjoy the latest updates and corrections. Your shows and settings are kept.",
+        "es" : "Actualiza BimmerPulse para disfrutar de las últimas novedades y correcciones. Tus shows y ajustes se mantienen.",
+        "fr" : "Mets à jour BimmerPulse pour profiter des dernières nouveautés et corrections. Tes shows et tes réglages sont gardés."
+      },
+      "titre" : {
+        "de" : "Eine neue Version ist verfügbar",
+        "en" : "A new version is available",
+        "es" : "Una nueva versión está disponible",
+        "fr" : "Une nouvelle version est disponible"
+      }
     }
   ],
   "quoiDeNeuf" : [

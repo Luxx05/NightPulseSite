@@ -1,7 +1,8 @@
 // Page Conditions : onglets « Conditions | Confidentialité » et « Français | English » (le texte change sur place),
 // sommaire qui mène à un article et suit la lecture. Sans ce script, les quatre textes s'affichent à la suite.
 document.documentElement.classList.add('js');
-const ANCHOR = {conditions: ['conditions', 'fr'], confidentialite: ['confidentialite', 'fr'], terms: ['conditions', 'en'], privacy: ['confidentialite', 'en']};
+const ANCHOR = {conditions: ['conditions', 'fr'], confidentialite: ['confidentialite', 'fr'], 'mentions-legales': ['mentions', 'fr'],
+                terms: ['conditions', 'en'], privacy: ['confidentialite', 'en'], 'legal-notice': ['mentions', 'en']};
 const fromHash = () => Object.hasOwn(ANCHOR, location.hash.slice(1)) ? ANCHOR[location.hash.slice(1)] : null;   // adresses connues seulement
 const tabs = document.querySelector('.rp-onglets');
 const calm = matchMedia('(prefers-reduced-motion: reduce)');

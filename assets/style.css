@@ -829,6 +829,7 @@ a.rp-quick:hover .rf-pill{background:rgba(255,255,255,.13)}
 .rp-art h3{font-size:26px;margin:14px 0 14px}
 .rp-art p{font-size:17px;line-height:1.65;color:rgba(255,255,255,.66);margin:0 0 12px}
 .rp-credits{margin-top:0}
+.rp-mentions{scroll-margin-top:96px;margin-bottom:14px}
 @media (prefers-reduced-motion:reduce){html:has(main.rp){scroll-behavior:auto}}
 @media (max-width:1020px){
  .rp-2{grid-template-columns:1fr;gap:34px} .rp-doc{grid-template-columns:1fr;gap:26px}

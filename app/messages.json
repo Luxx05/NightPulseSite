@@ -58,7 +58,7 @@
     }
   ],
   "tests" : {
-    "ouverts" : false
+    "ouverts" : true
   },
   "version" : 1
 }

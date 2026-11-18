@@ -1,60 +1,64 @@
 {
-  "coupees": [],
-  "messages": [],
-  "quoiDeNeuf": [
+  "coupees" : [
+
+  ],
+  "messages" : [
+
+  ],
+  "quoiDeNeuf" : [
     {
-      "build": 20,
-      "elements": [
+      "build" : 20,
+      "elements" : [
         {
-          "icone": "moon.stars.fill",
-          "titre": {
-            "fr": "La nuit bleue",
-            "en": "The blue night",
-            "es": "La noche azul",
-            "de": "Die blaue Nacht"
+          "icone" : "moon.stars.fill",
+          "texte" : {
+            "de" : "Sterne und Horizont auf dem Startbildschirm und unten auf den Seiten, für alle.",
+            "en" : "Stars and the horizon on the home screen and at the bottom of the pages, for everyone.",
+            "es" : "Las estrellas y el horizonte en el inicio y al pie de las páginas, para todos.",
+            "fr" : "Les étoiles et l'horizon sur l'accueil et en bas des pages, pour tous."
           },
-          "texte": {
-            "fr": "Les étoiles et l'horizon sur l'accueil et en bas des pages, pour tous.",
-            "en": "Stars and the horizon on the home screen and at the bottom of the pages, for everyone.",
-            "es": "Las estrellas y el horizonte en el inicio y al pie de las páginas, para todos.",
-            "de": "Sterne und Horizont auf dem Startbildschirm und unten auf den Seiten, für alle."
+          "titre" : {
+            "de" : "Die blaue Nacht",
+            "en" : "The blue night",
+            "es" : "La noche azul",
+            "fr" : "La nuit bleue"
           }
         },
         {
-          "icone": "sun.horizon.fill",
-          "titre": {
-            "fr": "Sunset City",
-            "en": "Sunset City",
-            "es": "Sunset City",
-            "de": "Sunset City"
+          "icone" : "sun.horizon.fill",
+          "texte" : {
+            "de" : "19. bis 30. November: Sonnenuntergang, die Stadt, ein Neon-Halo und 4 Shows (mit Pro).",
+            "en" : "November 19 to 30: the sunset, the city, a neon Halo and 4 shows (with Pro).",
+            "es" : "Del 19 al 30 de noviembre: la puesta de sol, la ciudad, el Halo de neón y 4 shows (con Pro).",
+            "fr" : "Du 19 au 30 novembre : le coucher de soleil, la ville, le Halo en néon et 4 shows (avec Pro)."
           },
-          "texte": {
-            "fr": "Du 19 au 30 novembre : le coucher de soleil, la ville, le Halo en néon et 4 shows (avec Pro).",
-            "en": "November 19 to 30: the sunset, the city, a neon Halo and 4 shows (with Pro).",
-            "es": "Del 19 al 30 de noviembre: la puesta de sol, la ciudad, el Halo de neón y 4 shows (con Pro).",
-            "de": "19. bis 30. November: Sonnenuntergang, die Stadt, ein Neon-Halo und 4 Shows (mit Pro)."
+          "titre" : {
+            "de" : "Sunset City",
+            "en" : "Sunset City",
+            "es" : "Sunset City",
+            "fr" : "Sunset City"
           }
         },
         {
-          "icone": "snowflake",
-          "titre": {
-            "fr": "Noël refait",
-            "en": "Christmas redone",
-            "es": "Navidad renovada",
-            "de": "Weihnachten neu"
+          "icone" : "snowflake",
+          "texte" : {
+            "de" : "1. bis 25. Dezember: Mond, Schlitten, Adventsgirlande und 4 Shows (mit Pro). Schon jetzt unter Einstellungen › Design.",
+            "en" : "December 1 to 25: the moon, the sleigh, the Advent garland and 4 shows (with Pro). See it now in Settings › Theme.",
+            "es" : "Del 1 al 25 de diciembre: la luna, el trineo, la guirnalda de Adviento y 4 shows (con Pro). Ya en Ajustes › Tema.",
+            "fr" : "Du 1er au 25 décembre : la lune, le traîneau, la guirlande de l'Avent et 4 shows (avec Pro). À voir dès maintenant dans Réglages › Thème."
           },
-          "texte": {
-            "fr": "Du 1er au 25 décembre : la lune, le traîneau, la guirlande de l'Avent et 4 shows (avec Pro). À voir dès maintenant dans Réglages › Thème.",
-            "en": "December 1 to 25: the moon, the sleigh, the Advent garland and 4 shows (with Pro). See it now in Settings › Theme.",
-            "es": "Del 1 al 25 de diciembre: la luna, el trineo, la guirnalda de Adviento y 4 shows (con Pro). Ya en Ajustes › Tema.",
-            "de": "1. bis 25. Dezember: Mond, Schlitten, Adventsgirlande und 4 Shows (mit Pro). Schon jetzt unter Einstellungen › Design."
+          "titre" : {
+            "de" : "Weihnachten neu",
+            "en" : "Christmas redone",
+            "es" : "Navidad renovada",
+            "fr" : "Noël refait"
           }
         }
       ]
     }
   ],
-  "tests": {
-    "ouverts": true
+  "tests" : {
+    "ouverts" : false
   },
-  "version": 1
+  "version" : 1
 }

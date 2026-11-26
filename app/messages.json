@@ -1,10 +1,6 @@
 {
-  "coupees" : [
-
-  ],
-  "messages" : [
-
-  ],
+  "coupees" : [],
+  "messages" : [],
   "quoiDeNeuf" : [
     {
       "build" : 20,
@@ -58,7 +54,19 @@
     }
   ],
   "tests" : {
-    "ouverts" : true
+    "ouverts" : false,
+    "texte" : {
+      "de" : "Danke, dass du BimmerPulse getestet hast! Die App ist jetzt im App Store. Installiere sie, ohne diese hier zu löschen: Sie ersetzt sie. Du hast 7 Tage gratis zum Testen.",
+      "en" : "Thanks for testing BimmerPulse! The app is now on the App Store. Install it without deleting this one: it replaces it. You get a 7-day free trial.",
+      "es" : "¡Gracias por probar BimmerPulse! La app ya está en el App Store. Instálala sin borrar esta: la sustituye. Tienes 7 días de prueba gratis.",
+      "fr" : "Merci d'avoir testé BimmerPulse ! L'app est maintenant sur l'App Store. Installe-la sans supprimer celle-ci : elle la remplace. Tu as 7 jours d'essai gratuit."
+    },
+    "titre" : {
+      "de" : "BimmerPulse ist im App Store",
+      "en" : "BimmerPulse is on the App Store",
+      "es" : "BimmerPulse ya está en el App Store",
+      "fr" : "BimmerPulse est sur l'App Store"
+    }
   },
   "version" : 1
 }

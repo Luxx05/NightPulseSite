@@ -54,7 +54,7 @@
     }
   ],
   "tests" : {
-    "ouverts" : false,
+    "ouverts" : true,
     "texte" : {
       "de" : "Danke, dass du BimmerPulse getestet hast! Die App ist jetzt im App Store. Installiere sie, ohne diese hier zu löschen: Sie ersetzt sie. Du hast 7 Tage gratis zum Testen.",
       "en" : "Thanks for testing BimmerPulse! The app is now on the App Store. Install it without deleting this one: it replaces it. You get a 7-day free trial.",
